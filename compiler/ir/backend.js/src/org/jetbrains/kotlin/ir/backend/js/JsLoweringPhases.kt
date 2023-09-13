@@ -14,15 +14,15 @@ import org.jetbrains.kotlin.backend.common.lower.inline.LocalClassesInInlineFunc
 import org.jetbrains.kotlin.backend.common.lower.inline.LocalClassesInInlineLambdasLowering
 import org.jetbrains.kotlin.backend.common.lower.loops.ForLoopsLowering
 import org.jetbrains.kotlin.backend.common.phaser.*
-import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.ir.backend.js.lower.*
 import org.jetbrains.kotlin.ir.backend.js.lower.calls.CallsLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.cleanup.CleanupLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.AddContinuationToFunctionCallsLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendArityStoreLowering
+import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendFunctionWithGeneratorsLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendFunctionsLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.inline.*
-import org.jetbrains.kotlin.ir.backend.js.transformers.irToJs.JsGenerationGranularity
+import org.jetbrains.kotlin.ir.backend.js.utils.compileSuspendAsJsGenerator
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.interpreter.IrInterpreterConfiguration
 import org.jetbrains.kotlin.platform.js.JsPlatforms
@@ -426,8 +426,14 @@ private val innerClassConstructorCallsLoweringPhase = makeIrModulePhase<JsIrBack
     description = "Replace inner class constructor invocation"
 )
 
-private val suspendFunctionsLoweringPhase = makeIrModulePhase(
-    ::JsSuspendFunctionsLowering,
+private val suspendFunctionsLoweringPhase = makeIrModulePhase<JsIrBackendContext>(
+    { context ->
+        if (context.compileSuspendAsJsGenerator) {
+            JsSuspendFunctionWithGeneratorsLowering(context)
+        } else {
+            JsSuspendFunctionsLowering(context)
+        }
+    },
     name = "SuspendFunctionsLowering",
     description = "Transform suspend functions into CoroutineImpl instance and build state machine",
     prerequisite = setOf(returnableBlockLoweringPhase)
