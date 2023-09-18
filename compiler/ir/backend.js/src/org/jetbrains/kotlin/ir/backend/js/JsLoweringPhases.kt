@@ -17,10 +17,7 @@ import org.jetbrains.kotlin.backend.common.phaser.*
 import org.jetbrains.kotlin.ir.backend.js.lower.*
 import org.jetbrains.kotlin.ir.backend.js.lower.calls.CallsLowering
 import org.jetbrains.kotlin.ir.backend.js.lower.cleanup.CleanupLowering
-import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.AddContinuationToFunctionCallsLowering
-import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendArityStoreLowering
-import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendFunctionWithGeneratorsLowering
-import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.JsSuspendFunctionsLowering
+import org.jetbrains.kotlin.ir.backend.js.lower.coroutines.*
 import org.jetbrains.kotlin.ir.backend.js.lower.inline.*
 import org.jetbrains.kotlin.ir.backend.js.utils.compileSuspendAsJsGenerator
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
@@ -185,11 +182,18 @@ private val wrapInlineDeclarationsWithReifiedTypeParametersLowering = makeIrModu
     description = "Wrap inline declarations with reified type parameters"
 )
 
+private val replaceSuspendIntrinsicLowering = makeIrModulePhase(
+    ::ReplaceSuspendIntrinsicLowering,
+    name = "ReplaceSuspendIntrinsicLowering",
+    description = "Replace suspend intrinsic for generator based coroutines"
+)
+
 private val saveInlineFunctionsBeforeInlining = makeIrModulePhase(
     ::SaveInlineFunctionsBeforeInlining,
     name = "SaveInlineFunctionsBeforeInlining",
     description = "Save inline function before inlining",
     prerequisite = setOf(
+        replaceSuspendIntrinsicLowering,
         expectDeclarationsRemovingPhase, sharedVariablesLoweringPhase,
         localClassesInInlineLambdasPhase, localClassesExtractionFromInlineFunctionsPhase,
         syntheticAccessorLoweringPhase, wrapInlineDeclarationsWithReifiedTypeParametersLowering
@@ -796,6 +800,7 @@ val loweringList = listOf<SimpleNamedCompilerPhase<JsIrBackendContext, IrModuleF
     localClassesExtractionFromInlineFunctionsPhase,
     syntheticAccessorLoweringPhase,
     wrapInlineDeclarationsWithReifiedTypeParametersLowering,
+    replaceSuspendIntrinsicLowering,
     saveInlineFunctionsBeforeInlining,
     functionInliningPhase,
     constEvaluationPhase,
