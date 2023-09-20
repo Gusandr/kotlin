@@ -144,6 +144,8 @@ class JsIntrinsics(private val irBuiltIns: IrBuiltIns, val context: JsIrBackendC
 
     // Other:
 
+    val getPlatformArguments = getInternalFunction("getPlatformArguments")
+
     val jsCode = getInternalFunction("js") // js("<code>")
     val jsHashCode = getInternalFunction("hashCode")
     val jsGetBooleanHashCode = getInternalFunction("getBooleanHashCode")

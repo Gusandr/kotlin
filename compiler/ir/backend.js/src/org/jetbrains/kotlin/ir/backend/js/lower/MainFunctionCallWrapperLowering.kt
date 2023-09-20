@@ -72,11 +72,15 @@ class MainFunctionCallWrapperLowering(private val context: JsIrBackendContext) :
 
         return listOfNotNull(
             runIf(generateArgv) {
-                JsIrBuilder.buildArray(
-                    mainFunctionArgs.map { it.toIrConst(context.irBuiltIns.stringType) },
-                    valueParameters.first().type,
-                    context.irBuiltIns.stringType
-                )
+                if (context.usePlatformArgumentsInMainFunction) {
+                    JsIrBuilder.buildCall(context.intrinsics.getPlatformArguments)
+                } else {
+                    JsIrBuilder.buildArray(
+                        mainFunctionArgs.map { it.toIrConst(context.irBuiltIns.stringType) },
+                        valueParameters.first().type,
+                        context.irBuiltIns.stringType
+                    )
+                }
             },
             runIf(generateContinuation) {
                 JsIrBuilder.buildCall(context.coroutineEmptyContinuation.owner.getter!!.symbol)

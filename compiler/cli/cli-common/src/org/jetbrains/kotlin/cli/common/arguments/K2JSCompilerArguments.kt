@@ -495,6 +495,21 @@ class K2JSCompilerArguments : CommonCompilerArguments() {
         }
 
     @GradleOption(
+        value = DefaultValue.BOOLEAN_FALSE_DEFAULT,
+        gradleInputType = GradleInputTypes.INPUT,
+        shouldGenerateDeprecatedKotlinOptions = true,
+    )
+    @Argument(
+        value = "-Xuse-platform-arguments-in-main-function",
+        description = "Use platform specific args as a parameter of the main function"
+    )
+    var usePlatformArgumentsInMainFunction = false
+        set(value) {
+            checkFrozen()
+            field = value
+        }
+
+    @GradleOption(
         value = DefaultValue.BOOLEAN_TRUE_DEFAULT,
         gradleInputType = GradleInputTypes.INPUT,
         shouldGenerateDeprecatedKotlinOptions = true,

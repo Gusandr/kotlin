@@ -80,6 +80,9 @@ public class JSConfigurationKeys {
     public static final CompilerConfigurationKey<Boolean> GENERATE_POLYFILLS =
             CompilerConfigurationKey.create("generate polyfills for newest properties, methods and classes from ES6+");
 
+    public static final CompilerConfigurationKey<Boolean> USE_PLATFORM_MAIN_FUNCTION_ARGUMENTS =
+            CompilerConfigurationKey.create("provide platform specific args as a parameter of the main function");
+
     public static final CompilerConfigurationKey<Boolean> GENERATE_DTS =
             CompilerConfigurationKey.create("generate TypeScript definition file");
 

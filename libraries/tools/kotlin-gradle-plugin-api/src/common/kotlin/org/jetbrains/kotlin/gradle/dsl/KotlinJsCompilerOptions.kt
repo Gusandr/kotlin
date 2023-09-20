@@ -114,4 +114,11 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
      */
     @get:org.gradle.api.tasks.Input
     val useEsClasses: org.gradle.api.provider.Property<kotlin.Boolean>
+
+    /**
+     * Use platform specific args as a parameter of the main function
+     * Default value: false
+     */
+    @get:org.gradle.api.tasks.Input
+    val usePlatformArgumentsInMainFunction: org.gradle.api.provider.Property<kotlin.Boolean>
 }

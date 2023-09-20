@@ -164,6 +164,7 @@ internal class ICHasher {
             JSConfigurationKeys.GENERATE_INLINE_ANONYMOUS_FUNCTIONS,
             JSConfigurationKeys.GENERATE_STRICT_IMPLICIT_EXPORT,
             JSConfigurationKeys.OPTIMIZE_GENERATED_JS,
+            JSConfigurationKeys.USE_PLATFORM_MAIN_FUNCTION_ARGUMENTS,
         )
         hashCalculator.updateConfigKeys(config, booleanKeys) { value: Boolean ->
             hashCalculator.update(if (value) 1 else 0)
