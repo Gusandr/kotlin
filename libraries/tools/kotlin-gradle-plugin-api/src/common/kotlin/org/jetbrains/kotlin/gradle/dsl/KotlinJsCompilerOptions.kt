@@ -61,6 +61,14 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
     val outputFile: org.gradle.api.provider.Property<kotlin.String>
 
     /**
+     * Define JS expression to get platform specific args as a parameter of the main function
+     * Default value: null
+     */
+    @get:org.gradle.api.tasks.Optional
+    @get:org.gradle.api.tasks.Input
+    val platformArgumentsProviderJsExpression: org.gradle.api.provider.Property<kotlin.String>
+
+    /**
      * Generate source map
      * Default value: false
      */
@@ -114,11 +122,4 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
      */
     @get:org.gradle.api.tasks.Input
     val useEsClasses: org.gradle.api.provider.Property<kotlin.Boolean>
-
-    /**
-     * Use platform specific args as a parameter of the main function
-     * Default value: false
-     */
-    @get:org.gradle.api.tasks.Input
-    val usePlatformArgumentsInMainFunction: org.gradle.api.provider.Property<kotlin.Boolean>
 }

@@ -31,6 +31,9 @@ internal abstract class KotlinJsCompilerOptionsDefault @javax.inject.Inject cons
     override val outputFile: org.gradle.api.provider.Property<kotlin.String> =
         objectFactory.property(kotlin.String::class.java)
 
+    override val platformArgumentsProviderJsExpression: org.gradle.api.provider.Property<kotlin.String> =
+        objectFactory.property(kotlin.String::class.java)
+
     override val sourceMap: org.gradle.api.provider.Property<kotlin.Boolean> =
         objectFactory.property(kotlin.Boolean::class.java).convention(false)
 
@@ -50,8 +53,5 @@ internal abstract class KotlinJsCompilerOptionsDefault @javax.inject.Inject cons
         objectFactory.property(kotlin.Boolean::class.java).convention(true)
 
     override val useEsClasses: org.gradle.api.provider.Property<kotlin.Boolean> =
-        objectFactory.property(kotlin.Boolean::class.java).convention(false)
-
-    override val usePlatformArgumentsInMainFunction: org.gradle.api.provider.Property<kotlin.Boolean> =
         objectFactory.property(kotlin.Boolean::class.java).convention(false)
 }

@@ -433,6 +433,19 @@ constructor(
 
     }
 
+    override fun putToMainFunction(expression: String) {
+        compilations
+            .all {
+                it.binaries
+                    .withType(JsIrBinary::class.java)
+                    .all {
+                        it.linkTask.configure { linkTask ->
+                            linkTask.compilerOptions.platformArgumentsProviderJsExpression.set(expression)
+                        }
+                    }
+            }
+    }
+
     private fun KotlinJsOptions.configureCommonJsOptions() {
         moduleKind = "commonjs"
         sourceMap = true

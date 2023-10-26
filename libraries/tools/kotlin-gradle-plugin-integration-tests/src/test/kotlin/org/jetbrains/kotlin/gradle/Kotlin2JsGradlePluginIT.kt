@@ -60,10 +60,6 @@ class Kotlin2JsIrGradlePluginIT : KGPBaseTest() {
                 |tasks.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsExec).configureEach {
                 |   args += ["test", "'Hello, World'"]
                 |}
-                |
-                |tasks.withType(org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrLink).configureEach {
-                |   kotlinOptions.usePlatformArgumentsInMainFunction = true
-                |}
                """.trimMargin()
             )
             build("nodeRun") {

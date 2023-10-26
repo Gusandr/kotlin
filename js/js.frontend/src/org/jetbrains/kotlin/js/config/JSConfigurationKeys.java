@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.incremental.js.IncrementalDataProvider;
 import org.jetbrains.kotlin.incremental.js.IncrementalResultsConsumer;
 import org.jetbrains.kotlin.serialization.js.ModuleKind;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class JSConfigurationKeys {
     public static final CompilerConfigurationKey<Boolean> GENERATE_POLYFILLS =
             CompilerConfigurationKey.create("generate polyfills for newest properties, methods and classes from ES6+");
 
-    public static final CompilerConfigurationKey<Boolean> USE_PLATFORM_MAIN_FUNCTION_ARGUMENTS =
+    public static final CompilerConfigurationKey<String> DEFINE_PLATFORM_MAIN_FUNCTION_ARGUMENTS =
             CompilerConfigurationKey.create("provide platform specific args as a parameter of the main function");
 
     public static final CompilerConfigurationKey<Boolean> GENERATE_DTS =

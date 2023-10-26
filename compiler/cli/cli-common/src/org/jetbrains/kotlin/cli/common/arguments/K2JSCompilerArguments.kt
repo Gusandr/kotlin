@@ -495,15 +495,14 @@ class K2JSCompilerArguments : CommonCompilerArguments() {
         }
 
     @GradleOption(
-        value = DefaultValue.BOOLEAN_FALSE_DEFAULT,
+        value = DefaultValue.STRING_NULL_DEFAULT,
         gradleInputType = GradleInputTypes.INPUT,
-        shouldGenerateDeprecatedKotlinOptions = true,
     )
     @Argument(
-        value = "-Xuse-platform-arguments-in-main-function",
-        description = "Use platform specific args as a parameter of the main function"
+        value = "-Xplatform-arguments-in-main-function",
+        description = "Define JS expression to get platform specific args as a parameter of the main function"
     )
-    var usePlatformArgumentsInMainFunction = false
+    var platformArgumentsProviderJsExpression: String? = null
         set(value) {
             checkFrozen()
             field = value

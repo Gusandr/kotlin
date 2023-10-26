@@ -46,6 +46,7 @@ interface KotlinJsTargetDsl : KotlinTarget, KotlinTargetWithNodeJsDsl {
 
     fun useCommonJs()
     fun useEsModules()
+    fun putToMainFunction(expression: String)
 
     fun generateTypeScriptDefinitions()
 
@@ -98,4 +99,5 @@ interface KotlinJsBrowserDsl : KotlinJsSubTargetDsl {
 
 interface KotlinJsNodeDsl : KotlinJsSubTargetDsl {
     fun runTask(body: Action<NodeJsExec>)
+    fun useProcessArgvInMainFunction()
 }

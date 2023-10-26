@@ -141,12 +141,4 @@ interface KotlinJsOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions 
     var useEsClasses: kotlin.Boolean
         get() = options.useEsClasses.get()
         set(value) = options.useEsClasses.set(value)
-
-    /**
-     * Use platform specific args as a parameter of the main function
-     * Default value: false
-     */
-    var usePlatformArgumentsInMainFunction: kotlin.Boolean
-        get() = options.usePlatformArgumentsInMainFunction.get()
-        set(value) = options.usePlatformArgumentsInMainFunction.set(value)
 }
