@@ -14,7 +14,6 @@ import org.jetbrains.kotlin.codegen.state.GenerationState
 import org.jetbrains.kotlin.diagnostics.DiagnosticUtils
 import org.jetbrains.kotlin.incremental.components.LocationInfo
 import org.jetbrains.kotlin.incremental.components.Position
-import org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI
 import org.jetbrains.kotlin.ir.declarations.IrDeclaration
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.descriptors.toIrBasedDescriptor
@@ -104,9 +103,12 @@ class IrSourceCompilerForInline(
         }.generateFinallyBlocksIfNeeded(returnType, afterReturnLabel, data, target)
     }
 
-    @OptIn(ObsoleteDescriptorBasedAPI::class)
     override val isCallInsideSameModuleAsCallee: Boolean
-        get() = callee.module == codegen.irFunction.module
+        get() {
+            val inlineFunModule = callee.fileOrNull?.module
+            val currentlyGeneratedFunModule = codegen.irFunction.fileOrNull?.module
+            return inlineFunModule != null && inlineFunModule == currentlyGeneratedFunModule
+        }
 
     override val isFinallyMarkerRequired: Boolean
         get() = codegen.isFinallyMarkerRequired
