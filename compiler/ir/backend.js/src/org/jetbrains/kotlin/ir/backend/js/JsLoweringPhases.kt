@@ -430,7 +430,7 @@ private val innerClassConstructorCallsLoweringPhase = makeIrModulePhase<JsIrBack
     description = "Replace inner class constructor invocation"
 )
 
-private val suspendFunctionsLoweringPhase = makeIrModulePhase<JsIrBackendContext>(
+private val suspendFunctionsLoweringPhase = makeIrModulePhase(
     { context ->
         if (context.compileSuspendAsJsGenerator) {
             JsSuspendFunctionWithGeneratorsLowering(context)
@@ -439,7 +439,7 @@ private val suspendFunctionsLoweringPhase = makeIrModulePhase<JsIrBackendContext
         }
     },
     name = "SuspendFunctionsLowering",
-    description = "Transform suspend functions into CoroutineImpl instance and build state machine",
+    description = "Transform suspend functions into CoroutineImpl instance and build state machine or into GeneratorCoroutineImpl and ES2015 generators",
     prerequisite = setOf(returnableBlockLoweringPhase)
 )
 

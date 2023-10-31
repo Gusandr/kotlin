@@ -494,11 +494,6 @@ class K2JSCompilerArguments : CommonCompilerArguments() {
             field = value
         }
 
-    @GradleOption(
-        value = DefaultValue.BOOLEAN_FALSE_DEFAULT,
-        gradleInputType = GradleInputTypes.INPUT,
-        shouldGenerateDeprecatedKotlinOptions = true,
-    )
     @Argument(
         value = "-Xes-generators",
         description = "Enable ES2015 generator functions usage inside the compiled code"

@@ -43,8 +43,17 @@ internal class GeneratorCoroutineImpl(val resultContinuation: Continuation<Any?>
 
     public override val context: CoroutineContext get() = _context!!
 
-    public fun dropLastIterator() = jsIterators.asDynamic().pop();
-    public fun addNewIterator(iterator: JsIterator<Any?>) = jsIterators.asDynamic().push(iterator);
+    @InlineOnly
+    public inline fun dropLastIterator(): Unit = jsIterators.asDynamic().pop()
+
+    @InlineOnly
+    public inline fun addNewIterator(iterator: JsIterator<Any?>): Unit = jsIterators.asDynamic().push(iterator)
+
+    @InlineOnly
+    private inline val isCompleted: Boolean get() = jsIterators.size == 0
+
+    @InlineOnly
+    private inline fun getLastIterator(): JsIterator<Any?> = jsIterators[jsIterators.size - 1]
 
     @InlineOnly
     public inline fun shouldResumeImmediately(): Boolean = fastNotEquals(unknown, savedResult)
@@ -67,11 +76,10 @@ internal class GeneratorCoroutineImpl(val resultContinuation: Continuation<Any?>
         savedResult = unknown
 
         var current = this
-        val jsIterators = current.jsIterators
 
         while (true) {
-            while (jsIterators.size > 0) {
-                val jsIterator = current.jsIterators[current.jsIterators.size - 1]
+            while (!current.isCompleted) {
+                val jsIterator = current.getLastIterator()
                 val exception = currentException.also { currentException = null }
 
                 isRunning = true
