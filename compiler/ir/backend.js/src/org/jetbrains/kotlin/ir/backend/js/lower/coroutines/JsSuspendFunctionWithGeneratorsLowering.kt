@@ -37,6 +37,7 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
     }
 
     private fun transformSuspendFunction(function: IrSimpleFunction): List<IrFunction>? {
+        function.returnType = context.irBuiltIns.anyNType
         val body = function.body ?: return null
         return when (val functionKind = getSuspendFunctionKind(context, function, body, includeSuspendLambda = false)) {
             is SuspendFunctionKind.NO_SUSPEND_CALLS -> null
@@ -105,7 +106,6 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
             addJsGeneratorAnnotation()
         }
 
-        function.returnType = context.irBuiltIns.anyNType
         function.body = context.createIrBuilder(function.symbol).irBlockBody {
             +irReturn(
                 irCall(suspendOrReturnFunctionSymbol).also {
