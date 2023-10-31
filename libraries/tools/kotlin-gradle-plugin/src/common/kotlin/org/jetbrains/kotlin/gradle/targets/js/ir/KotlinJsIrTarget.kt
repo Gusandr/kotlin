@@ -465,8 +465,6 @@ constructor(
         .newInstance<KotlinJsCompilerOptionsDefault>()
         .apply {
             configureJsDefaultOptions(platformType)
-
-            freeCompilerArgs.add(DISABLE_PRE_IR)
         }
 }
 

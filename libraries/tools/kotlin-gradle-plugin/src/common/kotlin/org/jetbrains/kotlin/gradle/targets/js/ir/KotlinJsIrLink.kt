@@ -96,10 +96,13 @@ abstract class KotlinJsIrLink @Inject constructor(
         }
     }
 
-    override fun contributeAdditionalCompilerArguments(context: ContributeCompilerArgumentsContext<K2JSCompilerArguments>) {
-        super.contributeAdditionalCompilerArguments(context)
+    override fun isIncrementalCompilationEnabled(): Boolean = false
 
+    override fun contributeAdditionalCompilerArguments(context: ContributeCompilerArgumentsContext<K2JSCompilerArguments>) {
         context.primitive { args ->
+            args.irOnly = true
+            args.irProduceJs = true
+
             // moduleName can start with @ for group of NPM packages
             // but args parsing @ as start of argfile
             // so WA we provide moduleName as one parameter

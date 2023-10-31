@@ -21,10 +21,6 @@ open class KotlinJsIrTargetConfigurator :
             moduleKind.set(JsModuleKind.MODULE_UMD)
             sourceMap.set(true)
             sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_NEVER)
-
-            if (platformType == KotlinPlatformType.wasm) {
-                freeCompilerArgs.add(WASM_BACKEND)
-            }
         }
     }
 }
