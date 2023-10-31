@@ -114,11 +114,4 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
      */
     @get:org.gradle.api.tasks.Input
     val useEsClasses: org.gradle.api.provider.Property<kotlin.Boolean>
-
-    /**
-     * Enable ES2015 generator functions usage inside the compiled code
-     * Default value: false
-     */
-    @get:org.gradle.api.tasks.Input
-    val useEsGenerators: org.gradle.api.provider.Property<kotlin.Boolean>
 }

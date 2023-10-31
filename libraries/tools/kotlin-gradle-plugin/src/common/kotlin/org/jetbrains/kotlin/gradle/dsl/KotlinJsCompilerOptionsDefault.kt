@@ -51,7 +51,4 @@ internal abstract class KotlinJsCompilerOptionsDefault @javax.inject.Inject cons
 
     override val useEsClasses: org.gradle.api.provider.Property<kotlin.Boolean> =
         objectFactory.property(kotlin.Boolean::class.java).convention(false)
-
-    override val useEsGenerators: org.gradle.api.provider.Property<kotlin.Boolean> =
-        objectFactory.property(kotlin.Boolean::class.java).convention(false)
 }
