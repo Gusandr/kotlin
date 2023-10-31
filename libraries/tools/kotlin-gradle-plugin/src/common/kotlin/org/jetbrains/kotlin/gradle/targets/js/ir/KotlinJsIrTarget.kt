@@ -433,14 +433,14 @@ constructor(
 
     }
 
-    override fun putToMainFunction(expression: String) {
+    override fun putAsArgumentToMainFunction(jsExpression: String) {
         compilations
             .all {
                 it.binaries
                     .withType(JsIrBinary::class.java)
                     .all {
                         it.linkTask.configure { linkTask ->
-                            linkTask.compilerOptions.platformArgumentsProviderJsExpression.set(expression)
+                            linkTask.compilerOptions.platformArgumentsProviderJsExpression.set(jsExpression)
                         }
                     }
             }

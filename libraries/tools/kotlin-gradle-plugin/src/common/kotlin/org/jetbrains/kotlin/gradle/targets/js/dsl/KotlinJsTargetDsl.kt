@@ -46,7 +46,7 @@ interface KotlinJsTargetDsl : KotlinTarget, KotlinTargetWithNodeJsDsl {
 
     fun useCommonJs()
     fun useEsModules()
-    fun putToMainFunction(expression: String)
+    fun putAsArgumentToMainFunction(jsExpression: String)
 
     fun generateTypeScriptDefinitions()
 

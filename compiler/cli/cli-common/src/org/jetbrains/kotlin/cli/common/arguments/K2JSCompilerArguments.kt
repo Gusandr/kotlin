@@ -500,7 +500,7 @@ class K2JSCompilerArguments : CommonCompilerArguments() {
     )
     @Argument(
         value = "-Xplatform-arguments-in-main-function",
-        description = "Define JS expression to get platform specific args as a parameter of the main function"
+        description = "JS expression that will be executed in runtime and be put as an Array<String> parameter of the main function"
     )
     var platformArgumentsProviderJsExpression: String? = null
         set(value) {

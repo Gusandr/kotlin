@@ -33,7 +33,7 @@ abstract class KotlinNodeJsIr @Inject constructor(target: KotlinJsIrTarget) :
     }
 
     override fun useProcessArgvInMainFunction() {
-        target.putToMainFunction("process.argv")
+        target.putAsArgumentToMainFunction("process.argv")
     }
 
     override fun locateOrRegisterRunTask(binary: JsIrBinary, name: String) {

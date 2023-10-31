@@ -61,7 +61,7 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
     val outputFile: org.gradle.api.provider.Property<kotlin.String>
 
     /**
-     * Define JS expression to get platform specific args as a parameter of the main function
+     * JS expression that will be executed in runtime and be put as an Array<String> parameter of the main function
      * Default value: null
      */
     @get:org.gradle.api.tasks.Optional

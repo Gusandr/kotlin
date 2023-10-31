@@ -50,7 +50,7 @@ where advanced options include:
   -Xpartial-linkage={enable|disable}
                              Use partial linkage mode
   -Xplatform-arguments-in-main-function
-                             Define JS expression to get platform specific args as a parameter of the main function
+                             JS expression that will be executed in runtime and be put as an Array<String> parameter of the main function
   -Xstrict-implicit-export-types Generate strict types for implicitly exported entities inside d.ts files. Available in IR backend only.
   -Xtyped-arrays             Translate primitive arrays to JS typed arrays
   -Xes-classes               Generated JavaScript will use ES2015 classes.
