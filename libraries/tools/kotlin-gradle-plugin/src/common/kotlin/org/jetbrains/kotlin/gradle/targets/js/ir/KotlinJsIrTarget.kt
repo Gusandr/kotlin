@@ -440,7 +440,7 @@ constructor(
                     .withType(JsIrBinary::class.java)
                     .all {
                         it.linkTask.configure { linkTask ->
-                            linkTask.compilerOptions.freeCompilerArgs.add("-Xplatform-arguments-in-main-function='$jsExpression'")
+                            linkTask.compilerOptions.freeCompilerArgs.add("-Xplatform-arguments-in-main-function=$jsExpression")
                         }
                     }
             }
