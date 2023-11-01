@@ -61,14 +61,6 @@ interface KotlinJsCompilerOptions : org.jetbrains.kotlin.gradle.dsl.KotlinCommon
     val outputFile: org.gradle.api.provider.Property<kotlin.String>
 
     /**
-     * JS expression that will be executed in runtime and be put as an Array<String> parameter of the main function
-     * Default value: null
-     */
-    @get:org.gradle.api.tasks.Optional
-    @get:org.gradle.api.tasks.Input
-    val platformArgumentsProviderJsExpression: org.gradle.api.provider.Property<kotlin.String>
-
-    /**
      * Generate source map
      * Default value: false
      */

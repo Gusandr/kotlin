@@ -19,7 +19,6 @@ internal object KotlinJsCompilerOptionsHelper {
         args.moduleName = from.moduleName.orNull
         args.noStdlib = from.noStdlib.get()
         args.outputFile = from.outputFile.orNull
-        args.platformArgumentsProviderJsExpression = from.platformArgumentsProviderJsExpression.orNull
         args.sourceMap = from.sourceMap.get()
         args.sourceMapEmbedSources = from.sourceMapEmbedSources.orNull?.mode
         args.sourceMapNamesPolicy = from.sourceMapNamesPolicy.orNull?.policy
@@ -41,7 +40,6 @@ internal object KotlinJsCompilerOptionsHelper {
         into.moduleName.convention(from.moduleName)
         into.noStdlib.convention(from.noStdlib)
         into.outputFile.convention(from.outputFile)
-        into.platformArgumentsProviderJsExpression.convention(from.platformArgumentsProviderJsExpression)
         into.sourceMap.convention(from.sourceMap)
         into.sourceMapEmbedSources.convention(from.sourceMapEmbedSources)
         into.sourceMapNamesPolicy.convention(from.sourceMapNamesPolicy)

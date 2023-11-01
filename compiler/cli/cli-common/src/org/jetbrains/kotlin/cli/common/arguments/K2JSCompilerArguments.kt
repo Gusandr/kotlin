@@ -494,10 +494,6 @@ class K2JSCompilerArguments : CommonCompilerArguments() {
             field = value
         }
 
-    @GradleOption(
-        value = DefaultValue.STRING_NULL_DEFAULT,
-        gradleInputType = GradleInputTypes.INPUT,
-    )
     @Argument(
         value = "-Xplatform-arguments-in-main-function",
         description = "JS expression that will be executed in runtime and be put as an Array<String> parameter of the main function"
