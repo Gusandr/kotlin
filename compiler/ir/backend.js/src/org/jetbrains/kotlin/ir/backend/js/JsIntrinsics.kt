@@ -113,6 +113,10 @@ class JsIntrinsics(private val irBuiltIns: IrBuiltIns, val context: JsIrBackendC
     // RTTI:
     val implementSymbol = getInternalFunction("implement")
     val setMetadataForSymbol = getInternalFunction("setMetadataFor")
+    val setMetadataForLambdaSymbol = getInternalFunction("setMetadataForLambda")
+    val setMetadataForCoroutineSymbol = getInternalFunction("setMetadataForCoroutine")
+    val setMetadataForCompanionSymbol = getInternalFunction("setMetadataForCompanion")
+    val setMetadataForFunctionReferenceSymbol = getInternalFunction("setMetadataForFunctionReference")
 
     val isInterfaceSymbol = getInternalFunction("isInterface")
     val isArraySymbol = getInternalFunction("isArray")

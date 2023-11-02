@@ -31,6 +31,22 @@ internal fun setMetadataFor(
     }
 }
 
+internal fun setMetadataForLambda(ctor: Ctor, parent: Ctor?, interfaces: Array<dynamic>?, suspendArity: Array<Int>?) {
+    setMetadataFor(ctor, "Lambda", ::classMeta, parent, interfaces, VOID, VOID, VOID, suspendArity)
+}
+
+internal fun setMetadataForFunctionReference(ctor: Ctor, parent: Ctor?, interfaces: Array<dynamic>?, suspendArity: Array<Int>?) {
+    setMetadataFor(ctor, "FunctionReference", ::classMeta, parent, interfaces, VOID, VOID, VOID, suspendArity)
+}
+
+internal fun setMetadataForCoroutine(ctor: Ctor, parent: Ctor?, interfaces: Array<dynamic>?, suspendArity: Array<Int>?) {
+    setMetadataFor(ctor, "Coroutine", ::classMeta, parent, interfaces, VOID, VOID, VOID, suspendArity)
+}
+
+internal fun setMetadataForCompanion(ctor: Ctor, parent: Ctor?, interfaces: Array<dynamic>?, suspendArity: Array<Int>?) {
+    setMetadataFor(ctor, "Companion", ::objectMeta, parent, interfaces, VOID, VOID, VOID, suspendArity)
+}
+
 // There was a problem with per-module compilation (KT-55758) when the top-level state (iid) was reinitialized during stdlib module initialization
 // As a result we miss already incremented iid and had the same iids in two different modules
 // So, to keep the state consistent it was moved into the variable without initializer and function
