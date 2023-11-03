@@ -14,6 +14,7 @@ import org.jetbrains.kotlin.ir.builders.*
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.symbols.impl.IrSimpleFunctionSymbolImpl
+import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
@@ -37,7 +38,7 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
     }
 
     private fun transformSuspendFunction(function: IrSimpleFunction): List<IrFunction>? {
-        function.returnType = context.irBuiltIns.anyNType
+        val originalReturnType = function.returnType.also { function.returnType = context.irBuiltIns.anyNType }
         val body = function.body ?: return null
         return when (val functionKind = getSuspendFunctionKind(context, function, body, includeSuspendLambda = false)) {
             is SuspendFunctionKind.NO_SUSPEND_CALLS -> null
@@ -46,7 +47,7 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
                 null
             }
             is SuspendFunctionKind.NEEDS_STATE_MACHINE -> {
-                generateGeneratorAndItsWrapper(function, body)
+                generateGeneratorAndItsWrapper(function, body, originalReturnType)
             }
         }
     }
@@ -57,7 +58,11 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
         )
     }
 
-    private fun generateGeneratorAndItsWrapper(function: IrSimpleFunction, functionBody: IrBody): List<IrFunction> {
+    private fun generateGeneratorAndItsWrapper(
+        function: IrSimpleFunction,
+        functionBody: IrBody,
+        originalReturnType: IrType
+    ): List<IrFunction> {
         val generatorFunction = context.irFactory.createSimpleFunction(
             function.startOffset,
             function.endOffset,
@@ -66,7 +71,7 @@ class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendCo
             DescriptorVisibilities.PRIVATE,
             function.isInline,
             function.isExpect,
-            function.returnType,
+            originalReturnType,
             function.modality,
             IrSimpleFunctionSymbolImpl(),
             function.isTailrec,
