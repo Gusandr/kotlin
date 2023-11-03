@@ -257,7 +257,6 @@ public abstract interface class org/jetbrains/kotlin/gradle/dsl/KotlinJsCompiler
 	public abstract fun getModuleName ()Lorg/gradle/api/provider/Property;
 	public abstract fun getNoStdlib ()Lorg/gradle/api/provider/Property;
 	public abstract fun getOutputFile ()Lorg/gradle/api/provider/Property;
-	public abstract fun getPlatformArgumentsProviderJsExpression ()Lorg/gradle/api/provider/Property;
 	public abstract fun getSourceMap ()Lorg/gradle/api/provider/Property;
 	public abstract fun getSourceMapEmbedSources ()Lorg/gradle/api/provider/Property;
 	public abstract fun getSourceMapNamesPolicy ()Lorg/gradle/api/provider/Property;
