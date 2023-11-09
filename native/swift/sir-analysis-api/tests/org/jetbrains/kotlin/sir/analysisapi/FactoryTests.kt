@@ -5,24 +5,12 @@
 
 package org.jetbrains.kotlin.sir.analysisapi
 
-import org.jetbrains.kotlin.sir.SirElement
-import org.junit.Test
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Test
 
-class FactoryTests {
+class FactoryTests : AbstractKotlinSirContextTest() {
     @Test
-    fun smoke() {
-        val expectedString = "Element from factory"
-        val myFactory = object : SirFactory {
-            override fun build(): SirElement {
-                return object : SirElement {
-                    override fun toString(): String {
-                        return expectedString
-                    }
-                }
-            }
-        }
-        val element = myFactory.build()
-        assertEquals(expectedString, element.toString())
-    }
+    fun simple_function() = runTest("native/swift/sir-analysis-api/testData/simple_function/simple_function.kt")
+
+    @Test
+    fun namespaced_function() = runTest("native/swift/sir-analysis-api/testData/namespaced_functions/namespaced_functions.kt")
 }
