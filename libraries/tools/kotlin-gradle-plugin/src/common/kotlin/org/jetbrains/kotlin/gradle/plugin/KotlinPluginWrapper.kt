@@ -75,10 +75,8 @@ abstract class DefaultKotlinBasePlugin : KotlinBasePlugin {
         addKotlinCompilerConfiguration(project)
 
 
-        project.configurations.maybeCreate(PLUGIN_CLASSPATH_CONFIGURATION_NAME).apply {
+        project.configurations.maybeCreateResolvable(PLUGIN_CLASSPATH_CONFIGURATION_NAME).apply {
             isVisible = false
-            isCanBeConsumed = false
-            isCanBeResolved = true
             addGradlePluginMetadataAttributes(project)
         }
 
@@ -93,8 +91,7 @@ abstract class DefaultKotlinBasePlugin : KotlinBasePlugin {
     private fun addKotlinCompilerConfiguration(project: Project) {
         project
             .configurations
-            .maybeCreate(COMPILER_CLASSPATH_CONFIGURATION_NAME)
-            .markResolvable()
+            .maybeCreateResolvable(COMPILER_CLASSPATH_CONFIGURATION_NAME)
             .defaultDependencies {
                 it.add(
                     project.dependencies.create("$KOTLIN_MODULE_GROUP:$KOTLIN_COMPILER_EMBEDDABLE:${project.getKotlinPluginVersion()}")
@@ -102,8 +99,7 @@ abstract class DefaultKotlinBasePlugin : KotlinBasePlugin {
             }
         project
             .configurations
-            .maybeCreate(BUILD_TOOLS_API_CLASSPATH_CONFIGURATION_NAME)
-            .markResolvable()
+            .maybeCreateResolvable(BUILD_TOOLS_API_CLASSPATH_CONFIGURATION_NAME)
             .defaultDependencies {
                 it.add(
                     project.dependencies.create("$KOTLIN_MODULE_GROUP:$KOTLIN_BUILD_TOOLS_API_IMPL:${project.getKotlinPluginVersion()}")
@@ -221,9 +217,8 @@ abstract class KotlinBasePluginWrapper : DefaultKotlinBasePlugin() {
         project.logger.info("Using Kotlin Gradle Plugin $pluginVariant variant")
         checkGradleCompatibility()
 
-        project.configurations.maybeCreate(NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME).apply {
+        project.configurations.maybeCreateResolvable(NATIVE_COMPILER_PLUGIN_CLASSPATH_CONFIGURATION_NAME).apply {
             isVisible = false
-            isCanBeConsumed = false
             isTransitive = false
             addGradlePluginMetadataAttributes(project)
         }
