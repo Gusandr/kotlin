@@ -63,10 +63,10 @@ enum class JvmTarget(
             entries - JVM_1_6
 
         const val SUPPORTED_VERSIONS_DESCRIPTION =
-            "1.8 and 9–21"
+            "1.8, 9, 10, ..., 21"
 
         init {
-            check(SUPPORTED_VERSIONS_DESCRIPTION == "1.8 and 9–${entries.last().description}") {
+            check(SUPPORTED_VERSIONS_DESCRIPTION == "1.8, 9, 10, ..., ${entries.last().description}") {
                 "Please update the value of the constant JvmTarget.SUPPORTED_VERSIONS_DESCRIPTION."
             }
         }

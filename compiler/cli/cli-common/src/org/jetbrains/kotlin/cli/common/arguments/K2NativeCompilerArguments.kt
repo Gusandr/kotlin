@@ -166,7 +166,7 @@ By default caches will be placed into the kotlin-native system cache directory."
     @Argument(
         value = "-Xauto-cache-dir",
         valueDescription = "<path>",
-        description = "Path to the directory where caches for auto-cacheable dependencies are put.",
+        description = "Path to the directory where caches for auto-cacheable dependencies should be put.",
         delimiter = Argument.Delimiters.none
     )
     var autoCacheDir: String? = null
@@ -338,20 +338,20 @@ The default value is 1."""
     @Argument(
         value = "-Xrefines-paths",
         valueDescription = "<path>",
-        description = "Paths to output directories for refined modules (modules whose expects this module can actualize)."
+        description = "Paths to output directories for refined modules (modules whose 'expect' declarations this module can actualize)."
     )
     var refinesPaths: Array<String>? = null
 
     @Argument(value = "-Xdebug-info-version", description = "Generate debug info of the given version (1, 2).")
     var debugInfoFormatVersion: String = "1" /* command line parser doesn't accept kotlin.Int type */
 
-    @Argument(value = "-Xcoverage", description = "Emit coverage.")
+    @Argument(value = "-Xcoverage", description = "Emit code coverage information.")
     var coverage: Boolean = false
 
     @Argument(
         value = "-Xlibrary-to-cover",
         valueDescription = "<path>",
-        description = """Provide code coverage for the given library.
+        description = """Emit code coverage information for the given library.
 The library must be one of the ones passed with '-library'.""",
         delimiter = Argument.Delimiters.none
     )

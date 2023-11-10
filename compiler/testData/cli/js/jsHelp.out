@@ -31,9 +31,10 @@ where possible options include:
   -progressive               Enable progressive compiler mode.
                              In this mode, deprecations and bug fixes for unstable code take effect immediately
                              instead of going through a graceful migration cycle.
-                             Code written in progressive mode is backward compatible; however, code written without progressive mode enabled may cause compilation errors in progressive mode.
+                             Code written in progressive mode is backward compatible; however, code written without
+                             progressive mode enabled may cause compilation errors in progressive mode.
   -script                    Evaluate the given Kotlin script (*.kts) file.
-  -nowarn                    Don’t generate any warnings.
+  -nowarn                    Don't generate any warnings.
   -verbose                   Enable verbose logging output.
   -version                   Display the compiler version.
   -J<option>                 Pass an option directly to JVM.

@@ -7,7 +7,7 @@ where possible options include:
   -Werror                    Report an error if there are any warnings.
   -X                         Print a synopsis of advanced options.
   -help (-h)                 Print a synopsis of standard options.
-  -nowarn                    Don’t generate any warnings.
+  -nowarn                    Don't generate any warnings.
   -verbose                   Enable verbose logging output.
   -version                   Display the compiler version.
   -J<option>                 Pass an option directly to JVM.

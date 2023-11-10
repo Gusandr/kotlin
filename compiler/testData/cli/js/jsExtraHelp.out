@@ -67,15 +67,16 @@ where advanced options include:
   -Xallow-kotlin-package     Allow compiling code in the 'kotlin' package, and allow not requiring 'kotlin.stdlib' in 'module-info'.
   -Xallow-result-return-type Allow compiling code when 'kotlin.Result' is used as a return type.
   -Xbuiltins-from-sources    Compile built-ins from sources.
-  -Xcheck-phase-conditions   Check pre- and postconditions during phases.
+  -Xcheck-phase-conditions   Check pre- and postconditions of IR lowering phases.
   -Xcheck-sticky-phase-conditions
-                             Run sticky condition checks on subsequent phases. Impliclty enables '-Xcheck-phase-conditions'.
-  -Xcommon-sources=<path>    Sources of the common module that need to be compiled together with this module in multiplatform mode. They should be a subset of sources passed as free arguments.
+                             Run sticky condition checks on subsequent phases. Implicitly enables '-Xcheck-phase-conditions'.
+  -Xcommon-sources=<path>    Sources of the common module that need to be compiled together with this module in multiplatform mode.
+                             They should be a subset of sources passed as free arguments.
   -Xcontext-receivers        Enable experimental context receivers.
   -Xdisable-default-scripting-plugin
-                             Don’t enable the scripting plugin by default.
+                             Don't enable the scripting plugin by default.
   -Xdisable-phases           Disable backend phases.
-  -Xdisable-ultra-light-classes Don’t use ultra-light classes.
+  -Xdisable-ultra-light-classes Don't use ultra-light classes.
   -Xdont-warn-on-error-suppression
                              Don't report warnings when errors are suppressed. This only affects K2.
   -Xdump-directory           Dump the backend state into this directory.
@@ -139,7 +140,7 @@ where advanced options include:
                              Eliminate builder inference restrictions, for example by allowing type variables to be returned from builder inference calls.
   -Xuse-fir-extended-checkers Use extended analysis mode based on the frontend IR.
                              Warning: This feature is not yet production-ready.
-  -Xuse-fir-ic               Compile using the frontend IR internal incremental compilation cycle.
+  -Xuse-fir-ic               Compile using frontend IR internal incremental compilation cycle.
                              Warning: This feature is not yet production-ready.
   -Xuse-fir-lt               Compile using the LightTree parser with the frontend IR.
   -Xuse-ir-fake-override-builder Generate fake overrides via IR. See KT-61514

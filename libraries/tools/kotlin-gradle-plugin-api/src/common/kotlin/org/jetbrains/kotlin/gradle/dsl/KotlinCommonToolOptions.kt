@@ -17,7 +17,7 @@ interface KotlinCommonToolOptions {
         set(value) = options.allWarningsAsErrors.set(value)
 
     /**
-     * Don’t generate any warnings.
+     * Don't generate any warnings.
      * Default value: false
      */
     var suppressWarnings: kotlin.Boolean

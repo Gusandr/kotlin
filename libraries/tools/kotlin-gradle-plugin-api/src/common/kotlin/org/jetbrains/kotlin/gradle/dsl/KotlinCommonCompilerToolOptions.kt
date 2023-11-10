@@ -15,7 +15,7 @@ interface KotlinCommonCompilerToolOptions {
     val allWarningsAsErrors: org.gradle.api.provider.Property<kotlin.Boolean>
 
     /**
-     * Don’t generate any warnings.
+     * Don't generate any warnings.
      * Default value: false
      */
     @get:org.gradle.api.tasks.Internal

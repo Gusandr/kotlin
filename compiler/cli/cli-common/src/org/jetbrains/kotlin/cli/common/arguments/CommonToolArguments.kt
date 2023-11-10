@@ -71,7 +71,7 @@ abstract class CommonToolArguments : Freezable(), Serializable {
         gradleInputType = GradleInputTypes.INTERNAL,
         shouldGenerateDeprecatedKotlinOptions = true,
     )
-    @Argument(value = "-nowarn", description = "Don’t generate any warnings.")
+    @Argument(value = "-nowarn", description = "Don't generate any warnings.")
     var suppressWarnings = false
         set(value) {
             checkFrozen()

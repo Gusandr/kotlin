@@ -95,7 +95,8 @@ abstract class CommonCompilerArguments : CommonToolArguments() {
         description = """Enable progressive compiler mode.
 In this mode, deprecations and bug fixes for unstable code take effect immediately
 instead of going through a graceful migration cycle.
-Code written in progressive mode is backward compatible; however, code written without progressive mode enabled may cause compilation errors in progressive mode."""
+Code written in progressive mode is backward compatible; however, code written without
+progressive mode enabled may cause compilation errors in progressive mode."""
     )
     var progressiveMode = false
         set(value) {
@@ -331,7 +332,8 @@ Code written in progressive mode is backward compatible; however, code written w
     @Argument(
         value = "-Xcommon-sources",
         valueDescription = "<path>",
-        description = "Sources of the common module that need to be compiled together with this module in multiplatform mode. They should be a subset of sources passed as free arguments."
+        description = """Sources of the common module that need to be compiled together with this module in multiplatform mode.
+They should be a subset of sources passed as free arguments."""
     )
     var commonSources: Array<String>? = null
         set(value) {
@@ -471,7 +473,7 @@ Code written in progressive mode is backward compatible; however, code written w
 
     @Argument(
         value = "-Xcheck-phase-conditions",
-        description = "Check pre- and postconditions during phases."
+        description = "Check pre- and postconditions of IR lowering phases."
     )
     var checkPhaseConditions = false
         set(value) {
@@ -481,7 +483,7 @@ Code written in progressive mode is backward compatible; however, code written w
 
     @Argument(
         value = "-Xcheck-sticky-phase-conditions",
-        description = "Run sticky condition checks on subsequent phases. Impliclty enables '-Xcheck-phase-conditions'."
+        description = "Run sticky condition checks on subsequent phases. Implicitly enables '-Xcheck-phase-conditions'."
     )
     var checkStickyPhaseConditions = false
         set(value) {
@@ -522,7 +524,7 @@ Code written in progressive mode is backward compatible; however, code written w
 
     @Argument(
         value = "-Xuse-fir-ic",
-        description = "Compile using the frontend IR internal incremental compilation cycle.\nWarning: This feature is not yet production-ready."
+        description = "Compile using frontend IR internal incremental compilation cycle.\nWarning: This feature is not yet production-ready."
     )
     var useFirIC = false
         set(value) {
@@ -552,7 +554,7 @@ Code written in progressive mode is backward compatible; however, code written w
 
     @Argument(
         value = "-Xdisable-ultra-light-classes",
-        description = "Don’t use ultra-light classes."
+        description = "Don't use ultra-light classes."
     )
     var disableUltraLightClasses = false
         set(value) {
@@ -581,7 +583,7 @@ Code written in progressive mode is backward compatible; however, code written w
             field = value
         }
 
-    @Argument(value = "-Xdisable-default-scripting-plugin", description = "Don’t enable the scripting plugin by default.")
+    @Argument(value = "-Xdisable-default-scripting-plugin", description = "Don't enable the scripting plugin by default.")
     var disableDefaultScriptingPlugin = false
         set(value) {
             checkFrozen()

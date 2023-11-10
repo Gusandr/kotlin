@@ -165,7 +165,8 @@ class K2JVMCompilerArguments : CommonCompilerArguments() {
     @Argument(
         value = "-Xabi-stability",
         valueDescription = "{stable|unstable}",
-        description = """When using unstable compiler features such as FIR, use 'stable' to mark generated class files as stable to prevent diagnostics from being reported when using stable compilers at the call site.
+        description = """When using unstable compiler features such as FIR, use 'stable' to mark generated class files as stable
+to prevent diagnostics from being reported when using stable compilers at the call site.
 When using the JVM IR backend, conversely, use 'unstable' to mark generated class files as unstable
 to force diagnostics to be reported."""
     )
@@ -252,7 +253,7 @@ The default value is 1."""
 
     @Argument(
         value = "-Xassertions", valueDescription = "{always-enable|always-disable|jvm|legacy}",
-        description = """Assertion call behavior:
+        description = """'kotlin.assert' call behavior:
 -Xassertions=always-enable:  enable, ignore JVM assertion settings;
 -Xassertions=always-disable: disable, ignore JVM assertion settings;
 -Xassertions=jvm:            enable, depend on JVM assertion settings;
@@ -404,7 +405,7 @@ This can be used in the event of problems with the new implementation."""
 -Xjsr305=@<fq.name>:{ignore/strict/warn}        annotation with the given fully qualified class name
 Modes:
 * ignore
-* strict (experimental: treat like other supported nullability annotations)
+* strict (experimental; treat like other supported nullability annotations)
 * warn (report a warning)"""
     )
     var jsr305: Array<String>? = null
@@ -462,7 +463,7 @@ The default value is 'warn'."""
                                  generated for it.
                                  This BREAKS BINARY COMPATIBILITY if some client code relies on the presence of 'DefaultImpls' classes.
                                  Note that if interface delegation is used, all interface methods are delegated.
--Xjvm-default=all-compatibility  In addition to the stubs generated in 'all' mode, generate compatibility stubs in the 'DefaultImpls' classes.
+-Xjvm-default=all-compatibility  Like 'all', but additionally generate compatibility stubs in the 'DefaultImpls' classes.
                                  Compatibility stubs can help library and runtime authors maintain backward binary compatibility
                                  for existing clients compiled against previous library versions.
                                  'all' and 'all-compatibility' modes change the library ABI surface that will be used by clients after
@@ -493,7 +494,7 @@ The default value is 'warn'."""
             field = value
         }
 
-    @Argument(value = "-Xdisable-standard-script", description = "Disable standard Kotlin script support.")
+    @Argument(value = "-Xdisable-standard-script", description = "Disable standard Kotlin scripting support.")
     var disableStandardScript = false
         set(value) {
             checkFrozen()
@@ -623,7 +624,7 @@ This also sets the value of '-jvm-target' to be equal to the selected JDK versio
 
     @Argument(
         value = "-Xno-optimized-callable-references",
-        description = "Don’t use optimized callable reference superclasses, which have been available since 1.4."
+        description = "Don't use optimized callable reference superclasses, which have been available since 1.4."
     )
     var noOptimizedCallableReferences = false
         set(value) {
@@ -633,7 +634,7 @@ This also sets the value of '-jvm-target' to be equal to the selected JDK versio
 
     @Argument(
         value = "-Xno-kotlin-nothing-value-exception",
-        description = "Don’t use KotlinNothingValueException, which has been available since 1.4."
+        description = "Don't use KotlinNothingValueException, which has been available since 1.4."
     )
     var noKotlinNothingValueException = false
         set(value) {
@@ -643,7 +644,7 @@ This also sets the value of '-jvm-target' to be equal to the selected JDK versio
 
     @Argument(
         value = "-Xno-reset-jar-timestamps",
-        description = "Don’t reset jar entry timestamps to a fixed date."
+        description = "Don't reset jar entry timestamps to a fixed date."
     )
     var noResetJarTimestamps = false
         set(value) {
@@ -663,7 +664,7 @@ This also sets the value of '-jvm-target' to be equal to the selected JDK versio
 
     @Argument(
         value = "-Xno-source-debug-extension",
-        description = "Don’t generate the '@kotlin.jvm.internal.SourceDebugExtension' annotation with an SMAP copy on classes."
+        description = "Don't generate the '@kotlin.jvm.internal.SourceDebugExtension' annotation with an SMAP copy on classes."
     )
     var noSourceDebugExtension = false
         set(value) {
@@ -773,7 +774,7 @@ See KT-45671 for more details."""
 
     @Argument(
         value = "-Xenhance-type-parameter-types-to-def-not-null",
-        description = "Enhance not-null-annotated type parameter types to definitely-not-null types ('@NotNull T' => 'T & Any')."
+        description = "Enhance not-null-annotated type parameter types to definitely-non-nullable types ('@NotNull T' => 'T & Any')."
     )
     var enhanceTypeParameterTypesToDefNotNull = false
         set(value) {
@@ -805,7 +806,7 @@ Currently this includes spilling all variables in a suspending context regardles
 
     @Argument(
         value = "-Xno-new-java-annotation-targets",
-        description = "Don’t generate Java 1.8+ targets for Kotlin annotation classes."
+        description = "Don't generate Java 1.8+ targets for Kotlin annotation classes."
     )
     var noNewJavaAnnotationTargets = false
         set(value) {
