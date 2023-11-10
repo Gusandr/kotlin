@@ -41,7 +41,9 @@ class Fir2IrLazyDeclarationsGenerator(val components: Fir2IrComponents) : Fir2Ir
 
     private fun FirCallableDeclaration.isFakeOverride(firContainingClass: FirRegularClass?): Boolean {
         val declaration = unwrapUseSiteSubstitutionOverrides()
-        return declaration.isSubstitutionOrIntersectionOverride || firContainingClass?.symbol?.toLookupTag() != declaration.containingClassLookupTag()
+        return declaration.isSubstitutionOrIntersectionOverride ||
+                firContainingClass?.symbol?.toLookupTag() != declaration.containingClassLookupTag() ||
+                declaration.isHiddenToOvercomeSignatureClash == true
     }
 
     internal fun createIrLazyProperty(
