@@ -26,6 +26,7 @@ class WorkerTest {
         assertEquals("Still working", execute(TransferMode.SAFE, { "Still" }) { "$it working" }.result)
     }
 
+    @OptIn(FreezingIsDeprecated::class)
     @Test
     fun executeWithDetachedObjectGraph() = withWorker {
         data class SharedDataMember(val double: Double)
@@ -37,7 +38,7 @@ class WorkerTest {
         }) {
             DetachedObjectGraph<SharedData>(it).attach()
         }
-        assertEquals(SharedData("Hello", 10, SharedDataMember(double=0.1)), future.result)
+        assertEquals(SharedData("Hello", 10, SharedDataMember(double = 0.1)), future.result)
     }
 
     @Test
@@ -64,7 +65,7 @@ class WorkerTest {
         val actual = waitForMultipleFutures(futures, 10000)
 
         val expected = (1..3).flatMap { attempt ->
-            (0 until 5).map { index -> "$attempt: Input $index processed"}
+            (0 until 5).map { index -> "$attempt: Input $index processed" }
         }.toSet()
 
         // actual cannot be empty.
@@ -90,11 +91,11 @@ class WorkerTest {
         val futures = workers.mapIndexed { index, worker ->
             worker.execute(TransferMode.SAFE, { array to index }) { (array, index) ->
                 array[index] += index
-                Unit
             }
         }
 
-        while (waitForMultipleFutures(futures, 10000).size < futures.size) {}
+        while (waitForMultipleFutures(futures, 10000).size < futures.size) {
+        }
 
         array.forEachIndexed { index, value ->
             assertEquals(index * 2, value)
@@ -109,7 +110,7 @@ class WorkerTest {
     fun executeAfter() = withWorker {
         val counter = AtomicInt(0)
 
-        executeAfter(0, {
+        executeAfter(0) {
             assertTrue(Worker.current.park(10_000_000, false))
             assertEquals(counter.value, 0)
             assertTrue(Worker.current.processQueue())
@@ -118,21 +119,21 @@ class WorkerTest {
             counter.incrementAndGet()  // counter becomes 2 here.
             assertTrue(Worker.current.park(10_000_000, true))
             assertEquals(3, counter.value)
-        })
+        }
 
-        executeAfter(0, {
+        executeAfter(0) {
             counter.incrementAndGet()
             Unit
-        })
+        }
 
         while (counter.value < 2) {
             Worker.current.park(1_000)
         }
 
-        executeAfter(0, {
+        executeAfter(0) {
             counter.incrementAndGet()
             Unit
-        })
+        }
 
         while (counter.value == 2) {
             Worker.current.park(1_000)
@@ -149,12 +150,13 @@ class WorkerTest {
     fun executeAfterModify() = withWorker {
         var v = 1
         val done = AtomicInt(0)
-        executeAfter(0, {
+        executeAfter(0) {
             v++
             assertEquals(2, v)
             done.value = 1
-        })
-        while (done.value == 0) {}
+        }
+        while (done.value == 0) {
+        }
         assertEquals(2, v)
     }
 
@@ -171,7 +173,8 @@ class WorkerTest {
             counter.incrementAndGet()
         }
         // Wait for both tasks to complete.
-        while (counter.value != 2) {}
+        while (counter.value != 2) {
+        }
         // Task with id 1 was scheduled to execute later, so it has won.
         assertEquals(1, lastTask.value)
     }
@@ -185,7 +188,7 @@ class WorkerTest {
             assertEquals(false, Worker.current.processQueue())
         }
 
-        worker.executeAfter(1_000_000_000L, { error("FAILURE") })
+        worker.executeAfter(1_000_000_000L) { error("FAILURE") }
 
         worker.requestTermination(processScheduledJobs = false).result
         assertFailsWith<IllegalStateException> { future.result }
@@ -194,9 +197,9 @@ class WorkerTest {
     @Test
     fun executeAfterOnMain() {
         var done = false
-        Worker.current.executeAfter(0, {
+        Worker.current.executeAfter(0) {
             done = true
-        })
+        }
         // Not executed immediately.
         assertFalse(done)
         // The current worker's queue may be filled with other tasks, so we must loop.
@@ -224,17 +227,18 @@ class WorkerTest {
             val finishedBatchesCounter = AtomicInt(0)
 
             submitters.forEach {
-                it.executeAfter(0L, {
+                it.executeAfter(0L) {
                     readySubmittersCounter.incrementAndGet()
                     // Wait for other submitters, to make them all start at the same time:
-                    while (readySubmittersCounter.value != numberOfSubmitters) {}
+                    while (readySubmittersCounter.value != numberOfSubmitters) {
+                    }
 
                     // Concurrently submit tasks with matching scheduled execution time:
                     repeat(numberOfTasks) {
-                        targetWorker.executeAfter(delayInMicroseconds, {
+                        targetWorker.executeAfter(delayInMicroseconds) {
                             executedTasksCounter.incrementAndGet()
                             Unit
-                        })
+                        }
                     }
 
                     // Use larger delay for the task below, to make sure it gets executed after
@@ -242,13 +246,13 @@ class WorkerTest {
                     // If the order is wrong, the test will fail as well.
                     // NOTE: the code below was affected by the same problem with clashing times, so despite all the effort
                     // the test still might hang without a fix.
-                    targetWorker.executeAfter(delayInMicroseconds + 1, {
-                        mainWorker.executeAfter(0L, {
+                    targetWorker.executeAfter(delayInMicroseconds + 1) {
+                        mainWorker.executeAfter(0L) {
                             finishedBatchesCounter.incrementAndGet()
                             Unit
-                        })
-                    })
-                })
+                        }
+                    }
+                }
             }
 
             while (finishedBatchesCounter.value != numberOfSubmitters) {
@@ -271,7 +275,7 @@ class WorkerTest {
         worker.requestTermination().result
 
         val exception = assertFailsWith<IllegalStateException> {
-            worker.executeAfter(0L, {})
+            worker.executeAfter(0L) {}
         }
         assertEquals("Worker is already terminated", exception.message)
     }
@@ -316,12 +320,12 @@ class WorkerTest {
     fun parkMain() = withWorker {
         val main = Worker.current
         val counter = AtomicInt(0)
-        executeAfter(1000, {
-            main.executeAfter(1, {
+        executeAfter(1000) {
+            main.executeAfter(1) {
                 counter.incrementAndGet()
                 Unit
-            })
-        })
+            }
+        }
         assertTrue(main.park(1_000_000_000L, process = true))
         assertEquals(1, counter.value)
     }
@@ -345,7 +349,8 @@ class WorkerTest {
         val future1 = execute(TransferMode.SAFE, { counter }) { counter ->
             assertEquals(0, counter.value)
             // Process following request.
-            while (!Worker.current.processQueue()) {}
+            while (!Worker.current.processQueue()) {
+            }
             // Ensure it has an effect.
             assertEquals(1, counter.value)
             // No more non-terminating tasks in this worker queue.
@@ -391,7 +396,7 @@ class WorkerTest {
         actualWorkers.contains(Worker.current)
 
         val terminatedWorkers = mutableSetOf<Worker>()
-        (0 until workers.size step 2).forEach {
+        (workers.indices step 2).forEach {
             val worker = workers[it]
             worker.requestTermination().result
             terminatedWorkers.add(worker)
@@ -400,7 +405,7 @@ class WorkerTest {
         val actualWorkersAfterTermination = Worker.activeWorkers.toSet()
         assertEquals(terminatedWorkers, actualWorkers - actualWorkersAfterTermination)
 
-        (0 until workers.size step 2).forEach {
+        (workers.indices step 2).forEach {
             workers[it + 1].requestTermination().result
         }
     }

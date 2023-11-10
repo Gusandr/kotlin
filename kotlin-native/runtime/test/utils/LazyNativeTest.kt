@@ -15,8 +15,9 @@ abstract class AbstractExplicitModeLazyTest {
     @Test
     fun finiteRecursion() {
         var y = 20
+
         class C {
-            val finiteRecursion : Int by lazy(mode) {
+            val finiteRecursion: Int by lazy(mode) {
                 if (y < 17) 42 else {
                     y -= 1
                     finiteRecursion + 1
@@ -31,6 +32,7 @@ abstract class AbstractExplicitModeLazyTest {
         class C {
             val self by lazy(mode) { this }
         }
+
         val self = C()
         assertEquals(self, self.self)
     }
@@ -38,10 +40,11 @@ abstract class AbstractExplicitModeLazyTest {
     @Test
     fun throwException() {
         class C {
-            val thrower: String by lazy(mode) {
+            val thrower by lazy<String>(mode) {
                 error("failure")
             }
         }
+
         val self = C()
         repeat(10) {
             assertFailsWith<IllegalStateException> {
@@ -52,33 +55,34 @@ abstract class AbstractExplicitModeLazyTest {
 
     @Test
     fun multiThreadedInit() {
-        class Box(val value:Int)
         val initializerCallCount = AtomicInt(0)
 
         class C {
             val data by lazy(mode) {
                 initializerCallCount.getAndIncrement()
-                Box(42)
+                Any()
             }
         }
 
         val self = C()
 
         val workers = Array(20) { Worker.start() }
-        val inited = AtomicInt(0)
+        val initialized = AtomicInt(0)
         val canStart = AtomicInt(0)
         val futures = workers.map {
-            it.execute(TransferMode.SAFE, { Triple(inited, canStart, self) }) { (inited, canStart, self) ->
-                inited.incrementAndGet()
-                while (canStart.value != 1) {}
+            it.execute(TransferMode.SAFE, { Triple(initialized, canStart, self) }) { (initialized, canStart, self) ->
+                initialized.incrementAndGet()
+                while (canStart.value != 1) {
+                }
                 self.data
             }
         }
 
-        while (inited.value < workers.size) {}
+        while (initialized.value < workers.size) {
+        }
         canStart.value = 1
 
-        val results = mutableSetOf<Box>()
+        val results = mutableSetOf<Any>()
         futures.forEach {
             results += it.result
         }
