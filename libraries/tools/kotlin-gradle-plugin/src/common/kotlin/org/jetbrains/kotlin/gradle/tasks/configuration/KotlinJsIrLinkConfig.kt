@@ -49,7 +49,7 @@ internal open class KotlinJsIrLinkConfig(
             task.compilerOptions.moduleName.convention(project.provider { compilation.npmProject.name })
             task.compilerOptions.moduleKind.set(JsModuleKind.MODULE_UMD)
             task.compilerOptions.sourceMap.set(true)
-            task.compilerOptions.sourceMapEmbedSources.convention(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_NEVER)
+            task.compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_NEVER)
         }
     }
 
