@@ -125,8 +125,12 @@ class Fir2IrLazyPropertyAccessor(
 
     override val initialSignatureFunction: IrFunction? by lazy {
         val originalFirFunction = (fir as? FirSyntheticPropertyAccessor)?.delegate ?: return@lazy null
-        @OptIn(GetOrCreateSensitiveAPI::class)
-        declarationStorage.getOrCreateIrFunction(originalFirFunction, parent)
+        // If property accessor is created then corresponding property is definitely created too
+        @OptIn(UnsafeDuringIrConstructionAPI::class)
+        val lookupTag = (correspondingPropertySymbol!!.owner as Fir2IrLazyProperty).containingClass?.symbol?.toLookupTag()
+        // TODO: add comment
+        @OptIn(UnsafeDuringIrConstructionAPI::class)
+        declarationStorage.getIrFunctionSymbol(originalFirFunction.symbol, lookupTag).owner
     }
 
     override val containerSource: DeserializedContainerSource?
