@@ -524,7 +524,7 @@ They should be a subset of sources passed as free arguments."""
 
     @Argument(
         value = "-Xuse-fir-ic",
-        description = "Compile using frontend IR internal incremental compilation cycle.\nWarning: This feature is not yet production-ready."
+        description = "Compile using frontend IR internal incremental compilation.\nWarning: This feature is not yet production-ready."
     )
     var useFirIC = false
         set(value) {

@@ -390,7 +390,7 @@ The library must be one of the ones passed with '-library'.""",
     @Argument(
         value = "-Xoverride-konan-properties",
         valueDescription = "key1=value1;key2=value2;...",
-        description = "Override 'konan.properties'.values.",
+        description = "Override values from 'konan.properties' with the given ones.",
         delimiter = ";"
     )
     var overrideKonanProperties: Array<String>? = null
