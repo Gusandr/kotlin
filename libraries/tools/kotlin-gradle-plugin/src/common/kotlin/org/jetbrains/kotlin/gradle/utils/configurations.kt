@@ -22,7 +22,11 @@ internal fun ConfigurationContainer.createResolvable(name: String): Configuratio
 }
 
 internal fun ConfigurationContainer.findResolvable(name: String): Configuration? = findByName(name)?.apply {
-    require(isCanBeResolved && !isCanBeConsumed) { "$this is not resolvable" }
+    if (isCanBeResolved && isCanBeConsumed) {
+        isCanBeConsumed = false
+    } else {
+        check(isCanBeResolved && !isCanBeConsumed) { "$this is not resolvable" }
+    }
 }
 
 internal fun ConfigurationContainer.maybeCreateResolvable(name: String): Configuration =
@@ -38,7 +42,11 @@ internal fun ConfigurationContainer.createConsumable(name: String): Configuratio
 }
 
 internal fun ConfigurationContainer.findConsumable(name: String): Configuration? = findByName(name)?.apply {
-    require(!isCanBeResolved && isCanBeConsumed) { "$this is not consumable" }
+    if (isCanBeResolved && isCanBeConsumed) {
+        isCanBeResolved = false
+    } else {
+        check(!isCanBeResolved && isCanBeConsumed) { "$this is not consumable" }
+    }
 }
 
 internal fun ConfigurationContainer.maybeCreateConsumable(name: String): Configuration =
