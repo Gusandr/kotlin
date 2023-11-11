@@ -117,7 +117,7 @@ private fun generateResolveAllConfigurationsTaskKts(excludes: List<String>) =
                     .filterNot { excludeConfigs.contains(it.name) }
                     .forEach { configuration ->
                         val configurationPath = 
-                            if (project.path == ":) ":" + configuration.name
+                            if (project.path == ":") ":" + configuration.name
                             else project.path + ":" + configuration.name
                         try {
                             println("Resolving ${'$'}configurationPath")
