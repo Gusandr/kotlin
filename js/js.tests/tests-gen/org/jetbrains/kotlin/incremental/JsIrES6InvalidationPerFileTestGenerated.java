@@ -302,6 +302,12 @@ public class JsIrES6InvalidationPerFileTestGenerated extends AbstractJsIrES6Inva
     }
 
     @Test
+    @TestMetadata("interfaceWithJsExport")
+    public void testInterfaceWithJsExport() throws Exception {
+        runTest("js/js.translator/testData/incremental/invalidation/interfaceWithJsExport/");
+    }
+
+    @Test
     @TestMetadata("jsCode")
     public void testJsCode() throws Exception {
         runTest("js/js.translator/testData/incremental/invalidation/jsCode/");
