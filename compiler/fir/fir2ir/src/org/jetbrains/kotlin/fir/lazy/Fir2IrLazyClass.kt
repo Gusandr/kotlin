@@ -214,7 +214,9 @@ class Fir2IrLazyClass(
                         symbol.containingClassLookupTag() != ownerLookupTag -> {}
                         symbol !is FirPropertySymbol -> {}
                         else -> {
-                            result += declarationStorage.getOrCreateIrProperty(symbol.fir, this, origin)
+                            // TODO: add comment
+                            @OptIn(UnsafeDuringIrConstructionAPI::class)
+                            result += declarationStorage.getIrPropertySymbol(symbol, lookupTag).owner as IrProperty
                         }
                     }
                 }
