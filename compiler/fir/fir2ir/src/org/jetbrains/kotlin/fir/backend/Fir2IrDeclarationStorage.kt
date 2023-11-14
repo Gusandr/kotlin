@@ -1141,6 +1141,31 @@ class Fir2IrDeclarationStorage(
         }
     }
 
+    // TODO: add doc
+    @LeakedDeclarationCaches
+    internal fun generateUnboundFakeOverrides() {
+        for ((identifier, symbol) in irForFirSessionDependantDeclarationMap) {
+            if (symbol.isBound) continue
+            val (originalSymbol, dispatchReceiverLookupTag, _) = identifier
+            val irParent = findIrParent(originalSymbol.fir, dispatchReceiverLookupTag)
+            when (originalSymbol) {
+                is FirPropertySymbol -> createAndCacheIrProperty(
+                    originalSymbol.fir,
+                    irParent,
+                    fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
+                )
+
+                is FirNamedFunctionSymbol -> createAndCacheIrFunction(
+                    originalSymbol.fir,
+                    irParent,
+                    fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
+                )
+
+                else -> error("Unexpected declaration: $originalSymbol")
+            }
+        }
+    }
+
     // ------------------------------------ scripts ------------------------------------
 
     fun getCachedIrScript(script: FirScript): IrScript? {

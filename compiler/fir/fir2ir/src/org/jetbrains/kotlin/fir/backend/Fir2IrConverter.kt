@@ -116,6 +116,10 @@ class Fir2IrConverter(
             }
         }
 
+        // TODO: add doc
+        @OptIn(LeakedDeclarationCaches::class)
+        declarationStorage.generateUnboundFakeOverrides()
+
         evaluateConstants(irModuleFragment, components)
     }
 
