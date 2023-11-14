@@ -190,7 +190,12 @@ class WorkerTest {
 
         worker.executeAfter(1_000_000_000L) { error("FAILURE") }
 
+        // Request worker to terminate and wait for the request to be processed.
         worker.requestTermination(processScheduledJobs = false).result
+        // Now wait for the worker to complete termination, cleaning up after itself.
+        waitWorkerTermination(worker)
+
+        // `future` is bound to terminated `worker` and so it's not available anymore.
         assertFailsWith<IllegalStateException> { future.result }
     }
 
