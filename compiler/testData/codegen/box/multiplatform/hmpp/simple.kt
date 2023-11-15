@@ -19,6 +19,7 @@ expect open class A()
 // FILE: intermediate.kt
 class B : A() {
     fun foo(): String = "O"
+    // f/o fun bar(): String
 }
 
 fun getB(): B = B()

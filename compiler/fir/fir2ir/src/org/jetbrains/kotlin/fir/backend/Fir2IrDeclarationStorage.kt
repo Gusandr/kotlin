@@ -9,14 +9,12 @@ import org.jetbrains.kotlin.builtins.StandardNames.BUILT_INS_PACKAGE_FQ_NAMES
 import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.fileClasses.JvmFileClassUtil
 import org.jetbrains.kotlin.fir.*
+import org.jetbrains.kotlin.fir.analysis.checkers.getContainingClassSymbol
 import org.jetbrains.kotlin.fir.backend.generators.isExternalParent
 import org.jetbrains.kotlin.fir.declarations.*
 import org.jetbrains.kotlin.fir.declarations.builder.buildProperty
 import org.jetbrains.kotlin.fir.declarations.synthetic.FirSyntheticProperty
-import org.jetbrains.kotlin.fir.declarations.utils.hasBackingField
-import org.jetbrains.kotlin.fir.declarations.utils.isExpect
-import org.jetbrains.kotlin.fir.declarations.utils.isStatic
-import org.jetbrains.kotlin.fir.declarations.utils.visibility
+import org.jetbrains.kotlin.fir.declarations.utils.*
 import org.jetbrains.kotlin.fir.descriptors.FirBuiltInsPackageFragment
 import org.jetbrains.kotlin.fir.descriptors.FirModuleDescriptor
 import org.jetbrains.kotlin.fir.java.symbols.FirJavaOverriddenSyntheticPropertySymbol
@@ -1147,22 +1145,48 @@ class Fir2IrDeclarationStorage(
         for ((identifier, symbol) in irForFirSessionDependantDeclarationMap) {
             if (symbol.isBound) continue
             val (originalSymbol, dispatchReceiverLookupTag, _) = identifier
-            val irParent = findIrParent(originalSymbol.fir, dispatchReceiverLookupTag)
-            when (originalSymbol) {
-                is FirPropertySymbol -> createAndCacheIrProperty(
-                    originalSymbol.fir,
-                    irParent,
-                    fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
-                )
+            generateDeclaration(originalSymbol, dispatchReceiverLookupTag)
+        }
+    }
 
-                is FirNamedFunctionSymbol -> createAndCacheIrFunction(
-                    originalSymbol.fir,
-                    irParent,
-                    fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
-                )
+    // TODO: add doc
+    @LeakedDeclarationCaches
+    internal fun fillUnboundSymbols() {
+        fillUnboundSymbols(functionCache)
+        fillUnboundSymbols(propertyCache)
+    }
 
-                else -> error("Unexpected declaration: $originalSymbol")
-            }
+    private fun fillUnboundSymbols(cache: Map<out FirCallableDeclaration, IrSymbol>) {
+        for ((firDeclaration, irSymbol) in cache) {
+            if (irSymbol.isBound) continue
+            generateDeclaration(firDeclaration.symbol, dispatchReceiverLookupTag = null)
+        }
+    }
+
+    private fun generateDeclaration(
+        originalSymbol: FirBasedSymbol<*>,
+        dispatchReceiverLookupTag: ConeClassLikeLookupTag?,
+    ) {
+        val irParent = findIrParent(
+            originalSymbol.packageFqName(),
+            dispatchReceiverLookupTag ?: originalSymbol.getContainingClassSymbol(session)?.toLookupTag(),
+            originalSymbol,
+            originalSymbol.origin
+        )
+        when (originalSymbol) {
+            is FirPropertySymbol -> createAndCacheIrProperty(
+                originalSymbol.fir,
+                irParent,
+                fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
+            )
+
+            is FirNamedFunctionSymbol -> createAndCacheIrFunction(
+                originalSymbol.fir,
+                irParent,
+                fakeOverrideOwnerLookupTag = dispatchReceiverLookupTag
+            )
+
+            else -> error("Unexpected declaration: $originalSymbol")
         }
     }
 
@@ -1210,6 +1234,10 @@ class Fir2IrDeclarationStorage(
             symbol is IrEnumEntrySymbol ||
             symbol is IrScriptSymbol
         ) {
+            if (configuration.allowNonCachedDeclarations) {
+                @OptIn(LeakedDeclarationCaches::class)
+                fillUnboundSymbols(localStorage.lastCache.localFunctions)
+            }
             localStorage.leaveCallable()
         }
         symbolTable.leaveScope(symbol)
