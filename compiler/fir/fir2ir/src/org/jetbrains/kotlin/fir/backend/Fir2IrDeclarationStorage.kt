@@ -615,11 +615,15 @@ class Fir2IrDeclarationStorage(
         val symbols = createPropertySymbols(signature, property, fakeOverrideOwnerLookupTag)
         val irParent = findIrParent(property, fakeOverrideOwnerLookupTag)
         if (irParent?.isExternalParent() == true) {
+            val firForLazyProperty = if (irParent is IrClass && fakeOverrideOwnerLookupTag != null) {
+                fakeOverrideGenerator.createFirPropertyFakeOverrideIfNeeded(property.symbol, fakeOverrideOwnerLookupTag, irParent) ?: property
+            } else property
+
             callablesGenerator.createIrProperty(
-                property,
+                firForLazyProperty,
                 irParent,
                 symbols,
-                predefinedOrigin = property.computeExternalOrigin(),
+                predefinedOrigin = firForLazyProperty.computeExternalOrigin(),
                 allowLazyDeclarationsCreation = true
             ).also {
                 check(it is Fir2IrLazyProperty)
@@ -991,13 +995,16 @@ class Fir2IrDeclarationStorage(
         if (function is FirSimpleFunction && !isLocal) {
             val irParent = findIrParent(function, fakeOverrideOwnerLookupTag)
             if (irParent?.isExternalParent() == true) {
+                val firForLazyFunction = if (irParent is IrClass && fakeOverrideOwnerLookupTag != null) {
+                    fakeOverrideGenerator.createFirFunctionFakeOverrideIfNeeded(function.symbol, fakeOverrideOwnerLookupTag, irParent) ?: function
+                } else function
                 // Return value is not used here, because creation of IR declaration binds it to the corresponding symbol
                 // And all we want here is to bind symbol for lazy declaration
                 callablesGenerator.createIrFunction(
-                    function,
+                    firForLazyFunction,
                     irParent,
                     symbol,
-                    predefinedOrigin = function.computeExternalOrigin(),
+                    predefinedOrigin = firForLazyFunction.computeExternalOrigin(),
                     isLocal = false,
                     fakeOverrideOwnerLookupTag,
                     allowLazyDeclarationsCreation = true
