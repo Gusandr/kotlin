@@ -22,7 +22,7 @@ import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.utils.addToStdlib.runIf
 import org.jetbrains.kotlin.utils.memoryOptimizedPlus
 
-private object SUSPEND_FUNCTION_AS_GENERATOR : IrDeclarationOriginImpl("SUSPEND_FUNCTION_AS_GENERATOR")
+private val SUSPEND_FUNCTION_AS_GENERATOR by IrDeclarationOriginImpl
 
 class JsSuspendFunctionWithGeneratorsLowering(private val context: JsIrBackendContext) : DeclarationTransformer {
     private val getContinuationSymbol = context.ir.symbols.getContinuation
