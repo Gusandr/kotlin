@@ -1,3 +1,4 @@
 fun box(): String {
-    return FooImpl().foo()
+    val foo: Foo = FooImpl()
+    return foo.foo()
 }

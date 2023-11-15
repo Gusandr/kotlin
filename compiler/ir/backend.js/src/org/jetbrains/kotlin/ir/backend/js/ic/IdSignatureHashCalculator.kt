@@ -22,7 +22,7 @@ internal class IdSignatureHashCalculator(private val icHasher: ICHasher) {
     private val idSignatureSources = hashMapOf<IdSignature, IdSignatureSource>()
     private val idSignatureHashes = hashMapOf<IdSignature, ICHash>()
 
-    private val fileAnnotationHashes = hashMapOf<IrFile, ICHash>()
+    private val parentAnnotationHashes = hashMapOf<IrDeclarationParent, ICHash>()
     private val constantHashes = hashMapOf<IrProperty, ICHash>()
     private val inlineFunctionFlatHashes = hashMapOf<IrFunction, ICHash>()
 
@@ -33,8 +33,8 @@ internal class IdSignatureHashCalculator(private val icHasher: ICHasher) {
 
     private val inlineFunctionDepends = hashMapOf<IrFunction, InlineFunctionDependencies>()
 
-    private val IrFile.annotationsHash: ICHash
-        get() = fileAnnotationHashes.getOrPut(this) {
+    private val <T> T.annotationsHash: ICHash where T : IrDeclarationContainer, T : IrAnnotationContainer
+        get() = parentAnnotationHashes.getOrPut(this) {
             icHasher.calculateIrAnnotationContainerHash(this)
         }
 
@@ -87,18 +87,20 @@ internal class IdSignatureHashCalculator(private val icHasher: ICHasher) {
             InlineFunctionDependencies(usedInlineFunctions, usedConstants)
         }
 
+    private operator fun ICHash.plus(other: ICHash) = ICHash(hash.combineWith(other.hash))
+
     private fun IrSymbol.calculateSymbolHash(): ICHash {
-        var srcIrFile = signature?.let { sig -> idSignatureSources[sig]?.irFile }
-        if (srcIrFile == null) {
-            var parentDeclaration = (owner as? IrDeclaration)?.parent
-            while (parentDeclaration is IrDeclaration) {
-                parentDeclaration = parentDeclaration.parent
-            }
-            srcIrFile = parentDeclaration as? IrFile
+        var symbolHash = icHasher.calculateIrSymbolHash(this)
+        var parentDeclaration = (owner as? IrDeclaration)?.parent
+
+        while (parentDeclaration is IrDeclarationContainer && parentDeclaration is IrDeclaration) {
+            symbolHash = parentDeclaration.annotationsHash + symbolHash
+            parentDeclaration = parentDeclaration.parent
         }
 
-        val fileAnnotationsHash = srcIrFile?.annotationsHash ?: ICHash()
-        return ICHash(fileAnnotationsHash.hash.combineWith(icHasher.calculateIrSymbolHash(this).hash))
+        (parentDeclaration as? IrFile)?.let { symbolHash = it.annotationsHash + symbolHash }
+
+        return symbolHash
     }
 
     private fun IrFunction.calculateInlineFunctionTransitiveHash(): ICHash {
