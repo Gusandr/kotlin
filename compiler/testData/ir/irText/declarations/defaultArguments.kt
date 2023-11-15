@@ -1,6 +1,6 @@
 // FIR_IDENTICAL
 
-// MUTE_SIGNATURE_COMPARISON_K2: JS_IR NATIVE
+// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
 // ^KT-57434
 
 fun test1(x: Int, y: Int = 0, z: String = "abc") {
