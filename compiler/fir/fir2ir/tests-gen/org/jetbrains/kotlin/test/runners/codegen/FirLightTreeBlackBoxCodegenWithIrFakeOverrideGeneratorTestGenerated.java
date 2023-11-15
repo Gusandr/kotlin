@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("all")
 @TestMetadata("compiler/testData/codegen/box")
 @TestDataPath("$PROJECT_ROOT")
-public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCodegenTest {
+public class FirLightTreeBlackBoxCodegenWithIrFakeOverrideGeneratorTestGenerated extends AbstractFirLightTreeBlackBoxCodegenWithIrFakeOverrideGeneratorTest {
     @Test
     public void testAllFilesPresentInBox() throws Exception {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
@@ -354,6 +354,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("platformDependent.kt")
+        public void testPlatformDependent() throws Exception {
+            runTest("compiler/testData/codegen/box/annotations/platformDependent.kt");
+        }
+
+        @Test
         @TestMetadata("propertyWithPropertyInInitializerAsParameter.kt")
         public void testPropertyWithPropertyInInitializerAsParameter() throws Exception {
             runTest("compiler/testData/codegen/box/annotations/propertyWithPropertyInInitializerAsParameter.kt");
@@ -526,6 +532,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("annotationInstancesEmptyDefaultLowered.kt")
             public void testAnnotationInstancesEmptyDefaultLowered() throws Exception {
                 runTest("compiler/testData/codegen/box/annotations/instances/annotationInstancesEmptyDefaultLowered.kt");
+            }
+
+            @Test
+            @TestMetadata("AnnotationInstantiationWithArray.kt")
+            public void testAnnotationInstantiationWithArray() throws Exception {
+                runTest("compiler/testData/codegen/box/annotations/instances/AnnotationInstantiationWithArray.kt");
             }
 
             @Test
@@ -2388,6 +2400,30 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("internalMethodOverrideInFriendModule.kt")
+        public void testInternalMethodOverrideInFriendModule() throws Exception {
+            runTest("compiler/testData/codegen/box/bridges/internalMethodOverrideInFriendModule.kt");
+        }
+
+        @Test
+        @TestMetadata("internalMethodOverrideInOtherModule.kt")
+        public void testInternalMethodOverrideInOtherModule() throws Exception {
+            runTest("compiler/testData/codegen/box/bridges/internalMethodOverrideInOtherModule.kt");
+        }
+
+        @Test
+        @TestMetadata("internalMethodOverrideMultipleInheritance.kt")
+        public void testInternalMethodOverrideMultipleInheritance() throws Exception {
+            runTest("compiler/testData/codegen/box/bridges/internalMethodOverrideMultipleInheritance.kt");
+        }
+
+        @Test
+        @TestMetadata("internalMethodOverridePublishedApi.kt")
+        public void testInternalMethodOverridePublishedApi() throws Exception {
+            runTest("compiler/testData/codegen/box/bridges/internalMethodOverridePublishedApi.kt");
+        }
+
+        @Test
         @TestMetadata("kt12416.kt")
         public void testKt12416() throws Exception {
             runTest("compiler/testData/codegen/box/bridges/kt12416.kt");
@@ -2809,6 +2845,232 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                             runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/sourceSinkFeedContexts/ThroughLocalVariable.kt");
                         }
                     }
+
+                    @Nested
+                    @TestMetadata("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes")
+                    @TestDataPath("$PROJECT_ROOT")
+                    public class TargetTypes {
+                        @Test
+                        public void testAllFilesPresentInTargetTypes() throws Exception {
+                            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+                        }
+
+                        @Test
+                        @TestMetadata("AnonymousObject.kt")
+                        public void testAnonymousObject() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/AnonymousObject.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("DefinitelyNonNullableTypeParameter.kt")
+                        public void testDefinitelyNonNullableTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/DefinitelyNonNullableTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingClass.kt")
+                        public void testEnclosingClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingEnumerationEntryType.kt")
+                        public void testEnclosingEnumerationEntryType() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingEnumerationEntryType.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingEnumerationType.kt")
+                        public void testEnclosingEnumerationType() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingEnumerationType.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingExplicitlyGenericInnerClass.kt")
+                        public void testEnclosingExplicitlyGenericInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingExplicitlyGenericInnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingGenericClass.kt")
+                        public void testEnclosingGenericClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingGenericClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingImplicitlyGenericInnerClass.kt")
+                        public void testEnclosingImplicitlyGenericInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingImplicitlyGenericInnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnclosingInnerClass.kt")
+                        public void testEnclosingInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnclosingInnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("EnumerationType.kt")
+                        public void testEnumerationType() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/EnumerationType.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("ExplicitlyGenericInnerClass.kt")
+                        public void testExplicitlyGenericInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/ExplicitlyGenericInnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("FunctionWithParameterToUnit.kt")
+                        public void testFunctionWithParameterToUnit() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/FunctionWithParameterToUnit.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("FunctionWithReceiverToUnit.kt")
+                        public void testFunctionWithReceiverToUnit() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/FunctionWithReceiverToUnit.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericLocalClass.kt")
+                        public void testGenericLocalClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericLocalClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericLocalClassWithLeakingTypeParameter.kt")
+                        public void testGenericLocalClassWithLeakingTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericLocalClassWithLeakingTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithContravariantTypeParameter.kt")
+                        public void testGenericWithContravariantTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithContravariantTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithCovariantTypeParameter.kt")
+                        public void testGenericWithCovariantTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithCovariantTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithInProjectedTypeArgument.kt")
+                        public void testGenericWithInProjectedTypeArgument() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithInProjectedTypeArgument.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithInvariantTypeParameter.kt")
+                        public void testGenericWithInvariantTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithInvariantTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithOutProjectedTypeArgument.kt")
+                        public void testGenericWithOutProjectedTypeArgument() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithOutProjectedTypeArgument.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("GenericWithStarProjectedTypeArgument.kt")
+                        public void testGenericWithStarProjectedTypeArgument() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/GenericWithStarProjectedTypeArgument.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("ImplicitlyGenericInnerClass.kt")
+                        public void testImplicitlyGenericInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/ImplicitlyGenericInnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("InnerClass.kt")
+                        public void testInnerClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/InnerClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("Int.kt")
+                        public void testInt() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/Int.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("IntersectionType.kt")
+                        public void testIntersectionType() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/IntersectionType.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("LocalClass.kt")
+                        public void testLocalClass() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/LocalClass.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NothingYieldCase.kt")
+                        public void testNothingYieldCase() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NothingYieldCase.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullableNothing.kt")
+                        public void testNullableNothing() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullableNothing.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullableNothingNullLiteralYieldCase.kt")
+                        public void testNullableNothingNullLiteralYieldCase() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullableNothingNullLiteralYieldCase.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullableType.kt")
+                        public void testNullableType() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullableType.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullableTypeParameter.kt")
+                        public void testNullableTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullableTypeParameter.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullaryFunctionToUnit.kt")
+                        public void testNullaryFunctionToUnit() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullaryFunctionToUnit.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("NullaryFunctionWithReturnValue.kt")
+                        public void testNullaryFunctionWithReturnValue() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/NullaryFunctionWithReturnValue.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("String.kt")
+                        public void testString() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/String.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("SuspendingFunction.kt")
+                        public void testSuspendingFunction() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/SuspendingFunction.kt");
+                        }
+
+                        @Test
+                        @TestMetadata("TypeParameter.kt")
+                        public void testTypeParameter() throws Exception {
+                            runTest("compiler/testData/codegen/box/builderInference/oneParameter/oneTypeVariable/oneTypeInfoOrigin/targetTypes/TypeParameter.kt");
+                        }
+                    }
                 }
             }
         }
@@ -3074,6 +3336,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("hashSet.kt")
             public void testHashSet() throws Exception {
                 runTest("compiler/testData/codegen/box/builtinStubMethods/extendJavaClasses/hashSet.kt");
+            }
+
+            @Test
+            @TestMetadata("kt61548.kt")
+            public void testKt61548() throws Exception {
+                runTest("compiler/testData/codegen/box/builtinStubMethods/extendJavaClasses/kt61548.kt");
             }
 
             @Test
@@ -3465,6 +3733,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("referenceToGenericSyntheticProperty.kt")
         public void testReferenceToGenericSyntheticProperty() throws Exception {
             runTest("compiler/testData/codegen/box/callableReference/referenceToGenericSyntheticProperty.kt");
+        }
+
+        @Test
+        @TestMetadata("referenceToTypealiasConstructorInLet.kt")
+        public void testReferenceToTypealiasConstructorInLet() throws Exception {
+            runTest("compiler/testData/codegen/box/callableReference/referenceToTypealiasConstructorInLet.kt");
         }
 
         @Test
@@ -7397,6 +7671,18 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("removeAtInt.kt")
         public void testRemoveAtInt() throws Exception {
             runTest("compiler/testData/codegen/box/collections/removeAtInt.kt");
+        }
+
+        @Test
+        @TestMetadata("removeAtIntOverrideInJava.kt")
+        public void testRemoveAtIntOverrideInJava() throws Exception {
+            runTest("compiler/testData/codegen/box/collections/removeAtIntOverrideInJava.kt");
+        }
+
+        @Test
+        @TestMetadata("removeAtIntOverrideInJava2.kt")
+        public void testRemoveAtIntOverrideInJava2() throws Exception {
+            runTest("compiler/testData/codegen/box/collections/removeAtIntOverrideInJava2.kt");
         }
 
         @Test
@@ -15150,6 +15436,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("noTypeVariablesLeft.kt")
+        public void testNoTypeVariablesLeft() throws Exception {
+            runTest("compiler/testData/codegen/box/delegatedProperty/noTypeVariablesLeft.kt");
+        }
+
+        @Test
         @TestMetadata("privateInSubClass.kt")
         public void testPrivateInSubClass() throws Exception {
             runTest("compiler/testData/codegen/box/delegatedProperty/privateInSubClass.kt");
@@ -15255,6 +15547,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("varInInnerClass.kt")
         public void testVarInInnerClass() throws Exception {
             runTest("compiler/testData/codegen/box/delegatedProperty/varInInnerClass.kt");
+        }
+
+        @Test
+        @TestMetadata("withInvoke.kt")
+        public void testWithInvoke() throws Exception {
+            runTest("compiler/testData/codegen/box/delegatedProperty/withInvoke.kt");
         }
 
         @Nested
@@ -15864,6 +16162,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("computeIfAbsent.kt")
+        public void testComputeIfAbsent() throws Exception {
+            runTest("compiler/testData/codegen/box/delegation/computeIfAbsent.kt");
+        }
+
+        @Test
         @TestMetadata("defaultOverride.kt")
         public void testDefaultOverride() throws Exception {
             runTest("compiler/testData/codegen/box/delegation/defaultOverride.kt");
@@ -15936,6 +16240,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("doubleDelegationEqualsHashcode.kt")
+        public void testDoubleDelegationEqualsHashcode() throws Exception {
+            runTest("compiler/testData/codegen/box/delegation/doubleDelegationEqualsHashcode.kt");
+        }
+
+        @Test
         @TestMetadata("genericProperty.kt")
         public void testGenericProperty() throws Exception {
             runTest("compiler/testData/codegen/box/delegation/genericProperty.kt");
@@ -15999,6 +16309,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("smartCastedDelegation.kt")
         public void testSmartCastedDelegation() throws Exception {
             runTest("compiler/testData/codegen/box/delegation/smartCastedDelegation.kt");
+        }
+
+        @Test
+        @TestMetadata("valueClassImplementingJavaInterfaceWithDefault.kt")
+        public void testValueClassImplementingJavaInterfaceWithDefault() throws Exception {
+            runTest("compiler/testData/codegen/box/delegation/valueClassImplementingJavaInterfaceWithDefault.kt");
         }
 
         @Test
@@ -17586,6 +17902,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("lambdaReceiverFromContext.kt")
+        public void testLambdaReceiverFromContext() throws Exception {
+            runTest("compiler/testData/codegen/box/extensionClasses/lambdaReceiverFromContext.kt");
+        }
+
+        @Test
         @TestMetadata("multiple.kt")
         public void testMultiple() throws Exception {
             runTest("compiler/testData/codegen/box/extensionClasses/multiple.kt");
@@ -17917,6 +18239,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             }
 
             @Test
+            @TestMetadata("kt52213.kt")
+            public void testKt52213() throws Exception {
+                runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt52213.kt");
+            }
+
+            @Test
             @TestMetadata("kt52373.kt")
             public void testKt52373() throws Exception {
                 runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt52373.kt");
@@ -17926,6 +18254,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("kt52459.kt")
             public void testKt52459() throws Exception {
                 runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt52459.kt");
+            }
+
+            @Test
+            @TestMetadata("kt53551.kt")
+            public void testKt53551() throws Exception {
+                runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt53551.kt");
             }
 
             @Test
@@ -17944,6 +18278,18 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("kt56508.kt")
             public void testKt56508() throws Exception {
                 runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt56508.kt");
+            }
+
+            @Test
+            @TestMetadata("kt58476.kt")
+            public void testKt58476() throws Exception {
+                runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt58476.kt");
+            }
+
+            @Test
+            @TestMetadata("kt63430.kt")
+            public void testKt63430() throws Exception {
+                runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/kt63430.kt");
             }
 
             @Test
@@ -18060,6 +18406,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                 runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/useFromAnotherModuleWithDefaultParameterValues.kt");
             }
 
+            @Test
+            @TestMetadata("withTwoContextReceivers.kt")
+            public void testWithTwoContextReceivers() throws Exception {
+                runTest("compiler/testData/codegen/box/extensionFunctions/contextReceivers/withTwoContextReceivers.kt");
+            }
+
             @Nested
             @TestMetadata("compiler/testData/codegen/box/extensionFunctions/contextReceivers/fromKEEP")
             @TestDataPath("$PROJECT_ROOT")
@@ -18127,6 +18479,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @Test
         public void testAllFilesPresentInExtensionProperties() throws Exception {
             KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/extensionProperties"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+        }
+
+        @Test
+        @TestMetadata("genericContextOverride.kt")
+        public void testGenericContextOverride() throws Exception {
+            runTest("compiler/testData/codegen/box/extensionProperties/genericContextOverride.kt");
         }
 
         @Test
@@ -18377,6 +18735,42 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
     }
 
     @Nested
+    @TestMetadata("compiler/testData/codegen/box/fileCheck")
+    @TestDataPath("$PROJECT_ROOT")
+    public class FileCheck {
+        @Test
+        public void testAllFilesPresentInFileCheck() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/fileCheck"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+        }
+
+        @Nested
+        @TestMetadata("compiler/testData/codegen/box/fileCheck/kt53261")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Kt53261 {
+            @Test
+            public void testAllFilesPresentInKt53261() throws Exception {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/fileCheck/kt53261"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+            }
+        }
+
+        @Nested
+        @TestMetadata("compiler/testData/codegen/box/fileCheck/stringConcatenationTypeNarrowing")
+        @TestDataPath("$PROJECT_ROOT")
+        public class StringConcatenationTypeNarrowing {
+            @Test
+            public void testAllFilesPresentInStringConcatenationTypeNarrowing() throws Exception {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/fileCheck/stringConcatenationTypeNarrowing"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+            }
+
+            @Test
+            @TestMetadata("kt53119_side_effect.kt")
+            public void testKt53119_side_effect() throws Exception {
+                runTest("compiler/testData/codegen/box/fileCheck/stringConcatenationTypeNarrowing/kt53119_side_effect.kt");
+            }
+        }
+    }
+
+    @Nested
     @TestMetadata("compiler/testData/codegen/box/finally")
     @TestDataPath("$PROJECT_ROOT")
     public class Finally {
@@ -18618,6 +19012,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("contextReceiverToExtensionReceiver.kt")
+        public void testContextReceiverToExtensionReceiver() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/contextReceiverToExtensionReceiver.kt");
+        }
+
+        @Test
         @TestMetadata("CustomHashSetSize.kt")
         public void testCustomHashSetSize() throws Exception {
             runTest("compiler/testData/codegen/box/fir/CustomHashSetSize.kt");
@@ -18732,6 +19132,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("intersectionWithCapturedTypeWithRawUpperBound.kt")
+        public void testIntersectionWithCapturedTypeWithRawUpperBound() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/intersectionWithCapturedTypeWithRawUpperBound.kt");
+        }
+
+        @Test
         @TestMetadata("IrBuiltIns.kt")
         public void testIrBuiltIns() throws Exception {
             runTest("compiler/testData/codegen/box/fir/IrBuiltIns.kt");
@@ -18741,6 +19147,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("JKEnumConstant.kt")
         public void testJKEnumConstant() throws Exception {
             runTest("compiler/testData/codegen/box/fir/JKEnumConstant.kt");
+        }
+
+        @Test
+        @TestMetadata("javaAnnotationWithDefaultValueForenumArray.kt")
+        public void testJavaAnnotationWithDefaultValueForenumArray() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/javaAnnotationWithDefaultValueForenumArray.kt");
         }
 
         @Test
@@ -18834,6 +19246,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("noInfer.kt")
+        public void testNoInfer() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/noInfer.kt");
+        }
+
+        @Test
         @TestMetadata("noSymbolForIntRangeIterator.kt")
         public void testNoSymbolForIntRangeIterator() throws Exception {
             runTest("compiler/testData/codegen/box/fir/noSymbolForIntRangeIterator.kt");
@@ -18858,6 +19276,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("StackOverflowInAnnotationLoader.kt")
+        public void testStackOverflowInAnnotationLoader() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/StackOverflowInAnnotationLoader.kt");
+        }
+
+        @Test
         @TestMetadata("staticImportFromEnum.kt")
         public void testStaticImportFromEnum() throws Exception {
             runTest("compiler/testData/codegen/box/fir/staticImportFromEnum.kt");
@@ -18879,6 +19303,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("staticImportViaInheritance.kt")
         public void testStaticImportViaInheritance() throws Exception {
             runTest("compiler/testData/codegen/box/fir/staticImportViaInheritance.kt");
+        }
+
+        @Test
+        @TestMetadata("suppressedInvisibleReferenceQualifier.kt")
+        public void testSuppressedInvisibleReferenceQualifier() throws Exception {
+            runTest("compiler/testData/codegen/box/fir/suppressedInvisibleReferenceQualifier.kt");
         }
 
         @Test
@@ -20683,6 +21113,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("intersectionTypeInArguments.kt")
         public void testIntersectionTypeInArguments() throws Exception {
             runTest("compiler/testData/codegen/box/inference/intersectionTypeInArguments.kt");
+        }
+
+        @Test
+        @TestMetadata("intersectionWithInvisibleComponent.kt")
+        public void testIntersectionWithInvisibleComponent() throws Exception {
+            runTest("compiler/testData/codegen/box/inference/intersectionWithInvisibleComponent.kt");
         }
 
         @Test
@@ -23245,6 +23681,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("noReturnTypeManglingJvmNameGeneric.kt")
         public void testNoReturnTypeManglingJvmNameGeneric() throws Exception {
             runTest("compiler/testData/codegen/box/inlineClasses/noReturnTypeManglingJvmNameGeneric.kt", TransformersFunctions.getReplaceOptionalJvmInlineAnnotationWithReal());
+        }
+
+        @Test
+        @TestMetadata("nonImmediateInlineClassUpperBound.kt")
+        public void testNonImmediateInlineClassUpperBound() throws Exception {
+            runTest("compiler/testData/codegen/box/inlineClasses/nonImmediateInlineClassUpperBound.kt");
         }
 
         @Test
@@ -28882,6 +29324,52 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Nested
+        @TestMetadata("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld")
+        @TestDataPath("$PROJECT_ROOT")
+        public class ConstEvaluationFromJavaWorld {
+            @Test
+            @TestMetadata("accessComplexConst.kt")
+            public void testAccessComplexConst() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/accessComplexConst.kt");
+            }
+
+            @Test
+            @TestMetadata("accessTopLevelConst.kt")
+            public void testAccessTopLevelConst() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/accessTopLevelConst.kt");
+            }
+
+            @Test
+            @TestMetadata("accessTopLevelConstWithCustomFileName.kt")
+            public void testAccessTopLevelConstWithCustomFileName() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/accessTopLevelConstWithCustomFileName.kt");
+            }
+
+            @Test
+            public void testAllFilesPresentInConstEvaluationFromJavaWorld() throws Exception {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+            }
+
+            @Test
+            @TestMetadata("differentTypes.kt")
+            public void testDifferentTypes() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/differentTypes.kt");
+            }
+
+            @Test
+            @TestMetadata("kt57802_1.kt")
+            public void testKt57802_1() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/kt57802_1.kt");
+            }
+
+            @Test
+            @TestMetadata("kt57802_2.kt")
+            public void testKt57802_2() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/constEvaluationFromJavaWorld/kt57802_2.kt");
+            }
+        }
+
+        @Nested
         @TestMetadata("compiler/testData/codegen/box/involvesIrInterpreter/intrinsicConst")
         @TestDataPath("$PROJECT_ROOT")
         public class IntrinsicConst {
@@ -28918,6 +29406,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("equals_after.kt")
             public void testEquals_after() throws Exception {
                 runTest("compiler/testData/codegen/box/involvesIrInterpreter/intrinsicConst/equals_after.kt");
+            }
+
+            @Test
+            @TestMetadata("ifConstVal.kt")
+            public void testIfConstVal() throws Exception {
+                runTest("compiler/testData/codegen/box/involvesIrInterpreter/intrinsicConst/ifConstVal.kt");
             }
 
             @Test
@@ -33718,6 +34212,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestDataPath("$PROJECT_ROOT")
         public class K2 {
             @Test
+            @TestMetadata("actualInnerClassesFirMemberMapping.kt")
+            public void testActualInnerClassesFirMemberMapping() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/actualInnerClassesFirMemberMapping.kt");
+            }
+
+            @Test
             public void testAllFilesPresentInK2() throws Exception {
                 KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/multiplatform/k2"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
             }
@@ -33729,9 +34229,39 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             }
 
             @Test
+            @TestMetadata("dataClassInCommonAndPlatform.kt")
+            public void testDataClassInCommonAndPlatform() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/dataClassInCommonAndPlatform.kt");
+            }
+
+            @Test
+            @TestMetadata("expectValInInlineClass.kt")
+            public void testExpectValInInlineClass() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/expectValInInlineClass.kt");
+            }
+
+            @Test
+            @TestMetadata("expectValInInlineClassJVM.kt")
+            public void testExpectValInInlineClassJVM() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/expectValInInlineClassJVM.kt");
+            }
+
+            @Test
+            @TestMetadata("internalOverride.kt")
+            public void testInternalOverride() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/internalOverride.kt");
+            }
+
+            @Test
             @TestMetadata("javaMethodWithTypeParameter.kt")
             public void testJavaMethodWithTypeParameter() throws Exception {
                 runTest("compiler/testData/codegen/box/multiplatform/k2/javaMethodWithTypeParameter.kt");
+            }
+
+            @Test
+            @TestMetadata("jvmDeclarationsUpdatedMembersInCommonModule.kt")
+            public void testJvmDeclarationsUpdatedMembersInCommonModule() throws Exception {
+                runTest("compiler/testData/codegen/box/multiplatform/k2/jvmDeclarationsUpdatedMembersInCommonModule.kt");
             }
 
             @Nested
@@ -33747,6 +34277,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                 @TestMetadata("annotationsViaActualTypeAliasFromBinary.kt")
                 public void testAnnotationsViaActualTypeAliasFromBinary() throws Exception {
                     runTest("compiler/testData/codegen/box/multiplatform/k2/annotations/annotationsViaActualTypeAliasFromBinary.kt");
+                }
+
+                @Test
+                @TestMetadata("deprecatedAnnotationOnlyOnActual_useInCommon.kt")
+                public void testDeprecatedAnnotationOnlyOnActual_useInCommon() throws Exception {
+                    runTest("compiler/testData/codegen/box/multiplatform/k2/annotations/deprecatedAnnotationOnlyOnActual_useInCommon.kt");
                 }
 
                 @Test
@@ -33907,6 +34443,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                 @TestMetadata("expectActualTypealiasCoercion.kt")
                 public void testExpectActualTypealiasCoercion() throws Exception {
                     runTest("compiler/testData/codegen/box/multiplatform/k2/basic/expectActualTypealiasCoercion.kt");
+                }
+
+                @Test
+                @TestMetadata("expectAndCommonFunctionOverloads.kt")
+                public void testExpectAndCommonFunctionOverloads() throws Exception {
+                    runTest("compiler/testData/codegen/box/multiplatform/k2/basic/expectAndCommonFunctionOverloads.kt");
                 }
 
                 @Test
@@ -34107,6 +34649,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                 @TestMetadata("constructor.kt")
                 public void testConstructor() throws Exception {
                     runTest("compiler/testData/codegen/box/multiplatform/k2/defaultArguments/constructor.kt");
+                }
+
+                @Test
+                @TestMetadata("defaultArgumentInDelegatedFunction.kt")
+                public void testDefaultArgumentInDelegatedFunction() throws Exception {
+                    runTest("compiler/testData/codegen/box/multiplatform/k2/defaultArguments/defaultArgumentInDelegatedFunction.kt");
                 }
 
                 @Test
@@ -35655,6 +36203,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("kt57353.kt")
         public void testKt57353() throws Exception {
             runTest("compiler/testData/codegen/box/package/kt57353.kt");
+        }
+
+        @Test
+        @TestMetadata("kt62017.kt")
+        public void testKt62017() throws Exception {
+            runTest("compiler/testData/codegen/box/package/kt62017.kt");
         }
 
         @Test
@@ -37349,6 +37903,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @TestMetadata("privatePropertyWithoutBackingField.kt")
         public void testPrivatePropertyWithoutBackingField() throws Exception {
             runTest("compiler/testData/codegen/box/properties/privatePropertyWithoutBackingField.kt");
+        }
+
+        @Test
+        @TestMetadata("propertyInUpperCaseWithJava.kt")
+        public void testPropertyInUpperCaseWithJava() throws Exception {
+            runTest("compiler/testData/codegen/box/properties/propertyInUpperCaseWithJava.kt");
         }
 
         @Test
@@ -43944,6 +44504,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
                 runTest("compiler/testData/codegen/box/reflection/annotations/simpleValAnnotation.kt");
             }
 
+            @Test
+            @TestMetadata("spread.kt")
+            public void testSpread() throws Exception {
+                runTest("compiler/testData/codegen/box/reflection/annotations/spread.kt");
+            }
+
             @Nested
             @TestMetadata("compiler/testData/codegen/box/reflection/annotations/onTypes")
             @TestDataPath("$PROJECT_ROOT")
@@ -44781,6 +45347,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             }
 
             @Test
+            @TestMetadata("kt60709.kt")
+            public void testKt60709() throws Exception {
+                runTest("compiler/testData/codegen/box/reflection/callBy/kt60709.kt");
+            }
+
+            @Test
             @TestMetadata("kt61304.kt")
             public void testKt61304() throws Exception {
                 runTest("compiler/testData/codegen/box/reflection/callBy/kt61304.kt");
@@ -45426,6 +45998,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
             @TestMetadata("javaMethodsSmokeTest.kt")
             public void testJavaMethodsSmokeTest() throws Exception {
                 runTest("compiler/testData/codegen/box/reflection/functions/javaMethodsSmokeTest.kt");
+            }
+
+            @Test
+            @TestMetadata("parentheses.kt")
+            public void testParentheses() throws Exception {
+                runTest("compiler/testData/codegen/box/reflection/functions/parentheses.kt");
             }
 
             @Test
@@ -50174,9 +50752,21 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         }
 
         @Test
+        @TestMetadata("smartcastFromGenericToString.kt")
+        public void testSmartcastFromGenericToString() throws Exception {
+            runTest("compiler/testData/codegen/box/smartCasts/smartcastFromGenericToString.kt");
+        }
+
+        @Test
         @TestMetadata("smartcastOnImplicitDispatchReceiver.kt")
         public void testSmartcastOnImplicitDispatchReceiver() throws Exception {
             runTest("compiler/testData/codegen/box/smartCasts/smartcastOnImplicitDispatchReceiver.kt");
+        }
+
+        @Test
+        @TestMetadata("smartcastToStarType.kt")
+        public void testSmartcastToStarType() throws Exception {
+            runTest("compiler/testData/codegen/box/smartCasts/smartcastToStarType.kt");
         }
 
         @Test
@@ -52215,6 +52805,12 @@ public class FirPsiBlackBoxCodegenTestGenerated extends AbstractFirPsiBlackBoxCo
         @Test
         public void testAllFilesPresentInTypealias() throws Exception {
             KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/typealias"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+        }
+
+        @Test
+        @TestMetadata("deserializedAbbreviationWithRedundantArgument.kt")
+        public void testDeserializedAbbreviationWithRedundantArgument() throws Exception {
+            runTest("compiler/testData/codegen/box/typealias/deserializedAbbreviationWithRedundantArgument.kt");
         }
 
         @Test
