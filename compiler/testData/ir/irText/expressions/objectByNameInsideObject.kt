@@ -1,8 +1,5 @@
 // FIR_IDENTICAL
 
-// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
-// ^ KT-57428
-
 open class Base(val f1: () -> Any)
 
 object Thing : Base({ Thing }) {

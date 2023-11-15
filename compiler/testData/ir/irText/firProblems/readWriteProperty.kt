@@ -2,9 +2,6 @@
 // WITH_STDLIB
 // WITH_REFLECT
 
-// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
-// ^ KT-57430
-
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty

@@ -1,9 +1,6 @@
 // FIR_IDENTICAL
 // !LANGUAGE: +ContextReceivers
 
-// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
-// ^ KT-57428
-
 class O(val o: String)
 
 context(O)

@@ -1,9 +1,6 @@
 // FIR_IDENTICAL
 //!LANGUAGE: +DefinitelyNonNullableTypes
 
-// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
-// ^ KT-57428
-
 fun <T> (T & Any).foo() {}
 fun <T> foo(l: (T & Any) -> Unit) {}
 

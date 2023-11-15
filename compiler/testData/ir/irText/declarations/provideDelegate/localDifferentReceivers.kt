@@ -1,9 +1,6 @@
 // FIR_IDENTICAL
 // WITH_STDLIB
 
-// MUTE_SIGNATURE_COMPARISON_K2: NATIVE
-// ^ KT-57434
-
 class MyClass(val value: String)
 
 operator fun MyClass.provideDelegate(host: Any?, p: Any): String =
