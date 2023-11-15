@@ -4,7 +4,7 @@
 // IGNORE_ERRORS
 // WITH_STDLIB
 
-// MUTE_SIGNATURE_COMPARISON_K2: ANY
+// MUTE_SIGNATURE_COMPARISON_K2: JS_IR NATIVE
 // ^ KT-57428
 
 inline fun foo(block: () -> Unit) { block() }

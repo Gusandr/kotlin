@@ -2,7 +2,7 @@
 // IGNORE_BACKEND: JS_IR
 // IGNORE_BACKEND: JS_IR_ES6
 
-// MUTE_SIGNATURE_COMPARISON_K2: ANY
+// MUTE_SIGNATURE_COMPARISON_K2: JS_IR NATIVE
 // ^ KT-57775
 
 // KT-61141: absent enum fake_overrides: finalize(K1), getDeclaringClass(K1), clone(K2),

@@ -2,7 +2,7 @@
 // WITH_STDLIB
 // WITH_REFLECT
 
-// MUTE_SIGNATURE_COMPARISON_K2: ANY
+// MUTE_SIGNATURE_COMPARISON_K2: JS_IR NATIVE
 // ^ KT-57430
 
 import kotlin.properties.ReadWriteProperty

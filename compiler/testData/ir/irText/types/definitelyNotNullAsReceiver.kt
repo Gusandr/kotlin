@@ -1,7 +1,7 @@
 // FIR_IDENTICAL
 //!LANGUAGE: +DefinitelyNonNullableTypes
 
-// MUTE_SIGNATURE_COMPARISON_K2: ANY
+// MUTE_SIGNATURE_COMPARISON_K2: JS_IR NATIVE
 // ^ KT-57428
 
 fun <T> (T & Any).foo() {}
