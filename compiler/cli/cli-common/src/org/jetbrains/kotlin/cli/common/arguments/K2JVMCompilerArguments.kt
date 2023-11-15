@@ -536,7 +536,7 @@ problems with parentheses in identifiers on certain platforms."""
 
     @Argument(
         value = "-Xallow-no-source-files",
-        description = "Allow there not to be any source files."
+        description = "Allow the set of source files to be empty."
     )
     var allowNoSourceFiles = false
         set(value) {
@@ -573,7 +573,7 @@ default: 'indy-with-constants' for JVM targets 9 or greater, 'inline' otherwise.
     @Argument(
         value = "-Xjdk-release",
         valueDescription = "<version>",
-        description = """Compile against the specified JDK API version, similarly to javac’s '-release'. This requires JDK 9 or newer.
+        description = """Compile against the specified JDK API version, similarly to javac's '-release'. This requires JDK 9 or newer.
 The supported versions depend on the JDK used; for JDK 17+, the supported versions are 1.8 and 9–21.
 This also sets the value of '-jvm-target' to be equal to the selected JDK version."""
     )

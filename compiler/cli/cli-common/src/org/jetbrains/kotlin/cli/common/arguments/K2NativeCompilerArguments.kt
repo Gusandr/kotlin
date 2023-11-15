@@ -37,7 +37,7 @@ class K2NativeCompilerArguments : CommonCompilerArguments() {
     @Argument(
         value = "-generate-no-exit-test-runner",
         shortName = "-trn",
-        description = "Produce a runner for unit tests that doesn’t force an exit."
+        description = "Produce a runner for unit tests that doesn't force an exit."
     )
     var generateNoExitTestRunner = false
 

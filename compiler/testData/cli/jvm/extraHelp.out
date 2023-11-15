@@ -6,7 +6,7 @@ where advanced options include:
                              When using the JVM IR backend, conversely, use 'unstable' to mark generated class files as unstable
                              to force diagnostics to be reported.
   -Xadd-modules=<module[,]>  Root modules to resolve in addition to the initial modules, or all modules on the module path if <module> is ALL-MODULE-PATH.
-  -Xallow-no-source-files    Allow there not to be any source files.
+  -Xallow-no-source-files    Allow the set of source files to be empty.
   -Xallow-unstable-dependencies Do not report errors on classes in dependencies that were compiled by an unstable version of the Kotlin compiler.
   -Xassertions={always-enable|always-disable|jvm|legacy}
                              'kotlin.assert' call behavior:
@@ -40,7 +40,7 @@ where advanced options include:
   -Xjava-package-prefix      Package prefix for Java files.
   -Xjava-source-roots=<path> Paths to directories with Java source files.
   -Xjavac-arguments=<option[,]> Java compiler arguments.
-  -Xjdk-release=<version>    Compile against the specified JDK API version, similarly to javac’s '-release'. This requires JDK 9 or newer.
+  -Xjdk-release=<version>    Compile against the specified JDK API version, similarly to javac's '-release'. This requires JDK 9 or newer.
                              The supported versions depend on the JDK used; for JDK 17+, the supported versions are 1.8 and 9–21.
                              This also sets the value of '-jvm-target' to be equal to the selected JDK version.
   -Xjspecify-annotations=ignore|strict|warn
