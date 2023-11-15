@@ -84,7 +84,15 @@ class Candidate(
     lateinit var freshVariables: List<ConeTypeVariable>
     var resultingTypeForCallableReference: ConeKotlinType? = null
     var outerConstraintBuilderEffect: (ConstraintSystemOperation.() -> Unit)? = null
-    var usesSAM: Boolean = false
+    var statusOfSAM: StatusOfSAM = StatusOfSAM.NOT_USED
+
+    enum class StatusOfSAM {
+        NOT_USED,
+        STANDARD,
+        FUN
+    }
+
+    val usesSAM: Boolean get() = statusOfSAM != StatusOfSAM.NOT_USED
 
     internal var callableReferenceAdaptation: CallableReferenceAdaptation? = null
         set(value) {

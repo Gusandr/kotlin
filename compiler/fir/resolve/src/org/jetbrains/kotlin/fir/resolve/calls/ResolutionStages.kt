@@ -486,7 +486,7 @@ internal object CheckArguments : CheckerStage() {
                 sink.yieldDiagnostic(InapplicableCandidate)
             }
 
-            candidate.usesSAM && !candidate.isJavaApplicableCandidate() -> {
+            candidate.statusOfSAM == Candidate.StatusOfSAM.STANDARD && !candidate.isJavaApplicableCandidate() -> {
                 sink.markCandidateForCompatibilityResolve(context)
             }
         }
