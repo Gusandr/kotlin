@@ -344,6 +344,9 @@ class LocalDeclarationsLowering(
                     visitMember(declaration) ?: super.visitFunction(declaration)
                 }
 
+            override fun visitAnonymousInitializer(declaration: IrAnonymousInitializer): IrStatement =
+                visitMember(declaration) ?: super.visitAnonymousInitializer(declaration)
+
             private fun visitMember(declaration: IrDeclaration): IrStatement? =
                 if (localContext is LocalClassContext && declaration.parent == localContext.declaration) {
                     val classMemberLocalContext = LocalClassMemberContext(declaration, localContext)
