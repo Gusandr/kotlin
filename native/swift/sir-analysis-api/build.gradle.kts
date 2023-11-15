@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-description = "Build Swift IR from Analysis"
+description = "Build Swift IR from Analysis API"
 
 dependencies {
     compileOnly(kotlinStdlib())
@@ -15,9 +15,9 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
     testImplementation(libs.junit.jupiter.api)
 
+    testRuntimeOnly(projectTests(":analysis:low-level-api-fir"))
+    testRuntimeOnly(projectTests(":analysis:analysis-api-impl-base"))
     testImplementation(projectTests(":analysis:analysis-api-fir"))
-    testImplementation(projectTests(":analysis:low-level-api-fir"))
-    testImplementation(projectTests(":analysis:analysis-api-impl-base"))
     testImplementation(projectTests(":analysis:analysis-test-framework"))
     testImplementation(projectTests(":compiler:tests-common"))
     testImplementation(projectTests(":compiler:tests-common-new"))
@@ -25,7 +25,10 @@ dependencies {
 
 sourceSets {
     "main" { projectDefault() }
-    "test" { projectDefault() }
+    "test" {
+        projectDefault()
+        generatedTestDir()
+    }
 }
 
 kotlin {

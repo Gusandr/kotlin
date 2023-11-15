@@ -1,4 +1,4 @@
-# Build Swift IR from Analysis
+# Build Swift IR from Analysis API
 
 This module is responsible for populating SIR tree. It is the first step in Swift Export pipeline.
 
@@ -6,9 +6,6 @@ Input:
 It should be possible to populate SIR from two types of artefacts:
 1/ Kotlin Source Module
 2/ KLib (currently not supported)
-
-## Usage
-TODO("NOT YET POSSIBLE")
 
 ## Dev guide
 
@@ -29,4 +26,4 @@ The project for the generator can be found here - `generators/sir-analysis-api-g
 OR just open `SirAnalysisGeneratedTests` in IDEA and start them from gutter.
 
 ### Project Setup
-As far as I know, no additional setup required to develop this project.
+No additional setup required to develop this project.

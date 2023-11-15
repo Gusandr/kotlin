@@ -21,13 +21,25 @@ import java.util.regex.Pattern;
 public class SirAnalysisGeneratedTests extends AbstractKotlinSirContextTest {
     @Test
     public void testAllFilesPresentInTestData() throws Exception {
-        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("native/swift/sir-analysis-api/testData"), Pattern.compile("^([^_](.+)).kt$"), null, true);
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("native/swift/sir-analysis-api/testData"), Pattern.compile("^([^_](.+)).kt$"), null, false);
+    }
+
+    @Test
+    @TestMetadata("functions_overload.kt")
+    public void testFunctions_overload() throws Exception {
+        runTest("native/swift/sir-analysis-api/testData/functions_overload.kt");
     }
 
     @Test
     @TestMetadata("namespaced_functions.kt")
     public void testNamespaced_functions() throws Exception {
         runTest("native/swift/sir-analysis-api/testData/namespaced_functions.kt");
+    }
+
+    @Test
+    @TestMetadata("should_ignore_not_public_functions.kt")
+    public void testShould_ignore_not_public_functions() throws Exception {
+        runTest("native/swift/sir-analysis-api/testData/should_ignore_not_public_functions.kt");
     }
 
     @Test

@@ -13,7 +13,7 @@ fun main() {
     System.setProperty("java.awt.headless", "true")
     generateTestGroupSuiteWithJUnit5 {
         testGroup(
-            "native/swift/sir-analysis-api/tests/",
+            "native/swift/sir-analysis-api/tests-gen/",
             "native/swift/sir-analysis-api/testData"
         ) {
             testClass<AbstractKotlinSirContextTest>(

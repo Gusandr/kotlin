@@ -6,38 +6,42 @@
 package org.jetbrains.kotlin.sir.analysisapi
 
 import org.jetbrains.kotlin.analysis.api.KtAnalysisSession
-import org.jetbrains.kotlin.name.CallableId
-import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtTreeVisitorVoid
-import org.jetbrains.kotlin.sir.SirElement
+import org.jetbrains.kotlin.psi.psiUtil.isPublic
+import org.jetbrains.kotlin.sir.SirForeignFunction
+import org.jetbrains.kotlin.sir.SirModule
 
 /**
  * A root interface for classes that produce Swift IR elements.
  */
 interface SirFactory {
-    fun build(fromFile: KtFile): SirElement
+    val moduleToFill: SirModule
+    fun build(fromFile: KtElement)
 }
 
 context(KtAnalysisSession)
-class SirGenerator : SirFactory {
-    override fun build(fromFile: KtFile): SirElement {
-        val res = mutableListOf<CallableId>()
+class SirGenerator(override val moduleToFill: SirModule) : SirFactory {
+    override fun build(fromFile: KtElement){
+        val res = mutableListOf<SirForeignFunction>()
         fromFile.accept(
             object : KtTreeVisitorVoid() {
                 override fun visitNamedFunction(function: KtNamedFunction) {
                     super.visitNamedFunction(function)
-                    val functionSymbol = function.getFunctionLikeSymbol().callableIdIfNonLocal ?: return
-                    res.add(functionSymbol)
+                    function
+                        .takeIf { function.isPublic }
+                        ?.fqName
+                        ?.pathSegments()
+                        ?.toListString()
+                        ?.let { names -> SirForeignFunction(fqName = names) }
+                        ?.let { res.add(it) }
                 }
             }
         )
-        @Suppress("DEPRECATION")
-        val topLevelFunctions = ArrayOfFunctions(res.toList())
-
-        return topLevelFunctions
+        res.forEach(moduleToFill.declarations::add)
     }
-}
 
-@Deprecated("This should not be merged into master. That is just a mock while there is no SirElement Implementation.")
-internal data class ArrayOfFunctions(val functions: List<CallableId>) : SirElement
+    private fun List<Name>.toListString() = map { it.asString() }
+}

@@ -10,9 +10,10 @@ import org.jetbrains.kotlin.analysis.test.framework.base.AbstractAnalysisApiBase
 import org.jetbrains.kotlin.analysis.test.framework.project.structure.ktModuleProvider
 import org.jetbrains.kotlin.analysis.test.framework.test.configurators.*
 import org.jetbrains.kotlin.analysis.test.framework.test.configurators.FrontendKind
-import org.jetbrains.kotlin.analysis.test.framework.utils.executeOnPooledThreadInReadAction
 import org.jetbrains.kotlin.platform.konan.NativePlatforms
 import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.sir.SirForeignFunction
+import org.jetbrains.kotlin.sir.SirModule
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.services.TestModuleStructure
 import org.jetbrains.kotlin.test.services.TestServices
@@ -44,24 +45,19 @@ abstract class AbstractKotlinSirContextTestBase : AbstractAnalysisApiBasedTest()
     override fun doTestByModuleStructure(moduleStructure: TestModuleStructure, testServices: TestServices) {
         val ktFiles = moduleStructure.modules
             .flatMap { testServices.ktModuleProvider.getModuleFiles(it).filterIsInstance<KtFile>() }
-        val actual = buildString {
-            executeOnPooledThreadInReadAction {
-                ktFiles.forEach { ktFile ->
-                    analyseForTest(ktFile) {
-                        val sirFactory = SirGenerator()
 
-                        it as KtFile
-                        val elements = sirFactory.build(it)
-
-                        @Suppress("DEPRECATION")
-                        elements as ArrayOfFunctions
-
-                        elements.functions.forEach { func ->
-                            appendLine("$func")
-                        }
-                    }
-                }
+        val module = SirModule()
+        ktFiles.forEach { ktFile ->
+            analyseForTest(ktFile) {
+                SirGenerator(module).build(it)
             }
+        }
+        val actual = buildString {
+            module.declarations
+                .filterIsInstance<SirForeignFunction>()
+                .forEach {
+                    appendLine("${it.fqName}")
+                }
         }
 
         testServices.assertions.assertEqualsToTestDataFileSibling(actual, extension = ".sir")

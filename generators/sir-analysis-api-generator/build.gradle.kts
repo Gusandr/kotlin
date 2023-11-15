@@ -9,18 +9,11 @@ sourceSets {
 }
 
 dependencies {
-    api(kotlinStdlib())
-
-    testImplementation(projectTests(":generators:test-generator"))
-    testImplementation(projectTests(":compiler:tests-common"))
-    testImplementation(projectTests(":compiler:tests-common-new"))
-    testImplementation(projectTests(":compiler:tests-spec"))
-
     testApi(projectTests(":native:swift:sir-analysis-api"))
-    testImplementation(intellijCore())
-    testApi(platform(libs.junit.bom))
+    testImplementation(projectTests(":generators:test-generator"))
+
+    testRuntimeOnly(projectTests(":analysis:analysis-test-framework"))
     testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 val generateSirAnalysisApiTests by generator("org.jetbrains.kotlin.generators.tests.native.swift.sir.analysis.api.GenerateSirAnalysisApiTestsKt")
