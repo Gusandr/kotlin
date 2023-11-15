@@ -16,11 +16,6 @@ abstract class A {
     //   Public signature: /A.x.<get-x>|1482705010654679335[0]
     //   Public signature debug description: <get-x>(){}
     get
-    // CHECK:
-    //   Mangled name: A#<set-x>(X){}
-    //   Public signature: /A.x.<set-x>|-2731605021834565340[0]
-    //   Public signature debug description: <set-x>(X){}
-    private set
 
   // CHECK:
   //   Mangled name: A{}y
@@ -36,11 +31,6 @@ abstract class A {
     //   Public signature: /A.y.<get-y>|-7902422373892128922[0]
     //   Public signature debug description: <get-y>(){}
     get
-    // CHECK:
-    //   Mangled name: A#<set-y>(X){}
-    //   Public signature: /A.y.<set-y>|-4972047968960381371[0]
-    //   Public signature debug description: <set-y>(X){}
-    private set
 
   // CHECK:
   //   Mangled name: A#<init>(){}

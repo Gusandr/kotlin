@@ -5,7 +5,22 @@ class Wrapper {
 
   }
 
-  private val dummy: <no name provided>
+  val publicDummy: Bar
+    field = { // BLOCK
+      local class <no name provided> : Bar {
+        constructor() /* primary */ {
+          super/*Any*/()
+          /* <init>() */
+
+        }
+
+      }
+
+      <no name provided>()
+    }
+    get
+
+  private val privateDummy: <no name provided>
     field = { // BLOCK
       local class <no name provided> : Bar {
         constructor() /* primary */ {
@@ -20,7 +35,7 @@ class Wrapper {
     }
     private get
 
-  private val bar: <no name provided>
+  val publicBar1: Bar
     field = { // BLOCK
       local class <no name provided> : Bar {
         constructor() /* primary */ {
@@ -29,7 +44,70 @@ class Wrapper {
 
         }
 
-        private /* final field */ val $$delegate_0: <no name provided> = <this>.<get-dummy>()
+        private /* final field */ val $$delegate_0: Bar = <this>.<get-publicDummy>()
+        override val foo: String
+          override get(): String {
+            return <this>.#$$delegate_0.<get-foo>()
+          }
+
+      }
+
+      <no name provided>()
+    }
+    get
+
+  val publicBar2: Bar
+    field = { // BLOCK
+      local class <no name provided> : Bar {
+        constructor() /* primary */ {
+          super/*Any*/()
+          /* <init>() */
+
+        }
+
+        private /* final field */ val $$delegate_0: <no name provided> = <this>.<get-privateDummy>()
+        override val foo: String
+          override get(): String {
+            return <this>.#$$delegate_0.<get-foo>()
+          }
+
+      }
+
+      <no name provided>()
+    }
+    get
+
+  private val privateBar1: <no name provided>
+    field = { // BLOCK
+      local class <no name provided> : Bar {
+        constructor() /* primary */ {
+          super/*Any*/()
+          /* <init>() */
+
+        }
+
+        private /* final field */ val $$delegate_0: Bar = <this>.<get-publicDummy>()
+        override val foo: String
+          override get(): String {
+            return <this>.#$$delegate_0.<get-foo>()
+          }
+
+      }
+
+      <no name provided>()
+    }
+    private get
+
+  private val privateBar2: <no name provided>
+    field = { // BLOCK
+      local class <no name provided> : Bar {
+        constructor() /* primary */ {
+          super/*Any*/()
+          /* <init>() */
+
+        }
+
+        private /* final field */ val $$delegate_0: <no name provided> = <this>.<get-privateDummy>()
         override val foo: String
           override get(): String {
             return <this>.#$$delegate_0.<get-foo>()

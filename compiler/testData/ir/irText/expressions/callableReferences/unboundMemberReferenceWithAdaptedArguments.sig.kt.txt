@@ -24,11 +24,6 @@ open class A {
 //   Mangled name: Obj
 //   Public signature: /Obj|null[0]
 object Obj : A {
-  // CHECK:
-  //   Mangled name: Obj#<init>(){}
-  //   Public signature: /Obj.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Obj#foo(kotlin.IntArray...){}kotlin.Int

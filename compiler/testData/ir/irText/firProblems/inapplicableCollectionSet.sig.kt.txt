@@ -18,21 +18,6 @@ class Flaf {
     get
 
   // CHECK:
-  //   Mangled name: Flaf{}INSTANCES
-  //   Public signature: /Flaf.INSTANCES|1897835723956041094[0]
-  //   Public signature debug description: {}INSTANCES
-  private val INSTANCES: MutableMap<String, Flaf>
-    // CHECK JVM_IR:
-    //   Mangled name: Flaf#<get-INSTANCES>(){}kotlin.collections.MutableMap<kotlin.String,Flaf>
-    //   Public signature: /Flaf.INSTANCES.<get-INSTANCES>|-852664816279800923[0]
-    //   Public signature debug description: <get-INSTANCES>(){}kotlin.collections.MutableMap<kotlin.String,Flaf>
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: Flaf#<get-INSTANCES>(){}
-    //   Public signature: /Flaf.INSTANCES.<get-INSTANCES>|7621104418939940009[0]
-    //   Public signature debug description: <get-INSTANCES>(){}
-    private get
-
-  // CHECK:
   //   Mangled name: Flaf#<init>(kotlin.String){}
   //   Public signature: /Flaf.<init>|1280618353163213788[0]
   //   Public signature debug description: <init>(kotlin.String){}

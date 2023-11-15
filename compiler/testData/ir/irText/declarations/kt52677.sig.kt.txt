@@ -125,11 +125,6 @@ interface MySerializer<T : Any?> {
 //   Mangled name: UuidSerializer
 //   Public signature: /UuidSerializer|null[0]
 object UuidSerializer : MySerializer<@MySerializable(c = UuidSerializer::class) Uuid1> {
-  // CHECK:
-  //   Mangled name: UuidSerializer#<init>(){}
-  //   Public signature: /UuidSerializer.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 

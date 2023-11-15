@@ -91,21 +91,6 @@ class ImplicitReceiverValue<S : Symbol<*>> : ReceiverValue {
 //   Public signature: /PersistentImplicitReceiverStack|null[0]
 class PersistentImplicitReceiverStack : ImplicitReceiverStack, Iterable<ImplicitReceiverValue<*>> {
   // CHECK:
-  //   Mangled name: PersistentImplicitReceiverStack{}stack
-  //   Public signature: /PersistentImplicitReceiverStack.stack|-6859012302810162613[0]
-  //   Public signature debug description: {}stack
-  private val stack: List<ImplicitReceiverValue<*>>
-    // CHECK JVM_IR:
-    //   Mangled name: PersistentImplicitReceiverStack#<get-stack>(){}kotlin.collections.List<ImplicitReceiverValue<*>>
-    //   Public signature: /PersistentImplicitReceiverStack.stack.<get-stack>|2790934809164034447[0]
-    //   Public signature debug description: <get-stack>(){}kotlin.collections.List<ImplicitReceiverValue<*>>
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: PersistentImplicitReceiverStack#get(kotlin.String?){}
-    //   Public signature: /PersistentImplicitReceiverStack.get|-2385095576760729731[0]
-    //   Public signature debug description: get(kotlin.String?){}
-    private get
-
-  // CHECK:
   //   Mangled name: PersistentImplicitReceiverStack#<init>(kotlin.collections.List<ImplicitReceiverValue<*>>){}
   //   Public signature: /PersistentImplicitReceiverStack.<init>|-7593555479041026486[0]
   //   Public signature debug description: <init>(kotlin.collections.List<ImplicitReceiverValue<*>>){}

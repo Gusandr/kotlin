@@ -78,12 +78,6 @@ object MyCanvas : Canvas {
     //   Public signature debug description: <get-suffix>(){}
     override get
 
-  // CHECK:
-  //   Mangled name: MyCanvas#<init>(){}
-  //   Public signature: /MyCanvas.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
-
 }
 
 // CHECK JVM_IR:

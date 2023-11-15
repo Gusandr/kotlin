@@ -99,11 +99,6 @@ class C {
   //   Mangled name: C.Companion
   //   Public signature: /C.Companion|null[0]
   companion object Companion {
-    // CHECK:
-    //   Mangled name: C.Companion#<init>(){}
-    //   Public signature: /C.Companion.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
 
   }
 

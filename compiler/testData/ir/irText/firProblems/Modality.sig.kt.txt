@@ -73,11 +73,6 @@ interface Substitutable<out T : DeclarationDescriptorNonRoot> {
 //   Mangled name: Final
 //   Public signature: /Final|null[0]
 object Final : Modality {
-  // CHECK:
-  //   Mangled name: Final#<init>(){}
-  //   Public signature: /Final.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 
@@ -85,11 +80,6 @@ object Final : Modality {
 //   Mangled name: Owner
 //   Public signature: /Owner|null[0]
 object Owner : ResolutionPart {
-  // CHECK:
-  //   Mangled name: Owner#<init>(){}
-  //   Public signature: /Owner.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Owner#process@KotlinResolutionCandidate(){}kotlin.String

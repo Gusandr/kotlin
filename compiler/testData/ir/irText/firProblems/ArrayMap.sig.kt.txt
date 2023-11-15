@@ -66,26 +66,6 @@ sealed class ArrayMap<T : Any> : Iterable<T> {
 //   Public signature: /ArrayMapImpl|null[0]
 internal class ArrayMapImpl<T : Any> : ArrayMap<T> {
   // CHECK:
-  //   Mangled name: ArrayMapImpl{}data
-  //   Public signature: /ArrayMapImpl.data|4273011692695536650[0]
-  //   Public signature debug description: {}data
-  private var data: Array<Any?>
-    // CHECK JVM_IR:
-    //   Mangled name: ArrayMapImpl#<get-data>(){}kotlin.Array<kotlin.Any?>
-    //   Public signature: /ArrayMapImpl.data.<get-data>|5490366642916416835[0]
-    //   Public signature debug description: <get-data>(){}kotlin.Array<kotlin.Any?>
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: ArrayMapImpl#<get-data>(){}
-    //   Public signature: /ArrayMapImpl.data.<get-data>|1739072241679156117[0]
-    //   Public signature debug description: <get-data>(){}
-    private get
-    // CHECK:
-    //   Mangled name: ArrayMapImpl#<set-data>(kotlin.Array<kotlin.Any?>){}
-    //   Public signature: /ArrayMapImpl.data.<set-data>|1302271608139098175[0]
-    //   Public signature debug description: <set-data>(kotlin.Array<kotlin.Any?>){}
-    private set
-
-  // CHECK:
   //   Mangled name: ArrayMapImpl{}size
   //   Public signature: /ArrayMapImpl.size|-6253659984320132064[0]
   //   Public signature debug description: {}size
@@ -99,11 +79,6 @@ internal class ArrayMapImpl<T : Any> : ArrayMap<T> {
     //   Public signature: /ArrayMapImpl.size.<get-size>|-8255337774232345969[0]
     //   Public signature debug description: <get-size>(){}
     override get
-    // CHECK:
-    //   Mangled name: ArrayMapImpl#<set-size>(kotlin.Int){}
-    //   Public signature: /ArrayMapImpl.size.<set-size>|3088904159210893297[0]
-    //   Public signature debug description: <set-size>(kotlin.Int){}
-    private open set
 
   // CHECK:
   //   Mangled name: ArrayMapImpl.Entry
@@ -210,49 +185,9 @@ internal class ArrayMapImpl<T : Any> : ArrayMap<T> {
   //   Mangled name: ArrayMapImpl.Companion
   //   Public signature: /ArrayMapImpl.Companion|null[0]
   companion object Companion {
-    // CHECK:
-    //   Mangled name: ArrayMapImpl.Companion#<init>(){}
-    //   Public signature: /ArrayMapImpl.Companion.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
-
-    // CHECK:
-    //   Mangled name: ArrayMapImpl.Companion{}DEFAULT_SIZE
-    //   Public signature: /ArrayMapImpl.Companion.DEFAULT_SIZE|-2519126992484260687[0]
-    //   Public signature debug description: {}DEFAULT_SIZE
-    private const val DEFAULT_SIZE: Int
-      // CHECK JVM_IR:
-      //   Mangled name: ArrayMapImpl.Companion#<get-DEFAULT_SIZE>(){}kotlin.Int
-      //   Public signature: /ArrayMapImpl.Companion.DEFAULT_SIZE.<get-DEFAULT_SIZE>|-825092515895884543[0]
-      //   Public signature debug description: <get-DEFAULT_SIZE>(){}kotlin.Int
-      // CHECK JS_IR NATIVE:
-      //   Mangled name: ArrayMapImpl.Companion#<get-DEFAULT_SIZE>(){}
-      //   Public signature: /ArrayMapImpl.Companion.DEFAULT_SIZE.<get-DEFAULT_SIZE>|4238718331414410587[0]
-      //   Public signature debug description: <get-DEFAULT_SIZE>(){}
-      private get
-
-    // CHECK:
-    //   Mangled name: ArrayMapImpl.Companion{}INCREASE_K
-    //   Public signature: /ArrayMapImpl.Companion.INCREASE_K|7964000577208016171[0]
-    //   Public signature debug description: {}INCREASE_K
-    private const val INCREASE_K: Int
-      // CHECK JVM_IR:
-      //   Mangled name: ArrayMapImpl.Companion#<get-INCREASE_K>(){}kotlin.Int
-      //   Public signature: /ArrayMapImpl.Companion.INCREASE_K.<get-INCREASE_K>|-381728285012206517[0]
-      //   Public signature debug description: <get-INCREASE_K>(){}kotlin.Int
-      // CHECK JS_IR NATIVE:
-      //   Mangled name: ArrayMapImpl.Companion#<get-INCREASE_K>(){}
-      //   Public signature: /ArrayMapImpl.Companion.INCREASE_K.<get-INCREASE_K>|-8039715070655458049[0]
-      //   Public signature debug description: <get-INCREASE_K>(){}
-      private get
 
   }
 
-  // CHECK:
-  //   Mangled name: ArrayMapImpl#<init>(kotlin.Array<kotlin.Any?>){}
-  //   Public signature: /ArrayMapImpl.<init>|-940489726603364367[0]
-  //   Public signature debug description: <init>(kotlin.Array<kotlin.Any?>){}
-  private constructor(data: Array<Any?>) /* primary */
   // CHECK:
   //   Mangled name: ArrayMapImpl#<init>(){}
   //   Public signature: /ArrayMapImpl.<init>|-5645683436151566731[0]
@@ -268,12 +203,6 @@ internal class ArrayMapImpl<T : Any> : ArrayMap<T> {
   //   Public signature: /ArrayMapImpl.copy|2165055706622424950[0]
   //   Public signature debug description: copy(){}
   override fun copy(): ArrayMap<T>
-
-  // CHECK:
-  //   Mangled name: ArrayMapImpl#ensureCapacity(kotlin.Int){}
-  //   Public signature: /ArrayMapImpl.ensureCapacity|-7913402150632352615[0]
-  //   Public signature debug description: ensureCapacity(kotlin.Int){}
-  private fun ensureCapacity(index: Int): Unit
 
   // CHECK JVM_IR:
   //   Mangled name: ArrayMapImpl#entries(){}kotlin.collections.List<ArrayMapImpl.Entry<1:0>>
@@ -416,11 +345,6 @@ internal class OneElementArrayMap<T : Any> : ArrayMap<T> {
 //   Mangled name: EmptyArrayMap
 //   Public signature: /EmptyArrayMap|null[0]
 internal object EmptyArrayMap : ArrayMap<Nothing> {
-  // CHECK:
-  //   Mangled name: EmptyArrayMap#<init>(){}
-  //   Public signature: /EmptyArrayMap.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: EmptyArrayMap#copy(){}ArrayMap<kotlin.Nothing>

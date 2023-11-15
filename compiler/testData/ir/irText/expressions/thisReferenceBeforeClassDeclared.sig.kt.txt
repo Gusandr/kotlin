@@ -6,11 +6,6 @@ open class WithCompanion {
   //   Mangled name: WithCompanion.Companion
   //   Public signature: /WithCompanion.Companion|null[0]
   companion object Companion {
-    // CHECK:
-    //   Mangled name: WithCompanion.Companion#<init>(){}
-    //   Public signature: /WithCompanion.Companion.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
 
     // CHECK JVM_IR:
     //   Mangled name: WithCompanion.Companion#foo(){}WithCompanion.Companion
@@ -37,25 +32,4 @@ open class WithCompanion {
 //   Public signature: /test|4153745090133876513[0]
 //   Public signature debug description: test@WithCompanion(){}
 fun WithCompanion.test(): Unit
-  // CHECK:
-  //   Mangled name: #test@WithCompanion(){}.<no name provided>
-  //   Mangled name for the signature: test@WithCompanion(){}
-  local class <no name provided> : WithCompanion {
-    // CHECK:
-    //   Mangled name: #test@WithCompanion(){}.<no name provided>#<init>(){}
-    //   Mangled name for the signature: test@WithCompanion(){}<init>(){}
-    constructor() /* primary */
-
-  }
-
-  // CHECK:
-  //   Mangled name: #test@WithCompanion(){}.<no name provided>
-  //   Mangled name for the signature: test@WithCompanion(){}
-  local class <no name provided> : WithCompanion {
-    // CHECK:
-    //   Mangled name: #test@WithCompanion(){}.<no name provided>#<init>(){}
-    //   Mangled name for the signature: test@WithCompanion(){}<init>(){}
-    constructor() /* primary */
-
-  }
 

@@ -76,12 +76,6 @@ object C : BaseClass, I<String> {
     //   Public signature debug description: <set-p>(kotlin.Int){}
     set
 
-  // CHECK:
-  //   Mangled name: C#<init>(){}
-  //   Public signature: /C.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
-
   // CHECK JVM_IR:
   //   Mangled name: C#fromInterface@0:0(){0§<kotlin.Any?>}0:0
   //   Public signature: /C.fromInterface|-4942486396992795009[0]

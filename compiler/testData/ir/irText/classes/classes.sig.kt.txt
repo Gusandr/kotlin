@@ -26,11 +26,6 @@ class TestClass {
 //   Mangled name: TestEnumClass
 //   Public signature: /TestEnumClass|null[0]
 enum class TestEnumClass : Enum<TestEnumClass> {
-  // CHECK:
-  //   Mangled name: TestEnumClass#<init>(){}
-  //   Public signature: /TestEnumClass.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
   // CHECK JVM_IR:
   //   Mangled name: TestEnumClass#valueOf#static(kotlin.String){}TestEnumClass
   //   Public signature: /TestEnumClass.valueOf|3258702714702284561[0]
@@ -158,11 +153,6 @@ interface TestInterface {
 //   Mangled name: TestObject
 //   Public signature: /TestObject|null[0]
 object TestObject {
-  // CHECK:
-  //   Mangled name: TestObject#<init>(){}
-  //   Public signature: /TestObject.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 

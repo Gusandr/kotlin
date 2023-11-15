@@ -3,35 +3,10 @@
 //   Public signature: /DeepCopyIrTreeWithSymbols|null[0]
 class DeepCopyIrTreeWithSymbols {
   // CHECK:
-  //   Mangled name: DeepCopyIrTreeWithSymbols{}typeRemapper
-  //   Public signature: /DeepCopyIrTreeWithSymbols.typeRemapper|4793044681928918608[0]
-  //   Public signature debug description: {}typeRemapper
-  private val typeRemapper: TypeRemapper
-    // CHECK JVM_IR:
-    //   Mangled name: DeepCopyIrTreeWithSymbols#<get-typeRemapper>(){}TypeRemapper
-    //   Public signature: /DeepCopyIrTreeWithSymbols.typeRemapper.<get-typeRemapper>|5098073462906324888[0]
-    //   Public signature debug description: <get-typeRemapper>(){}TypeRemapper
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: DeepCopyIrTreeWithSymbols#<get-typeRemapper>(){}
-    //   Public signature: /DeepCopyIrTreeWithSymbols.typeRemapper.<get-typeRemapper>|-798235115100843732[0]
-    //   Public signature debug description: <get-typeRemapper>(){}
-    private get
-
-  // CHECK:
   //   Mangled name: DeepCopyIrTreeWithSymbols#<init>(TypeRemapper){}
   //   Public signature: /DeepCopyIrTreeWithSymbols.<init>|1455758733659253884[0]
   //   Public signature debug description: <init>(TypeRemapper){}
   constructor(typeRemapper: TypeRemapper) /* primary */
-
-  // CHECK JVM_IR:
-  //   Mangled name: DeepCopyIrTreeWithSymbols#copyTypeParameter(IrTypeParameter){}IrTypeParameter
-  //   Public signature: /DeepCopyIrTreeWithSymbols.copyTypeParameter|3854275171797584519[0]
-  //   Public signature debug description: copyTypeParameter(IrTypeParameter){}IrTypeParameter
-  // CHECK JS_IR NATIVE:
-  //   Mangled name: DeepCopyIrTreeWithSymbols#copyTypeParameter(IrTypeParameter){}
-  //   Public signature: /DeepCopyIrTreeWithSymbols.copyTypeParameter|-4022519238744481010[0]
-  //   Public signature debug description: copyTypeParameter(IrTypeParameter){}
-  private fun copyTypeParameter(declaration: IrTypeParameter): IrTypeParameter
 
   // CHECK:
   //   Mangled name: DeepCopyIrTreeWithSymbols#copyTypeParametersFrom@IrTypeParametersContainer(IrTypeParametersContainer){}

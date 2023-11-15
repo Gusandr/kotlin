@@ -33,21 +33,6 @@ val aInt: Float
 //   Public signature: /A|null[0]
 class A<T : Any?> {
   // CHECK:
-  //   Mangled name: A{}value
-  //   Public signature: /A.value|1987073854177347439[0]
-  //   Public signature debug description: {}value
-  private val value: T
-    // CHECK JVM_IR:
-    //   Mangled name: A#<get-value>(){}1:0
-    //   Public signature: /A.value.<get-value>|3167862337988859752[0]
-    //   Public signature debug description: <get-value>(){}1:0
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: A#<get-value>(){}
-    //   Public signature: /A.value.<get-value>|3260093555963109437[0]
-    //   Public signature debug description: <get-value>(){}
-    private get
-
-  // CHECK:
   //   Mangled name: A#<init>(1:0){}
   //   Public signature: /A.<init>|-8731461708390519279[0]
   //   Public signature debug description: <init>(1:0){}

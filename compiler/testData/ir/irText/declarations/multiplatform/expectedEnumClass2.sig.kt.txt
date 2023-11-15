@@ -6,11 +6,6 @@
 //   Public signature: /MyEnum|null[1]
 expect enum class MyEnum : Enum<MyEnum> {
   // CHECK:
-  //   Mangled name: MyEnum#<init>(){}
-  //   Public signature: /MyEnum.<init>|-5645683436151566731[1]
-  //   Public signature debug description: <init>(){}
-  private expect constructor() /* primary */
-  // CHECK:
   //   Mangled name: MyEnum.BAR
   //   Public signature: /MyEnum.BAR|null[1]
   BAR
@@ -104,11 +99,6 @@ expect enum class MyEnum : Enum<MyEnum> {
 //   Mangled name: MyEnum
 //   Public signature: /MyEnum|null[0]
 enum class MyEnum : Enum<MyEnum> {
-  // CHECK:
-  //   Mangled name: MyEnum#<init>(){}
-  //   Public signature: /MyEnum.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
   // CHECK:
   //   Mangled name: MyEnum.BAR
   //   Public signature: /MyEnum.BAR|null[0]

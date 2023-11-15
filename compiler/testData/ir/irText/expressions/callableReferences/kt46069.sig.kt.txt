@@ -24,11 +24,6 @@ class ObjectAssert<ACTUAL : Any?> {
 //   Mangled name: Assertions
 //   Public signature: /Assertions|null[0]
 object Assertions {
-  // CHECK:
-  //   Mangled name: Assertions#<init>(){}
-  //   Public signature: /Assertions.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Assertions#assertThat(0:0){0§<kotlin.Any?>}ObjectAssert<0:0>

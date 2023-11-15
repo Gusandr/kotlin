@@ -6,11 +6,6 @@ class Test1 {
   //   Mangled name: Test1.Companion
   //   Public signature: /Test1.Companion|null[0]
   companion object Companion {
-    // CHECK:
-    //   Mangled name: Test1.Companion#<init>(){}
-    //   Public signature: /Test1.Companion.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
 
   }
 
@@ -30,11 +25,6 @@ class Test2 {
   //   Mangled name: Test2.Named
   //   Public signature: /Test2.Named|null[0]
   companion object Named {
-    // CHECK:
-    //   Mangled name: Test2.Named#<init>(){}
-    //   Public signature: /Test2.Named.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
 
   }
 

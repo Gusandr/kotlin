@@ -33,11 +33,6 @@ open external class internal {
   //   Public signature: events/internal.NestedExternalEnum|null[0]
   external enum class NestedExternalEnum : Enum<NestedExternalEnum> {
     // CHECK:
-    //   Mangled name: events.internal.NestedExternalEnum#<init>(){}
-    //   Public signature: events/internal.NestedExternalEnum.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private external constructor() /* primary */
-    // CHECK:
     //   Mangled name: events.internal.NestedExternalEnum.A
     //   Public signature: events/internal.NestedExternalEnum.A|null[0]
     A
@@ -129,11 +124,6 @@ open external class internal {
   //   Mangled name: events.internal.NestedExternalObject
   //   Public signature: events/internal.NestedExternalObject|null[0]
   external object NestedExternalObject : internal {
-    // CHECK:
-    //   Mangled name: events.internal.NestedExternalObject#<init>(){}
-    //   Public signature: events/internal.NestedExternalObject.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private external constructor() /* primary */
 
   }
 

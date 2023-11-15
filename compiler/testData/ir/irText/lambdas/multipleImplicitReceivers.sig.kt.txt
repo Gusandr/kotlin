@@ -41,11 +41,6 @@ interface IInvoke {
 //   Mangled name: A
 //   Public signature: /A|null[0]
 object A {
-  // CHECK:
-  //   Mangled name: A#<init>(){}
-  //   Public signature: /A.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 
@@ -53,11 +48,6 @@ object A {
 //   Mangled name: B
 //   Public signature: /B|null[0]
 object B {
-  // CHECK:
-  //   Mangled name: B#<init>(){}
-  //   Public signature: /B.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 

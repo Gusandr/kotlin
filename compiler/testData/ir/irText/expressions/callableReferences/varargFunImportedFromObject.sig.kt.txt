@@ -2,11 +2,6 @@
 //   Mangled name: Host
 //   Public signature: /Host|null[0]
 object Host {
-  // CHECK:
-  //   Mangled name: Host#<init>(){}
-  //   Public signature: /Host.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Host#foo(kotlin.Array<out|kotlin.String>...){}kotlin.String

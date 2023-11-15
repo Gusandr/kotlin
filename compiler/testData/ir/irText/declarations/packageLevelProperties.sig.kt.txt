@@ -67,11 +67,6 @@ var test5: Int
   //   Public signature: /test5.<get-test5>|-839819880171293643[0]
   //   Public signature debug description: <get-test5>(){}
   get
-  // CHECK:
-  //   Mangled name: #<set-test5>(kotlin.Int){}
-  //   Public signature: /test5.<set-test5>|-8941794992615749462[0]
-  //   Public signature debug description: <set-test5>(kotlin.Int){}
-  private set
 
 // CHECK:
 //   Mangled name: {}test6

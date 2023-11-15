@@ -59,21 +59,6 @@ value class IT {
 //   Public signature: /InlineMutableSet|null[0]
 value class InlineMutableSet : MutableSet<IT> {
   // CHECK:
-  //   Mangled name: InlineMutableSet{}ms
-  //   Public signature: /InlineMutableSet.ms|3456531059400385118[0]
-  //   Public signature debug description: {}ms
-  private val ms: MutableSet<IT>
-    // CHECK JVM_IR:
-    //   Mangled name: InlineMutableSet#<get-ms>(){}kotlin.collections.MutableSet<IT>
-    //   Public signature: /InlineMutableSet.ms.<get-ms>|1704733968327666901[0]
-    //   Public signature debug description: <get-ms>(){}kotlin.collections.MutableSet<IT>
-    // CHECK JS_IR NATIVE:
-    //   Mangled name: InlineMutableSet#<get-ms>(){}
-    //   Public signature: /InlineMutableSet.ms.<get-ms>|4267115966333581446[0]
-    //   Public signature debug description: <get-ms>(){}
-    private get
-
-  // CHECK:
   //   Mangled name: InlineMutableSet#<init>(kotlin.collections.MutableSet<IT>){}
   //   Public signature: /InlineMutableSet.<init>|-3183535736515224569[0]
   //   Public signature debug description: <init>(kotlin.collections.MutableSet<IT>){}

@@ -6,11 +6,6 @@ class Z {
   //   Mangled name: Z.Companion
   //   Public signature: /Z.Companion|null[0]
   companion object Companion {
-    // CHECK:
-    //   Mangled name: Z.Companion#<init>(){}
-    //   Public signature: /Z.Companion.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
 
     // CHECK:
     //   Mangled name: Z.Companion#test(){}

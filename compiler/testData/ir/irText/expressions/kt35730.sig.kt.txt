@@ -15,11 +15,6 @@ interface Base {
 //   Mangled name: Derived
 //   Public signature: /Derived|null[0]
 object Derived : Base {
-  // CHECK:
-  //   Mangled name: Derived#<init>(){}
-  //   Public signature: /Derived.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK:
   //   Mangled name: Derived#foo(){}

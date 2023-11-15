@@ -21,12 +21,6 @@ object Z {
   }
 
   // CHECK:
-  //   Mangled name: Z#<init>(){}
-  //   Public signature: /Z.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
-
-  // CHECK:
   //   Mangled name: Z#test(){}
   //   Public signature: /Z.test|6620506149988718649[0]
   //   Public signature debug description: test(){}

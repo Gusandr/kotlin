@@ -65,12 +65,6 @@ object IntMonoid : Monoid<Int> {
     //   Public signature debug description: <get-unit>(){}
     override get
 
-  // CHECK:
-  //   Mangled name: IntMonoid#<init>(){}
-  //   Public signature: /IntMonoid.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
-
   // CHECK JVM_IR:
   //   Mangled name: IntMonoid#combine@kotlin.Int(kotlin.Int){}kotlin.Int
   //   Public signature: /IntMonoid.combine|4765448259581317405[0]
@@ -101,12 +95,6 @@ object StringMonoid : Monoid<String> {
     //   Public signature: /StringMonoid.unit.<get-unit>|1530864625432111105[0]
     //   Public signature debug description: <get-unit>(){}
     override get
-
-  // CHECK:
-  //   Mangled name: StringMonoid#<init>(){}
-  //   Public signature: /StringMonoid.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: StringMonoid#combine@kotlin.String(kotlin.String){}kotlin.String

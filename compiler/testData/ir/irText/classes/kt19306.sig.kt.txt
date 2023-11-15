@@ -19,11 +19,6 @@ abstract class A {
     //   Public signature: test1/A.p.<get-p>|-1162552463316289847[0]
     //   Public signature debug description: <get-p>(){}
     protected get
-    // CHECK:
-    //   Mangled name: test1.A#<set-p>(kotlin.String){}
-    //   Public signature: test1/A.p.<set-p>|1896329871380024517[0]
-    //   Public signature debug description: <set-p>(kotlin.String){}
-    private set
 
   // CHECK:
   //   Mangled name: test1.A#<init>(){}

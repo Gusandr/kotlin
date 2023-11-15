@@ -34,11 +34,6 @@ class B {
 //   Mangled name: Host
 //   Public signature: /Host|null[0]
 object Host {
-  // CHECK:
-  //   Mangled name: Host#<init>(){}
-  //   Public signature: /Host.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK:
   //   Mangled name: Host#plusAssign@B(B){}
@@ -120,27 +115,9 @@ object X1 {
         //   Public signature debug description: <set-x3>(kotlin.Int){}
         set
 
-      // CHECK:
-      //   Mangled name: X1.X2.X3#<init>(){}
-      //   Public signature: /X1.X2.X3.<init>|-5645683436151566731[0]
-      //   Public signature debug description: <init>(){}
-      private constructor() /* primary */
-
     }
 
-    // CHECK:
-    //   Mangled name: X1.X2#<init>(){}
-    //   Public signature: /X1.X2.<init>|-5645683436151566731[0]
-    //   Public signature debug description: <init>(){}
-    private constructor() /* primary */
-
   }
-
-  // CHECK:
-  //   Mangled name: X1#<init>(){}
-  //   Public signature: /X1.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
 }
 

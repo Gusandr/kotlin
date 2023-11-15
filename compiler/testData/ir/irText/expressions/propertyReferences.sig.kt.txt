@@ -225,11 +225,6 @@ open class C {
     //   Public signature: /C.varWithPrivateSet.<get-varWithPrivateSet>|-8392476455600477334[0]
     //   Public signature debug description: <get-varWithPrivateSet>(){}kotlin.Int
     get
-    // CHECK:
-    //   Mangled name: C#<set-varWithPrivateSet>(kotlin.Int){}
-    //   Public signature: /C.varWithPrivateSet.<set-varWithPrivateSet>|6345817872201213518[0]
-    //   Public signature debug description: <set-varWithPrivateSet>(kotlin.Int){}
-    private set
 
   // CHECK:
   //   Mangled name: C{}varWithProtectedSet
@@ -259,11 +254,6 @@ open class C {
 //   Mangled name: Delegate
 //   Public signature: /Delegate|null[0]
 object Delegate {
-  // CHECK:
-  //   Mangled name: Delegate#<init>(){}
-  //   Public signature: /Delegate.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Delegate#getValue(kotlin.Any?;kotlin.Any){}kotlin.Int

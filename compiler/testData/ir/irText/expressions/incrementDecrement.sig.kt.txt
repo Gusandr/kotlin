@@ -105,12 +105,6 @@ object O {
     //   Public signature debug description: <set-p>(kotlin.Int){}
     set
 
-  // CHECK:
-  //   Mangled name: O#<init>(){}
-  //   Public signature: /O.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
-
   // CHECK JVM_IR:
   //   Mangled name: O#get(kotlin.Int){}kotlin.Int
   //   Public signature: /O.get|3217555545696752959[0]

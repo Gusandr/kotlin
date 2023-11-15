@@ -116,11 +116,6 @@ interface Derived : Delegate {
 //   Mangled name: Factory
 //   Public signature: /Factory|null[0]
 object Factory {
-  // CHECK:
-  //   Mangled name: Factory#<init>(){}
-  //   Public signature: /Factory.<init>|-5645683436151566731[0]
-  //   Public signature debug description: <init>(){}
-  private constructor() /* primary */
 
   // CHECK JVM_IR:
   //   Mangled name: Factory#foo(kotlin.String){}kotlin.String
