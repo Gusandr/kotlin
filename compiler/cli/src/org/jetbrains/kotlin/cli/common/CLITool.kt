@@ -182,5 +182,18 @@ abstract class CLITool<A : CommonToolArguments> {
             System.err.println(e.message)
             ExitCode.INTERNAL_ERROR
         }
+
+        @JvmStatic
+        @JvmOverloads
+        fun returnPerformanceMetrics(
+            compiler: CLITool<*>,
+            args: Array<String>,
+            messageRenderer: MessageRenderer = defaultMessageRenderer()
+        ): ExitCode = try {
+            compiler.exec(System.err, messageRenderer, *args)
+        } catch (e: CompileEnvironmentException) {
+            System.err.println(e.message)
+            ExitCode.INTERNAL_ERROR
+        }
     }
 }
