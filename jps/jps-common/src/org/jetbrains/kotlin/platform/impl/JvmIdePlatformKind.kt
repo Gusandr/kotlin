@@ -27,8 +27,8 @@ object JvmIdePlatformKind : IdePlatformKind() {
         val jvmTargetDescription = arguments.jvmTarget
             ?: return JvmPlatforms.defaultJvmPlatform
 
-        val jvmTarget = JvmTarget.values()
-            .firstOrNull { VersionComparatorUtil.COMPARATOR.compare(it.description, jvmTargetDescription) >= 0 }
+        val jvmTarget = JvmTarget.values().takeIf { it.map { it.description }.contains(jvmTargetDescription) }
+            ?.firstOrNull { VersionComparatorUtil.COMPARATOR.compare(it.description, jvmTargetDescription) >= 0 }
             ?: return JvmPlatforms.defaultJvmPlatform
 
         return JvmPlatforms.jvmPlatformByTargetVersion(jvmTarget)
