@@ -1,5 +1,6 @@
 // DIAGNOSTICS: -NOTHING_TO_INLINE, -NO_TAIL_CALLS_FOUND, -MISPLACED_TYPE_PARAMETER_CONSTRAINTS
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
+// FIR_IDENTICAL
 
 class MemberScope {
 

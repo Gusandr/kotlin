@@ -1,5 +1,5 @@
 // DIAGNOSTICS: -NOTHING_TO_INLINE, -NO_TAIL_CALLS_FOUND, -MISPLACED_TYPE_PARAMETER_CONSTRAINTS
-
+// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
 
 class TestBasic {
     @Deprecated(message = "", level = DeprecationLevel.HIDDEN) constructor()

@@ -1,4 +1,5 @@
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
+// FIR_IDENTICAL
 
 // constructor vs. fun overload
 

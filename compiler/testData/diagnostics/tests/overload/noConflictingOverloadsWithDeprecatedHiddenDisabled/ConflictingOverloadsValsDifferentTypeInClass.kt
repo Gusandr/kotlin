@@ -1,4 +1,5 @@
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
+// FIR_IDENTICAL
 
 class Aaa() {
     val <!REDECLARATION!>a<!> = 1

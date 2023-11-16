@@ -1,4 +1,5 @@
 // DIAGNOSTICS: -CONFLICTING_JVM_DECLARATIONS, -MISPLACED_TYPE_PARAMETER_CONSTRAINTS
+// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
 
 class MemberScope {
 

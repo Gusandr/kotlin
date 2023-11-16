@@ -1,3 +1,5 @@
+// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+
 // constructor vs. fun overload
 
 // FILE: J.java

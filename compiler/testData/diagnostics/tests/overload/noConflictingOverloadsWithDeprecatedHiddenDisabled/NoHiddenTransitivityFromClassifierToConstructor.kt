@@ -1,4 +1,4 @@
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
 // FIR_IDENTICAL
 
 @Deprecated(message = "", level = DeprecationLevel.HIDDEN)

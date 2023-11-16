@@ -1,8 +1,6 @@
 // DIAGNOSTICS: -MISPLACED_TYPE_PARAMETER_CONSTRAINTS, -NOTHING_TO_INLINE, -NO_TAIL_CALLS_FOUND
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
-
-package pkg
-
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
+// FIR_IDENTICAL
 
 <!CONFLICTING_OVERLOADS!>@Deprecated(message = "", level = DeprecationLevel.HIDDEN) fun testBasic()<!> {}
 <!CONFLICTING_OVERLOADS!>fun testBasic()<!> {}

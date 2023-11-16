@@ -1,4 +1,4 @@
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
 // FIR_IDENTICAL
 
 fun test() {

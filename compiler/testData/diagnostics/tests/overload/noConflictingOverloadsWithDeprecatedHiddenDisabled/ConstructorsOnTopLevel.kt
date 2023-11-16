@@ -1,8 +1,6 @@
 // DIAGNOSTICS: -CONFLICTING_JVM_DECLARATIONS, -MISPLACED_TYPE_PARAMETER_CONSTRAINTS
-// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
-
-package pkg
-
+// !LANGUAGE: -DisableConflictingOverloadsForDeprecatedHidden
+// FIR_IDENTICAL
 
 class TestBasic {
     @Deprecated(message = "", level = DeprecationLevel.HIDDEN) <!CONFLICTING_OVERLOADS!>constructor()<!>

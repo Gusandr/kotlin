@@ -7,6 +7,7 @@ package org.jetbrains.kotlin.fir.analysis.checkers
 
 import org.jetbrains.kotlin.KtFakeSourceElementKind
 import org.jetbrains.kotlin.builtins.StandardNames
+import org.jetbrains.kotlin.config.LanguageFeature
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -496,11 +497,13 @@ private fun areNonConflictingCallables(
     val conflictingIsLowPriority = hasLowPriorityAnnotation(conflicting.annotations)
     if (declarationIsLowPriority != conflictingIsLowPriority) return true
 
-    val declarationIsHidden = declaration.isDeprecationLevelHidden(session.languageVersionSettings)
-    if (declarationIsHidden) return true
+    if (session.languageVersionSettings.supportsFeature(LanguageFeature.DisableConflictingOverloadsForDeprecatedHidden)) {
+        val declarationIsHidden = declaration.isDeprecationLevelHidden(session.languageVersionSettings)
+        if (declarationIsHidden) return true
 
-    val conflictingIsHidden = conflicting.isDeprecationLevelHidden(session.languageVersionSettings)
-    if (conflictingIsHidden) return true
+        val conflictingIsHidden = conflicting.isDeprecationLevelHidden(session.languageVersionSettings)
+        if (conflictingIsHidden) return true
+    }
 
     return declaration is FirCallableSymbol<*> &&
             conflicting is FirCallableSymbol<*> &&

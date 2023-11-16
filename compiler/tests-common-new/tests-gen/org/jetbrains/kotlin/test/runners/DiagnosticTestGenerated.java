@@ -26923,6 +26923,112 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
                     runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHidden/TypeParameterMultipleBounds.kt");
                 }
             }
+
+            @Nested
+            @TestMetadata("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled")
+            @TestDataPath("$PROJECT_ROOT")
+            public class NoConflictingOverloadsWithDeprecatedHiddenDisabled {
+                @Test
+                public void testAllFilesPresentInNoConflictingOverloadsWithDeprecatedHiddenDisabled() throws Exception {
+                    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled"), Pattern.compile("^(.*)\\.kts?$"), Pattern.compile("^(.+)\\.(reversed|fir|ll)\\.kts?$"), true);
+                }
+
+                @Test
+                @TestMetadata("ConflictingOverloadsIdenticalValsInClass.kt")
+                public void testConflictingOverloadsIdenticalValsInClass() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConflictingOverloadsIdenticalValsInClass.kt");
+                }
+
+                @Test
+                @TestMetadata("ConflictingOverloadsValsDifferentTypeInClass.kt")
+                public void testConflictingOverloadsValsDifferentTypeInClass() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConflictingOverloadsValsDifferentTypeInClass.kt");
+                }
+
+                @Test
+                @TestMetadata("ConstructorVsFunOverload.kt")
+                public void testConstructorVsFunOverload() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConstructorVsFunOverload.kt");
+                }
+
+                @Test
+                @TestMetadata("ConstructorsInMemberScope.kt")
+                public void testConstructorsInMemberScope() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConstructorsInMemberScope.kt");
+                }
+
+                @Test
+                @TestMetadata("ConstructorsInPackage.kt")
+                public void testConstructorsInPackage() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConstructorsInPackage.kt");
+                }
+
+                @Test
+                @TestMetadata("ConstructorsOnTopLevel.kt")
+                public void testConstructorsOnTopLevel() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/ConstructorsOnTopLevel.kt");
+                }
+
+                @Test
+                @TestMetadata("DifferentDeprecationLevels.kt")
+                public void testDifferentDeprecationLevels() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/DifferentDeprecationLevels.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsAndConstructorsInMemberScope.kt")
+                public void testFunctionsAndConstructorsInMemberScope() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsAndConstructorsInMemberScope.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsAndConstructorsInPackage.kt")
+                public void testFunctionsAndConstructorsInPackage() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsAndConstructorsInPackage.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsAndConstructorsOnTopLevel.kt")
+                public void testFunctionsAndConstructorsOnTopLevel() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsAndConstructorsOnTopLevel.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsInMemberScope.kt")
+                public void testFunctionsInMemberScope() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsInMemberScope.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsInPackage.kt")
+                public void testFunctionsInPackage() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsInPackage.kt");
+                }
+
+                @Test
+                @TestMetadata("FunctionsOnTopLevel.kt")
+                public void testFunctionsOnTopLevel() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/FunctionsOnTopLevel.kt");
+                }
+
+                @Test
+                @TestMetadata("LocalFunctions.kt")
+                public void testLocalFunctions() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/LocalFunctions.kt");
+                }
+
+                @Test
+                @TestMetadata("NoHiddenTransitivityFromClassifierToConstructor.kt")
+                public void testNoHiddenTransitivityFromClassifierToConstructor() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/NoHiddenTransitivityFromClassifierToConstructor.kt");
+                }
+
+                @Test
+                @TestMetadata("TypeParameterMultipleBounds.kt")
+                public void testTypeParameterMultipleBounds() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/overload/noConflictingOverloadsWithDeprecatedHiddenDisabled/TypeParameterMultipleBounds.kt");
+                }
+            }
         }
 
         @Nested

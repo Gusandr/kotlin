@@ -1,3 +1,5 @@
+// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+
 <!CONFLICTING_OVERLOADS!>@Deprecated(message = "", level = DeprecationLevel.WARNING) fun TestWarning()<!> {}
 <!CONFLICTING_OVERLOADS!>fun TestWarning()<!> {}
 

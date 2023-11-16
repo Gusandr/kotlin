@@ -1,3 +1,5 @@
+// !LANGUAGE: +DisableConflictingOverloadsForDeprecatedHidden
+
 import java.io.Serializable
 
 interface Test1 {
