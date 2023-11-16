@@ -58,7 +58,7 @@ abstract class KotlinJsIrLink @Inject constructor(
     internal val propertiesProvider = PropertiesProvider(project)
 
     @get:Input
-    internal val incrementalJsIr: Boolean = propertiesProvider.incrementalJsIr
+    var incrementalJsIr: Boolean = propertiesProvider.incrementalJsIr
 
     @get:Input
     val outputGranularity: KotlinJsIrOutputGranularity = propertiesProvider.jsIrOutputGranularity
