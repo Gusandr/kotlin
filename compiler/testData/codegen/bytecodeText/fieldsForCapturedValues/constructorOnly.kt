@@ -11,4 +11,4 @@ fun foo(captured: String) {
 // 1 final synthetic Ljava/lang/String; \$captured
 
 // JVM_IR_TEMPLATES
-// 1 final synthetic Ljava/lang/String; \$captured
+// 0 final synthetic Ljava/lang/String; \$captured
