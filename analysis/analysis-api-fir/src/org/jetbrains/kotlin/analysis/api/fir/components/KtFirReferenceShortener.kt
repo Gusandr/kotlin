@@ -862,10 +862,16 @@ private class ElementsToShortenCollector(
 
     private fun createElementToShorten(
         element: KtElement,
-        nameToImport: FqName? = null,
+        referencedSymbol: FqName? = null,
         importAllInParent: Boolean = false,
         shortenedRef: String? = null,
     ): ElementToShorten {
+        var nameToImport = if (importAllInParent) {
+            referencedSymbol?.parentOrNull() ?: error("Provided FqName $referencedSymbol cannot be imported with a star")
+        } else {
+            referencedSymbol
+        }
+
         return when (element) {
             is KtUserType -> ShortenType(element, shortenedRef, nameToImport, importAllInParent)
             is KtDotQualifiedExpression -> ShortenQualifier(element, shortenedRef, nameToImport, importAllInParent)
@@ -1170,9 +1176,8 @@ private class ElementsToShortenCollector(
                 when {
                     matchedCallables.isEmpty() -> {
                         if (nameToImport == null || option == ShortenStrategy.SHORTEN_IF_ALREADY_IMPORTED) return
-                        ShortenQualifier(
+                        createElementToShorten(
                             qualifiedCallExpression,
-                            shortenedRef = null,
                             nameToImport,
                             importAllInParent = option == ShortenStrategy.SHORTEN_AND_STAR_IMPORT
                         )
@@ -1250,8 +1255,7 @@ private class ElementsToShortenCollector(
     }
 
     private fun canBePossibleToDropLabel(thisReference: FirThisReference): Boolean {
-        return false
-//        return shortenOptions.removeThisLabels && thisReference.labelName != null
+        return shortenOptions.removeThisLabels && thisReference.labelName != null
     }
 
     // FIXME We need a better way to decide shortening strategy for labeled and regular `this` expressions
