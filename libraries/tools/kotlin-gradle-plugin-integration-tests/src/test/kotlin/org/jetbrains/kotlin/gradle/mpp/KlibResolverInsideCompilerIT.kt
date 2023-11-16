@@ -7,14 +7,13 @@ package org.jetbrains.kotlin.gradle.mpp
 
 import org.gradle.util.GradleVersion
 import org.jetbrains.kotlin.gradle.testbase.*
-import org.jetbrains.kotlin.gradle.util.replaceText
 import org.jetbrains.kotlin.konan.file.file
 import org.jetbrains.kotlin.konan.file.withZipFileSystem
 import org.jetbrains.kotlin.konan.properties.loadProperties
 import org.jetbrains.kotlin.library.KLIB_PROPERTY_DEPENDENCY_VERSION
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
+import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.assertTrue
 import org.jetbrains.kotlin.konan.file.File as KFile
@@ -22,28 +21,30 @@ import org.jetbrains.kotlin.konan.file.File as KFile
 @NativeGradlePluginTests
 @DisplayName("Tests for KLIB resolver inside the Kotlin compiler")
 @GradleTestVersions(maxVersion = TestVersions.Gradle.G_8_2)
-class MppKlibResolverInsideCompilerIT : KGPBaseTest() {
+class KlibResolverInsideCompilerIT : KGPBaseTest() {
+    @DisplayName("Test resolver with C-interop KLIBs (KT-62515)")
     @GradleTest
     @GradleTestVersions(minVersion = TestVersions.Gradle.G_7_0, maxVersion = TestVersions.Gradle.G_8_2)
-    fun `test (with C-interop) - KT-62515()`(gradleVersion: GradleVersion, @TempDir tempDir: Path) {
+    fun testResolverWithCInteropKlibs(gradleVersion: GradleVersion, @TempDir tempDir: Path) {
         buildProjects(
             baseDir = "mpp-klib-resolver-inside-compiler/with-cinterop",
             tempDir, gradleVersion
         )
     }
 
+    @DisplayName("Test resolver without C-interop KLIBs (KT-62515)")
     @GradleTest
     @GradleTestVersions(minVersion = TestVersions.Gradle.G_7_0, maxVersion = TestVersions.Gradle.G_8_2)
-    fun `test (without C-interop) - KT-62515()`(gradleVersion: GradleVersion, @TempDir tempDir: Path) {
+    fun testResolverWithoutCInteropKlibs(gradleVersion: GradleVersion, @TempDir tempDir: Path) {
         buildProjects(
             baseDir = "mpp-klib-resolver-inside-compiler/without-cinterop",
             tempDir, gradleVersion
         )
     }
 
-    private fun createLocalRepo(tempDir: Path): File {
-        val localRepo = File(tempDir.resolve("local-repo").toAbsolutePath().toString())
-        localRepo.mkdirs()
+    private fun createLocalRepo(tempDir: Path): Path {
+        val localRepo = tempDir.resolve("local-repo").toAbsolutePath()
+        Files.createDirectories(localRepo)
         return localRepo
     }
 
@@ -51,25 +52,24 @@ class MppKlibResolverInsideCompilerIT : KGPBaseTest() {
         baseDir: String,
         projectName: String,
         gradleVersion: GradleVersion,
-        localRepo: File,
+        localRepoDir: Path,
         buildTask: String = "publish",
     ) {
-        project("$baseDir/$projectName", gradleVersion) {
-            buildGradleKts.toFile().replaceText("<localRepo>", localRepo.absolutePath)
+        project("$baseDir/$projectName", gradleVersion, localRepoDir = localRepoDir) {
             build(buildTask)
         }
     }
 
     private fun buildProjects(baseDir: String, tempDir: Path, gradleVersion: GradleVersion) {
-        val localRepo = createLocalRepo(tempDir)
+        val localRepoDir = createLocalRepo(tempDir)
 
-        buildProject(baseDir, "liba-v1", gradleVersion, localRepo)
-        buildProject(baseDir, "liba-v2", gradleVersion, localRepo)
-        buildProject(baseDir, "libb", gradleVersion, localRepo)
-        buildProject(baseDir, "libc", gradleVersion, localRepo)
+        buildProject(baseDir, "liba-v1", gradleVersion, localRepoDir)
+        buildProject(baseDir, "liba-v2", gradleVersion, localRepoDir)
+        buildProject(baseDir, "libb", gradleVersion, localRepoDir)
+        buildProject(baseDir, "libc", gradleVersion, localRepoDir)
 
         // Make sure there are no `dependency_version_<name>=` properties with non-`unspecified` values in the manifest file:
-        localRepo.walkTopDown().forEach { file ->
+        localRepoDir.toFile().walkTopDown().forEach { file ->
             if (file.isFile && file.extension == "klib") {
                 val specifiedDependencyVersions: Map<String, String> = KFile(file.absolutePath).withZipFileSystem {
                     it.file("default/manifest")
@@ -93,6 +93,6 @@ class MppKlibResolverInsideCompilerIT : KGPBaseTest() {
             }
         }
 
-        buildProject(baseDir, "app", gradleVersion, localRepo, buildTask = "assemble")
+        buildProject(baseDir, "app", gradleVersion, localRepoDir, buildTask = "assemble")
     }
 }
