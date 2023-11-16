@@ -6,22 +6,20 @@ plugins {
 group = "org.sample.kt-62515"
 version = 1.0
 
-val repo: File = file("<localRepo>")
-
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url = uri(repo) }
+    maven { url = uri("<localRepo>") }
 }
 
 publishing {
     repositories {
-        maven { url = uri(repo) }
+        maven { url = uri("<localRepo>") }
     }
 }
 
 kotlin {
-    macosArm64()
+    linuxX64()
     linuxArm64()
 
     sourceSets.commonMain {
