@@ -8,9 +8,4 @@ STEP 1:
     updated imports: lib.kt
 STEP 2:
     dependencies: lib1
-    modifications:
-        U : lib.2.kt -> lib.kt
-    modified ir: lib.kt
-STEP 3:
-    dependencies: lib1
     updated imports: lib.kt

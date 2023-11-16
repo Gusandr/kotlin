@@ -5,12 +5,16 @@ STEP 0:
     added file: lib.kt
 STEP 1:
     dependencies: lib1
-    updated imports: lib.kt
+    updated exports: lib.kt
 STEP 2:
     dependencies: lib1
-    modifications:
-        U : lib.2.kt -> lib.kt
-    modified ir: lib.kt
+    updated imports: lib.kt
 STEP 3:
     dependencies: lib1
     updated imports: lib.kt
+STEP 4:
+    dependencies: lib1
+    updated imports: lib.kt
+STEP 5:
+    dependencies: lib1
+    updated exports: lib.kt

@@ -6,3 +6,11 @@ STEP 1:
     modifications:
         U : lib.1.kt -> lib.kt
     modified ir: lib.kt
+STEP 2:
+    modifications:
+        U : lib.2.kt -> lib.kt
+    modified ir: lib.kt
+STEP 3:
+    modifications:
+        U : lib.3.kt -> lib.kt
+    modified ir: lib.kt

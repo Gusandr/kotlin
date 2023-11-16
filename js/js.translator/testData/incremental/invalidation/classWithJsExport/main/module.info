@@ -7,6 +7,3 @@ STEP 1:
 STEP 2:
     dependencies: lib1, lib2
     updated imports: m.kt
-STEP 3:
-    dependencies: lib1, lib2
-    updated imports: m.kt
