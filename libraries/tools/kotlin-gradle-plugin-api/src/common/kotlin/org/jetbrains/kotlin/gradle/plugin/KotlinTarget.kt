@@ -77,7 +77,7 @@ interface KotlinTarget : Named, HasAttributes, HasProject, HasMutableExtras {
         level = DeprecationLevel.ERROR
     )
     fun compilerOptions(configure: Action<KotlinCommonCompilerOptions>) {
-        throw UnsupportedOperationException("Kotlin target level compiler options DSL is not available in this  release!")
+        throw UnsupportedOperationException("Kotlin target level compiler options DSL is not available in this release!")
     }
 }
 
