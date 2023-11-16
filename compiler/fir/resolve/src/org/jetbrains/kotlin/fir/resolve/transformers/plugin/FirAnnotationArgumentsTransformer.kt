@@ -262,7 +262,7 @@ private class FirDeclarationsResolveTransformerForAnnotationArguments(
     override fun transformProperty(property: FirProperty, data: ResolutionMode): FirProperty {
         property.transformReceiverParameter(transformer, ResolutionMode.ContextIndependent)
 
-        context.withProperty(property) {
+        context.withProperty(property, session) {
             property
                 .transformTypeParameters(transformer, data)
                 .transformAnnotations(transformer, data)

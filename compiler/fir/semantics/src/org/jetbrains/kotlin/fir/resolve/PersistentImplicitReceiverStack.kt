@@ -6,6 +6,9 @@
 package org.jetbrains.kotlin.fir.resolve
 
 import kotlinx.collections.immutable.*
+import org.jetbrains.kotlin.config.LanguageFeature
+import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.languageVersionSettings
 import org.jetbrains.kotlin.fir.resolve.calls.ContextReceiverValue
 import org.jetbrains.kotlin.fir.resolve.calls.ImplicitDispatchReceiverValue
 import org.jetbrains.kotlin.fir.resolve.calls.ImplicitReceiverValue
@@ -34,8 +37,8 @@ class PersistentImplicitReceiverStack private constructor(
         return receivers.fold(this) { acc, value -> acc.add(name = null, value) }
     }
 
-    fun addAllContextReceivers(receivers: List<ContextReceiverValue<*>>): PersistentImplicitReceiverStack {
-        return receivers.fold(this) { acc, value -> acc.addContextReceiver(value) }
+    fun addAllContextReceivers(receivers: List<ContextReceiverValue<*>>, session: FirSession): PersistentImplicitReceiverStack {
+        return receivers.fold(this) { acc, value -> acc.addContextReceiver(value, session) }
     }
 
     fun add(name: Name?, value: ImplicitReceiverValue<*>, aliasLabel: Name? = null): PersistentImplicitReceiverStack {
@@ -59,8 +62,9 @@ class PersistentImplicitReceiverStack private constructor(
         else
             this
 
-    fun addContextReceiver(value: ContextReceiverValue<*>): PersistentImplicitReceiverStack {
-        val labelName = value.labelName ?: return this
+    fun addContextReceiver(value: ContextReceiverValue<*>, session: FirSession): PersistentImplicitReceiverStack {
+        val labelName = value.labelName?.takeIf { session.languageVersionSettings.supportsFeature(LanguageFeature.ContextReceivers) }
+            ?: return this
 
         val receiversPerLabel = receiversPerLabel.put(labelName, value)
         return PersistentImplicitReceiverStack(

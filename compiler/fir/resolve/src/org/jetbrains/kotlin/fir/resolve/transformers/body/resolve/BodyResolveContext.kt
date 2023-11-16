@@ -214,13 +214,13 @@ class BodyResolveContext(
     }
 
     @PrivateForInline
-    fun addNonLocalTowerDataElement(element: FirTowerDataElement) {
-        replaceTowerDataContext(towerDataContext.addNonLocalTowerDataElements(listOf(element)))
+    fun addNonLocalTowerDataElement(element: FirTowerDataElement, session: FirSession) {
+        replaceTowerDataContext(towerDataContext.addNonLocalTowerDataElements(listOf(element), session))
     }
 
     @PrivateForInline
-    fun addNonLocalTowerDataElements(newElements: List<FirTowerDataElement>) {
-        replaceTowerDataContext(towerDataContext.addNonLocalTowerDataElements(newElements))
+    fun addNonLocalTowerDataElements(newElements: List<FirTowerDataElement>, session: FirSession) {
+        replaceTowerDataContext(towerDataContext.addNonLocalTowerDataElements(newElements, session))
     }
 
     @PrivateForInline
@@ -253,7 +253,7 @@ class BodyResolveContext(
         additionalLabelName: Name? = null,
         f: () -> T
     ): T = withTowerDataCleanup {
-        replaceTowerDataContext(towerDataContext.addContextReceiverGroup(owner.createContextReceiverValues(holder)))
+        replaceTowerDataContext(towerDataContext.addContextReceiverGroup(owner.createContextReceiverValues(holder), holder.session))
 
         if (type != null) {
             val receiver = ImplicitExtensionReceiverValue(
@@ -270,11 +270,11 @@ class BodyResolveContext(
     }
 
     @PrivateForInline
-    inline fun <T> withTypeParametersOf(declaration: FirMemberDeclaration, l: () -> T): T {
+    inline fun <T> withTypeParametersOf(declaration: FirMemberDeclaration, session: FirSession, l: () -> T): T {
         if (declaration.typeParameters.isEmpty()) return l()
         val scope = FirMemberTypeParameterScope(declaration)
         return withTowerDataCleanup {
-            addNonLocalTowerDataElement(scope.asTowerDataElement(isLocal = false))
+            addNonLocalTowerDataElement(scope.asTowerDataElement(isLocal = false), session)
             l()
         }
     }
@@ -401,7 +401,7 @@ class BodyResolveContext(
             withTowerDataCleanup {
                 val importingScopes = createImportingScopes(file, holder.session, holder.scopeSession)
                 fileImportsScope += importingScopes
-                addNonLocalTowerDataElements(importingScopes.map { it.asTowerDataElement(isLocal = false) })
+                addNonLocalTowerDataElements(importingScopes.map { it.asTowerDataElement(isLocal = false) }, holder.session)
                 f()
             }
         }
@@ -452,7 +452,9 @@ class BodyResolveContext(
         val type = owner.defaultType()
         val towerElementsForClass = holder.collectTowerDataElementsForClass(owner, type)
 
-        val base = towerDataContext.addNonLocalTowerDataElements(towerElementsForClass.superClassesStaticsAndCompanionReceivers)
+        val base = towerDataContext.addNonLocalTowerDataElements(
+            towerElementsForClass.superClassesStaticsAndCompanionReceivers, holder.session,
+        )
 
         val statics = base
             .addNonLocalScopesIfNotNull(towerElementsForClass.companionStaticScope, towerElementsForClass.staticScope)
@@ -472,7 +474,7 @@ class BodyResolveContext(
         val forConstructorHeader = if (typeParameterScope != null) {
             towerDataContext
                 .addNonLocalScope(typeParameterScope)
-                .addNonLocalTowerDataElements(towerElementsForClass.superClassesStaticsAndCompanionReceivers)
+                .addNonLocalTowerDataElements(towerElementsForClass.superClassesStaticsAndCompanionReceivers, holder.session)
                 .run { towerElementsForClass.companionReceiver?.let { addReceiver(null, it) } ?: this }
                 .addNonLocalScopesIfNotNull(towerElementsForClass.companionStaticScope, towerElementsForClass.staticScope)
         } else {
@@ -481,7 +483,7 @@ class BodyResolveContext(
 
         val forMembersResolution = forConstructorHeader
             .addReceiver(labelName, towerElementsForClass.thisReceiver)
-            .addContextReceiverGroup(towerElementsForClass.contextReceivers)
+            .addContextReceiverGroup(towerElementsForClass.contextReceivers, holder.session)
 
         /*
          * Scope for enum entries is equal to initial scope for constructor header
@@ -531,7 +533,7 @@ class BodyResolveContext(
     ): T {
         val towerElementsForScript = holder.collectTowerDataElementsForScript(owner)
 
-        val base = towerDataContext.addNonLocalTowerDataElements(emptyList())
+        val base = towerDataContext.addNonLocalTowerDataElements(emptyList(), holder.session)
         val statics = base
             .addNonLocalScopeIfNotNull(towerElementsForScript.staticScope)
 
@@ -545,7 +547,7 @@ class BodyResolveContext(
                 // TODO: temporary solution for avoiding problem described in KT-62712, flatten back after fix
                 .let { baseCtx ->
                     towerElementsForScript.implicitReceivers.fold(baseCtx) { ctx, it ->
-                        ctx.addContextReceiverGroup(listOf(it))
+                        ctx.addContextReceiverGroup(listOf(it), holder.session)
                     }
                 }
 
@@ -576,8 +578,8 @@ class BodyResolveContext(
             .map { it.asTowerDataElement(isLocal = false) }
 
         val base = towerDataContext
-            .addNonLocalTowerDataElements(towerDataContext.nonLocalTowerDataElements)
-            .addNonLocalTowerDataElements(fragmentImportTowerDataElements)
+            .addNonLocalTowerDataElements(towerDataContext.nonLocalTowerDataElements, holder.session)
+            .addNonLocalTowerDataElements(fragmentImportTowerDataElements, holder.session)
 
         val baseWithLocalScope = towerDataContext.localScopes.fold(base) { acc, scope -> acc.addLocalScope(scope) }
 
@@ -658,7 +660,7 @@ class BodyResolveContext(
             storeFunction(simpleFunction, session)
         }
 
-        return withTypeParametersOf(simpleFunction) {
+        return withTypeParametersOf(simpleFunction, session) {
             withContainer(simpleFunction, f)
         }
     }
@@ -811,9 +813,10 @@ class BodyResolveContext(
     @OptIn(PrivateForInline::class)
     inline fun <T> withProperty(
         property: FirProperty,
+        session: FirSession,
         f: () -> T
     ): T {
-        return withTypeParametersOf(property) {
+        return withTypeParametersOf(property, session) {
             withContainer(property, f)
         }
     }

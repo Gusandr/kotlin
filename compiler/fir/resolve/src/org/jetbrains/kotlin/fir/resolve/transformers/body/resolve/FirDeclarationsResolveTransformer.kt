@@ -120,7 +120,7 @@ open class FirDeclarationsResolveTransformer(
             property.getter?.let { it.transformStatus(this, it.resolveStatus(containingProperty = property).mode()) }
             property.setter?.let { it.transformStatus(this, it.resolveStatus(containingProperty = property).mode()) }
             property.backingField?.let { it.transformStatus(this, it.resolveStatus(containingProperty = property).mode()) }
-            context.withProperty(property) {
+            context.withProperty(property, session) {
                 doTransformTypeParameters(property)
             }
             return transformLocalVariable(property)
@@ -147,7 +147,7 @@ open class FirDeclarationsResolveTransformer(
             }
 
             var backingFieldIsAlreadyResolved = false
-            context.withProperty(property) {
+            context.withProperty(property, session) {
                 context.forPropertyInitializer {
                     if (!initializerIsAlreadyResolved) {
                         val resolutionMode = withExpectedType(returnTypeRefBeforeResolve)

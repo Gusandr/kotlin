@@ -146,7 +146,7 @@ private class LLFirContractsTargetResolver(
         if (contextCollector == null || target !is FirDeclaration) return
 
         val bodyResolveContext = transformer.context
-        withTypeParametersIfMemberDeclaration(bodyResolveContext, target) {
+        withTypeParametersIfMemberDeclaration(bodyResolveContext, target, transformer.session) {
             when (target) {
                 is FirRegularClass -> {
                     contextCollector.addClassHeaderContext(target, bodyResolveContext.towerDataContext)
@@ -181,11 +181,12 @@ private class LLFirContractsTargetResolver(
     private inline fun withTypeParametersIfMemberDeclaration(
         context: BodyResolveContext,
         target: FirElementWithResolveState,
+        session: FirSession,
         action: () -> Unit,
     ) {
         if (target is FirMemberDeclaration) {
             @OptIn(PrivateForInline::class)
-            context.withTypeParametersOf(target, action)
+            context.withTypeParametersOf(target, session, action)
         } else {
             action()
         }

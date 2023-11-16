@@ -155,12 +155,12 @@ class FirTowerDataContext private constructor(
         )
     }
 
-    fun addNonLocalTowerDataElements(newElements: List<FirTowerDataElement>): FirTowerDataContext {
+    fun addNonLocalTowerDataElements(newElements: List<FirTowerDataElement>, session: FirSession): FirTowerDataContext {
         return FirTowerDataContext(
             towerDataElements.addAll(newElements),
             implicitReceiverStack
                 .addAll(newElements.mapNotNull { it.implicitReceiver })
-                .addAllContextReceivers(newElements.flatMap { it.contextReceiverGroup.orEmpty() }),
+                .addAllContextReceivers(newElements.flatMap { it.contextReceiverGroup.orEmpty() }, session),
             localScopes,
             nonLocalTowerDataElements.addAll(newElements)
         )
@@ -185,13 +185,13 @@ class FirTowerDataContext private constructor(
         )
     }
 
-    fun addContextReceiverGroup(contextReceiverGroup: ContextReceiverGroup): FirTowerDataContext {
+    fun addContextReceiverGroup(contextReceiverGroup: ContextReceiverGroup, session: FirSession): FirTowerDataContext {
         if (contextReceiverGroup.isEmpty()) return this
         val element = contextReceiverGroup.asTowerDataElement()
 
         return FirTowerDataContext(
             towerDataElements.add(element),
-            contextReceiverGroup.fold(implicitReceiverStack, PersistentImplicitReceiverStack::addContextReceiver),
+            contextReceiverGroup.fold(implicitReceiverStack) { stack, next -> stack.addContextReceiver(next, session) },
             localScopes,
             nonLocalTowerDataElements.add(element)
         )

@@ -183,7 +183,7 @@ object LowLevelFirApiFacadeForResolveOnAir {
     private fun FirFile.createTowerDataContext(scopeSession: ScopeSession): FirTowerDataContext {
         val importingScopes = createImportingScopes(this, moduleData.session, scopeSession)
         val fileScopeElements = importingScopes.map { it.asTowerDataElement(isLocal = false) }
-        return FirTowerDataContext().addNonLocalTowerDataElements(fileScopeElements)
+        return FirTowerDataContext().addNonLocalTowerDataElements(fileScopeElements, moduleData.session)
     }
 
     /**

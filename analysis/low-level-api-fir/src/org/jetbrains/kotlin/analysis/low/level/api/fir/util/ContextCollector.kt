@@ -383,7 +383,7 @@ private class ContextCollectorVisitor(
      */
     @OptIn(PrivateForInline::class)
     private fun Processor.processClassHeader(regularClass: FirRegularClass) {
-        context.withTypeParametersOf(regularClass) {
+        context.withTypeParametersOf(regularClass, session) {
             processList(regularClass.contextReceivers)
             processList(regularClass.typeParameters)
             processList(regularClass.superTypeRefs)
@@ -477,7 +477,7 @@ private class ContextCollectorVisitor(
         onActiveBody {
             property.lazyResolveToPhase(FirResolvePhase.BODY_RESOLVE)
 
-            context.withProperty(property) {
+            context.withProperty(property, session) {
                 dumpContext(property, ContextKind.BODY)
 
                 onActive {

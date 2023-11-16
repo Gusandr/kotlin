@@ -110,7 +110,7 @@ abstract class FirAbstractContractResolveTransformerDispatcher(
                 transformSimpleFunction(property.getter.delegate, data)
                 return property
             }
-            context.withProperty(property) {
+            context.withProperty(property, session) {
                 property.getter?.let { transformPropertyAccessor(it, property) }
                 property.setter?.let { transformPropertyAccessor(it, property) }
             }
