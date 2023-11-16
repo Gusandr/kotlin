@@ -46,7 +46,12 @@ interface KotlinJsTargetDsl : KotlinTarget, KotlinTargetWithNodeJsDsl {
 
     fun useCommonJs()
     fun useEsModules()
-    fun putAsArgumentToMainFunction(jsExpression: String)
+
+    /**
+     * The function accept [jsExpression] and put this expression as the "args: Array<String>" argument in place of main-function call
+     */
+    @ExperimentalMainFunctionArgumentsDsl
+    fun passAsArgumentToMainFunction(jsExpression: String)
 
     fun generateTypeScriptDefinitions()
 

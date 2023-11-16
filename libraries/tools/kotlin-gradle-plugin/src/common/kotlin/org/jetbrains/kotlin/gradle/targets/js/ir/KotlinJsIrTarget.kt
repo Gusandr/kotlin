@@ -433,7 +433,7 @@ constructor(
 
     }
 
-    override fun putAsArgumentToMainFunction(jsExpression: String) {
+    override fun passAsArgumentToMainFunction(jsExpression: String) {
         compilations
             .all {
                 it.binaries
