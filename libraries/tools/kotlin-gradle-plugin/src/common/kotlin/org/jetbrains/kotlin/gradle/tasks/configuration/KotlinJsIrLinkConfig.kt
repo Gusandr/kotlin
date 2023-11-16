@@ -6,8 +6,6 @@
 package org.jetbrains.kotlin.gradle.tasks.configuration
 
 import org.gradle.api.InvalidUserDataException
-import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
-import org.jetbrains.kotlin.gradle.dsl.JsSourceMapEmbedMode
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilationInfo
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.targets.js.KotlinWasmTargetType
@@ -47,9 +45,6 @@ internal open class KotlinJsIrLinkConfig(
                     .map { it.dir(NpmProject.DIST_FOLDER) }
             )
             task.compilerOptions.moduleName.convention(project.provider { compilation.npmProject.name })
-            task.compilerOptions.moduleKind.set(JsModuleKind.MODULE_UMD)
-            task.compilerOptions.sourceMap.set(true)
-            task.compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_NEVER)
         }
     }
 
