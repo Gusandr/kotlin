@@ -19,7 +19,7 @@ import java.nio.file.Path
 import kotlin.test.assertTrue
 import org.jetbrains.kotlin.konan.file.File as KFile
 
-@MppGradlePluginTests
+@NativeGradlePluginTests
 @DisplayName("Tests for KLIB resolver inside the Kotlin compiler")
 @GradleTestVersions(maxVersion = TestVersions.Gradle.G_8_2)
 class MppKlibResolverInsideCompilerIT : KGPBaseTest() {
