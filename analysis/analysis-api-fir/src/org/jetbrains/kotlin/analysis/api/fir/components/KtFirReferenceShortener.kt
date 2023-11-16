@@ -380,19 +380,20 @@ private class FirShorteningContext(val analysisSession: KtFirAnalysisSession) {
 }
 
 private sealed class ElementToShorten {
+    abstract val element: KtElement
     abstract val nameToImport: FqName?
     abstract val importAllInParent: Boolean
 }
 
 private class ShortenType(
-    val element: KtUserType,
+    override val element: KtUserType,
     val shortenedRef: String? = null,
     override val nameToImport: FqName? = null,
     override val importAllInParent: Boolean = false,
 ) : ElementToShorten()
 
 private class ShortenQualifier(
-    val element: KtDotQualifiedExpression,
+    override val element: KtDotQualifiedExpression,
     val shortenedRef: String? = null,
     override val nameToImport: FqName? = null,
     override val importAllInParent: Boolean = false
@@ -1233,34 +1234,14 @@ private class ElementsToShortenCollector(
         }
     }
 
-    private fun addElementToShorten(element: KtElement, shortenedRef: String?, nameToImport: FqName?, isImportWithStar: Boolean) {
-        val qualifier = element.getQualifier() ?: return
+    private fun addElementToShorten(elementInfoToShorten: ElementToShorten) {
+        val qualifier = elementInfoToShorten.element.getQualifier() ?: return
         if (!qualifier.isAlreadyCollected()) {
             removeRedundantElements(qualifier)
-            when (element) {
-                is KtUserType -> typesToShorten.add(ShortenType(element, shortenedRef, nameToImport, isImportWithStar))
-                is KtDotQualifiedExpression -> qualifiersToShorten.add(
-                    ShortenQualifier(
-                        element, shortenedRef, nameToImport, isImportWithStar
-                    )
-                )
+            when (elementInfoToShorten) {
+                is ShortenType -> typesToShorten.add(elementInfoToShorten)
+                is ShortenQualifier -> qualifiersToShorten.add(elementInfoToShorten)
             }
-        }
-    }
-
-    private fun addElementToShorten(elementInfoToShorten: ElementToShorten) {
-        val (nameToImport, isImportWithStar) = if (elementInfoToShorten.importAllInParent && elementInfoToShorten.nameToImport?.parentOrNull()?.isRoot == false) {
-            elementInfoToShorten.nameToImport?.parent() to true
-        } else {
-            elementInfoToShorten.nameToImport to false
-        }
-        when (elementInfoToShorten) {
-            is ShortenType -> addElementToShorten(
-                elementInfoToShorten.element, elementInfoToShorten.shortenedRef, nameToImport, isImportWithStar
-            )
-            is ShortenQualifier -> addElementToShorten(
-                elementInfoToShorten.element, elementInfoToShorten.shortenedRef, nameToImport, isImportWithStar
-            )
         }
     }
 
@@ -1422,5 +1403,5 @@ internal fun KtSimpleNameExpression.getDotQualifiedExpressionForSelector(): KtDo
 private fun KtElement.getQualifier(): KtElement? = when (this) {
     is KtUserType -> qualifier
     is KtDotQualifiedExpression -> receiverExpression
-    else -> null
+    else -> error("Unexpected ${this::class}")
 }
