@@ -7,9 +7,7 @@ package org.jetbrains.kotlin.sir.analysisapi
 
 import org.jetbrains.kotlin.analysis.api.KtAnalysisSession
 import org.jetbrains.kotlin.name.Name
-import org.jetbrains.kotlin.psi.KtElement
-import org.jetbrains.kotlin.psi.KtNamedFunction
-import org.jetbrains.kotlin.psi.KtTreeVisitorVoid
+import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import org.jetbrains.kotlin.sir.SirForeignFunction
 import org.jetbrains.kotlin.sir.SirModule
@@ -22,12 +20,27 @@ interface SirFactory {
     fun build(fromFile: KtElement)
 }
 
-context(KtAnalysisSession)
 class SirGenerator(override val moduleToFill: SirModule) : SirFactory {
     override fun build(fromFile: KtElement){
         val res = mutableListOf<SirForeignFunction>()
         fromFile.accept(
             object : KtTreeVisitorVoid() {
+                override fun visitTypeArgumentList(typeArgumentList: KtTypeArgumentList) {
+                    super.visitTypeArgumentList(typeArgumentList)
+                }
+
+                override fun visitValueArgumentList(list: KtValueArgumentList) {
+                    super.visitValueArgumentList(list)
+                }
+
+                override fun visitParameter(parameter: KtParameter) {
+                    super.visitParameter(parameter)
+                }
+
+                override fun visitParameterList(list: KtParameterList) {
+                    super.visitParameterList(list)
+                }
+
                 override fun visitNamedFunction(function: KtNamedFunction) {
                     super.visitNamedFunction(function)
                     function
