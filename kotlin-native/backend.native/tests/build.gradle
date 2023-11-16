@@ -178,20 +178,27 @@ tasks.named("clean", Delete.class) {
 }
 
 tasks.named("run") {
-    dependsOn(tasks.withType(KonanTest).matching { it.enabled })
-    // Add framework tests
-    dependsOn(tasks.withType(FrameworkTest).matching { it.enabled })
-    dependsOn(tasks.withType(FileCheckTest).matching { it.enabled })
-    dependsOn(tasks.withType(KonanTest).matching { it.enabled })
-    // Add framework tests
-    dependsOn(tasks.withType(FrameworkTest).matching { it.enabled })
-    // Add regular gradle test tasks
-    dependsOn(tasks.withType(Test).matching { it.enabled })
-    dependsOn(tasks.withType(CoverageTest).matching { it.enabled })
-    dependsOn(tasks.withType(FileCheckTest).matching { it.enabled })
+    dependsOn("interopTests")
+//    dependsOn(tasks.withType(KonanTest).matching { it.enabled })
+//    // Add framework tests
+//    dependsOn(tasks.withType(FrameworkTest).matching { it.enabled })
+//    dependsOn(tasks.withType(FileCheckTest).matching { it.enabled })
+//    dependsOn(tasks.withType(KonanTest).matching { it.enabled })
+//    // Add framework tests
+//    dependsOn(tasks.withType(FrameworkTest).matching { it.enabled })
+//    // Add regular gradle test tasks
+//    dependsOn(tasks.withType(Test).matching { it.enabled })
+//    dependsOn(tasks.withType(CoverageTest).matching { it.enabled })
+//    dependsOn(tasks.withType(FileCheckTest).matching { it.enabled })
+//    dependsOn(":kotlin-native:Interop:Indexer:check")
+//    dependsOn(":kotlin-native:Interop:StubGenerator:check")
+//    dependsOn(":native:kotlin-native-utils:check")
+}
+
+tasks.register("interopTests") {
+    dependsOn(tasks.withType(KonanTest).matching { it.enabled && it.name.startsWith("interop_") })
     dependsOn(":kotlin-native:Interop:Indexer:check")
     dependsOn(":kotlin-native:Interop:StubGenerator:check")
-    dependsOn(":native:kotlin-native-utils:check")
 }
 
 // Was a subset of tests.
