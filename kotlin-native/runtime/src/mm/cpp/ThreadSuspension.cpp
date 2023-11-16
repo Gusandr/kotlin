@@ -76,6 +76,14 @@ NO_EXTERNAL_CALLS_CHECK void kotlin::mm::ThreadSuspensionData::suspendIfRequeste
     }
 }
 
+NO_EXTERNAL_CALLS_CHECK void kotlin::mm::ThreadSuspensionData::waitForNoSuspendRequested() noexcept {
+    if (IsThreadSuspensionRequested()) {
+        std::unique_lock lock(gSuspensionMutex);
+        gSuspensionCondVar.wait(lock, []() { return !IsThreadSuspensionRequested(); });
+    }
+}
+
+
 ALWAYS_INLINE mm::ThreadSuspensionData::MutatorPauseHandle mm::ThreadSuspensionData::pauseMutationInScope(const char* reason) noexcept {
     return MutatorPauseHandle(reason, threadData_);
 }

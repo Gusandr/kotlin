@@ -21,6 +21,10 @@ void gcScheduler::internal::MutatorAssists::ThreadData::safePoint() noexcept {
     {
         std::unique_lock guard(owner_.m_);
         RuntimeLogDebug({kTagGC}, "Thread is assisting for epoch %" PRId64, epoch);
+        // We need to wait for marking to be done before we can start assisting
+        // with sweeping. We really want to call suspendIfRequested(), but that 
+        // has side effects resulting in an inconsistent thread state.
+        thread_.suspensionData().waitForNoSuspendRequested();
         thread_.allocator().assistGC();
         owner_.cv_.wait(guard, noNeedToWait);
         RuntimeLogDebug({kTagGC}, "Thread has assisted for epoch %" PRId64, epoch);

@@ -54,6 +54,8 @@ public:
     bool suspendedOrNative() noexcept { return state() == kotlin::ThreadState::kNative; }
 
     void suspendIfRequested() noexcept;
+    // same as suspendIfRequested, but without side effects
+    void waitForNoSuspendRequested() noexcept;
 
     /**
      * Signals that the thread would not mutate a heap during a relatively long time.
